@@ -30,7 +30,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.APP.API_URL = 'http://127.0.0.1:8000';
-    ENV.APP.API_NAMESPACE = 'api/v1';
+    ENV.APP.API_NAMESPACE = 'api/v2';
   }
 
   if (environment === 'test') {
