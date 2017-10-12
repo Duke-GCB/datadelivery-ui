@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin'; // This is what causes the authorizer to be picked up
 import ENV from 'datadelivery-ui/config/environment'; // This is how we load config variables from our environment.js file
 
-export default DS.RESTAdapter.extend({
+export default DS.RESTAdapter.extend(DataAdapterMixin, {
   /*
     This adapter is customized for running Django REST Framework
    */
