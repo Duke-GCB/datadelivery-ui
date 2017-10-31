@@ -24,7 +24,7 @@ test('it authorizes with token when session is not authenticated', function(asse
     session: Ember.Object.create({ isAuthenticated: false })
   });
   const tokenData = {token: 'auth-token'};
-  const headerBlock = (key, value) => {
+  const headerBlock = (/* key, value */) => {
     assert.notOk(true); // should not call this!
   };
   authorizer.authorize(tokenData, headerBlock);
