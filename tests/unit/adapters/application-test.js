@@ -19,14 +19,14 @@ test('it sends headers for application/vnd.rootobject+json', function(assert) {
 
 test('it computes API url paths as dasherized+pluralized from type names',function (assert) {
   let adapter = this.subject();
-  const deliveryPath = subject.pathForType('delivery');
+  const deliveryPath = adapter.pathForType('delivery');
   assert.equal(deliveryPath , 'deliveries');
 
   const projectPath = adapter.pathForType('duke-ds-project');
   assert.equal(projectPath, 'duke-ds-projects');
 
   const userPath = adapter.pathForType('duke-ds-user');
-  assert.equal(projectPath, 'duke-ds-users');
+  assert.equal(userPath, 'duke-ds-users');
 });
 
 test('it computes isInvalid for status 400', function(assert) {
