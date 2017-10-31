@@ -1,15 +1,21 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-moduleForModel('application', 'Unit | Serializer | application', {
-  // Specify the other units that are required for this test.
-  needs: ['serializer:application']
+moduleFor('serializer:application', 'Unit | Serializer | application');
+
+test('it computes keyForRelationship as underscored', function(assert) {
+  let record = this.subject();
+  const relationshipKey = record.keyForRelationship('fromUser');
+  assert.equal(relationshipKey, 'from_user');
 });
 
-// Replace this with your real tests.
-test('it serializes records', function(assert) {
+test('it computes keyForAttribute as underscored key', function(assert) {
   let record = this.subject();
+  const attributeKey = record.keyForAttribute('transferId');
+  assert.equal(attributeKey, 'transfer_id');
+});
 
-  let serializedRecord = record.serialize();
-
-  assert.ok(serializedRecord);
+test('it computes payloadKeyFromModelName as pluralized', function(assert) {
+  let record = this.subject();
+  const payloadKey = record.payloadKeyFromModelName('delivery');
+  assert.equal(payloadKey, 'deliveries');
 });
