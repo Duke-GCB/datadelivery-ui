@@ -6,20 +6,10 @@ moduleForComponent('delivery-table', 'Integration | Component | delivery table',
 });
 
 test('it renders', function(assert) {
+  const deliveries = [{id: 1}, {id: 2}, {id: 3}];
+  this.set('deliveries', deliveries);
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{delivery-table}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#delivery-table}}
-      template block text
-    {{/delivery-table}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  this.render(hbs`{{delivery-table deliveries}}`);
+  assert.equal(this.$('.delivery-table-header').length, 1); // 1 header
+  assert.equal(this.$('.delivery-table-row').length, 3); // 3 rows
 });

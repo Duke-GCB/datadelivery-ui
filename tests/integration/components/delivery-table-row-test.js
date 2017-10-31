@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('delivery-table-row', 'Integration | Component | delivery table row', {
   integration: true
@@ -7,19 +8,16 @@ moduleForComponent('delivery-table-row', 'Integration | Component | delivery tab
 
 test('it renders', function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  const delivery = Ember.Object.create({
+    id: 3,
+    project: {name: 'Taco'},
+    fromUser: {fullName: 'Arthur Adamson'},
+    toUser: { fullName: 'Zelda Zellington'},
+    state: 'Done',
+    transferId: 5
+  });
+  this.set('delivery', delivery);
+  this.render(hbs`{{delivery-table-row delivery}}`);
 
-  this.render(hbs`{{delivery-table-row}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#delivery-table-row}}
-      template block text
-    {{/delivery-table-row}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('.delivery-table-row').text().trim(), '3\nTaco\nArthur Adamson\nZelda Zellington\nDone\n5');
 });

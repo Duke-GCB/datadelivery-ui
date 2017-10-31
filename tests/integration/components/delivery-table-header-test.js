@@ -5,21 +5,7 @@ moduleForComponent('delivery-table-header', 'Integration | Component | delivery 
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('it renders 6 th in a tr', function(assert) {
   this.render(hbs`{{delivery-table-header}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#delivery-table-header}}
-      template block text
-    {{/delivery-table-header}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('tr th').length, 6);
 });

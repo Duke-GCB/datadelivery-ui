@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 const DeliveryTableRow = Ember.Component.extend({
-  tagName: 'tr'
+  tagName: 'tr',
+  classNames: ['delivery-table-row']
 });
 
 DeliveryTableRow.reopenClass({
