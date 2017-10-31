@@ -9,6 +9,7 @@ import Base from 'ember-simple-auth/authenticators/base';
 import ENV from 'datadelivery-ui/config/environment';
 
 export default Base.extend({
+  ajax: Ember.$.ajax,
   // These are expected to return promises
   restore(data) {
     // resolve if data.token is not empty, otherwise reject
@@ -29,7 +30,8 @@ export default Base.extend({
     // resolve with object containing token if successful, reject if not
     return new Ember.RSVP.Promise((resolve, reject) => {
       // Make an ajax call
-      Ember.$.ajax({
+      const ajax = this.get('ajax');
+      ajax({
         url: ENV.APP.API_URL + '/api-auth-token/',
         type: 'POST',
         data: JSON.stringify({
