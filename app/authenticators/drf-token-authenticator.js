@@ -41,14 +41,14 @@ export default Base.extend({
         contentType: 'application/json',
         dataType: 'json'
       }).then((response) => {
-        Ember.run(function() { //what is this?
+        Ember.run(function() {
           resolve({
             token: response.token
           });
         });
       }, (xhr, status) => {
         let response = xhr.responseText || status;
-        Ember.run(function() { // again what?
+        Ember.run(function() {
           reject(response);
         });
       });
