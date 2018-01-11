@@ -1,11 +1,3 @@
-import Ember from 'ember';
-import Base from 'ember-simple-auth/authorizers/base';
+import DRFTokenAuthorizer from 'drf-ember-frontend/authorizers/drf-token-authorizer';
 
-export default Base.extend({
-  session: Ember.inject.service('session'),
-  authorize(data, block) {
-    if(this.get('session.isAuthenticated') && !Ember.isEmpty(data.token)) {
-      block('Authorization', 'Token ' + data.token);
-    }
-  }
-});
+export default DRFTokenAuthorizer.extend();
