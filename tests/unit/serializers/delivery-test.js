@@ -1,15 +1,11 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
-moduleForModel('delivery', 'Unit | Serializer | delivery', {
-  // Specify the other units that are required for this test.
-  needs: ['serializer:delivery']
-});
+moduleFor('serializer:delivery', 'Unit | Serializer | delivery');
 
-// Replace this with your real tests.
-test('it serializes records', function(assert) {
-  let record = this.subject();
-
-  let serializedRecord = record.serialize();
-
-  assert.ok(serializedRecord);
+test('it converts relationship keys to underscore and appends _id', function (assert) {
+  let serializer = this.subject();
+  const relationshipKey = serializer.keyForRelationship('someRelationship');
+  assert.equal(relationshipKey, 'some_relationship_id');
+  const attributeKey = serializer.keyForAttribute('someAttribute');
+  assert.equal(attributeKey, 'some_attribute');
 });
