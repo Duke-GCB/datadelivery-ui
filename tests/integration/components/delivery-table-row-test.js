@@ -10,11 +10,13 @@ test('it renders', function(assert) {
 
   const delivery = Ember.Object.create({
     id: 3,
-    project: {name: 'Taco'},
-    fromUser: {fullName: 'Arthur Adamson'},
-    toUser: { fullName: 'Zelda Zellington'},
-    state: 'Done',
-    transferId: 5
+    transfer: {
+      id: 5,
+      project: {name: 'Taco'},
+      fromUser: {fullName: 'Arthur Adamson'},
+      toUser: { fullName: 'Zelda Zellington'},
+      status: 'Done'
+    }
   });
   this.set('delivery', delivery);
   this.render(hbs`{{delivery-table-row delivery}}`);
