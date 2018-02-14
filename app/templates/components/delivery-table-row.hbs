@@ -1,6 +1,12 @@
 <td>{{ delivery.id }}</td>
 <td>{{ delivery.transfer.project.name }}</td>
 <td>{{ delivery.transfer.fromUser.fullName }}</td>
-<td>{{ delivery.transfer.toUser.fullName}}</td>
+<td>
+  {{#each delivery.transfer.toUsers as |toUser|}}
+    {{toUser.fullName}}
+  {{/each}}
+</td><td>{{#each delivery.shareUsers as |shareUser|}}
+    {{shareUser.fullName}}
+{{/each}}</td>
 <td>{{ delivery.transfer.status }}</td>
 <td>{{ delivery.transfer.id }}</td>

@@ -7,5 +7,6 @@ export default DS.Model.extend({
   toUser: DS.belongsTo('DukeDsUser'),
   state: DS.attr('string'),
   transfer: DS.belongsTo('DukeDsProjectTransfer'),
-  userMessage: DS.attr('string')
+  userMessage: DS.attr('string'),
+  shareUsers: DS.hasMany('DukeDsUser')
 });
