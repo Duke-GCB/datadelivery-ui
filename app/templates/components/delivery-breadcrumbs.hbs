@@ -1,0 +1,16 @@
+{{breadcrumb-item label="All Deliveries"
+                  routeName="deliveries.index"
+                  selectedRouteName=selectedRouteName}}
+{{#if isDeliverySelected}}
+  {{breadcrumb-item label=delivery.transfer.project.name
+                    routeName="deliveries.show"
+                    context=delivery
+                    selectedRouteName=selectedRouteName}}
+  {{#if isResendSelected }}
+    {{breadcrumb-item label="resend"
+                      routeName="deliveries.show.resend"
+                      context=delivery
+                      selectedRouteName=selectedRouteName}}
+  {{/if}}
+{{/if}}
+{{yield}}
