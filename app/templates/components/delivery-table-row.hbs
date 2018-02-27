@@ -1,4 +1,4 @@
-<td>{{ delivery.id }}</td>
+<td>{{#link-to "deliveries.show" delivery}}{{delivery.id}}{{/link-to}}</td>
 <td>{{ delivery.transfer.project.name }}</td>
 <td>{{ delivery.transfer.fromUser.fullName }}</td>
 <td>
@@ -9,4 +9,3 @@
     {{shareUser.fullName}}
 {{/each}}</td>
 <td>{{ delivery.transfer.status }}</td>
-<td>{{ delivery.transfer.id }}</td>

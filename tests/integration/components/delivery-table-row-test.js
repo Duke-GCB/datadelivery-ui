@@ -14,12 +14,20 @@ test('it renders', function(assert) {
       id: 5,
       project: {name: 'Taco'},
       fromUser: {fullName: 'Arthur Adamson'},
-      toUser: { fullName: 'Zelda Zellington'},
+      toUsers: [{ fullName: 'Zelda Zellington'}],
       status: 'Done'
-    }
+    },
+    shareUsers: [
+      {fullName: 'Bob Robertson'}
+    ],
   });
   this.set('delivery', delivery);
   this.render(hbs`{{delivery-table-row delivery}}`);
-
-  assert.equal(this.$('.delivery-table-row').text().trim(), '3\nTaco\nArthur Adamson\nZelda Zellington\nDone\n5');
+  assert.equal(this.$('td').eq(0).text().trim(), '3');
+  assert.equal(this.$('td').eq(1).text().trim(), 'Taco');
+  assert.equal(this.$('td').eq(2).text().trim(), 'Arthur Adamson');
+  assert.equal(this.$('td').eq(3).text().trim(), 'Zelda Zellington');
+  assert.equal(this.$('td').eq(4).text().trim(), 'Bob Robertson');
+  assert.equal(this.$('td').eq(5).text().trim(), 'Done');
+  assert.equal(this.$('td').length, 6);
 });
