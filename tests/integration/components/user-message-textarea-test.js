@@ -15,7 +15,7 @@ test('it renders value with readonly', function(assert) {
   this.render(hbs`{{user-message-textarea value=delivery.userMessage readonly=true}}`);
   assert.equal(this.$('label').text().trim(), 'User Message');
   assert.equal(this.$('textarea').attr('readonly'), 'readonly');
-  assert.equal(this.$('textarea').text().trim(), 'some details';
+  assert.equal(this.$('textarea').text().trim(), 'some details');
   //TODO: why doesn't the textarea contents get filled in?
 });
 
@@ -28,7 +28,7 @@ test('it renders value without readonly', function(assert) {
   this.render(hbs`{{user-message-textarea value=delivery.userMessage readonly=false}}`);
   assert.equal(this.$('label').text().trim(), 'User Message');
   assert.equal(this.$('textarea').attr('readonly'), null);
-  assert.equal(this.$('textarea').text().trim(), 'some details';
+  assert.equal(this.$('textarea').text().trim(), 'some details');
   //TODO: why doesn't the textarea contents get filled in?
 });
 

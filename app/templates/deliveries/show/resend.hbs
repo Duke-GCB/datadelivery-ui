@@ -1,0 +1,14 @@
+{{delivery-breadcrumbs selectedRouteName="deliveries.show.resend" delivery=model}}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Project: {{model.transfer.project.name}} </h3>
+  </div>
+  <div class="panel-body">
+    {{delivery-detail model brief=true}}
+    {{user-message-textarea value=model.userMessage readonly=false}}
+  </div>
+  <div class="panel-footer">
+    <button class="btn btn-primary" onclick={{action 'resend'}}>Send Email</button>
+  </div>
+</div>
+{{outlet}}

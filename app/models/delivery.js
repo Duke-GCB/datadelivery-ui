@@ -1,4 +1,8 @@
+import Ember from 'ember';
 import DS from 'ember-data';
+
+const STATE_NEW = 0;
+const STATE_NOTIFIED = 1;
 
 export default DS.Model.extend({
   url: DS.attr('string'),
@@ -8,5 +12,25 @@ export default DS.Model.extend({
   state: DS.attr('string'),
   transfer: DS.belongsTo('DukeDsProjectTransfer'),
   userMessage: DS.attr('string'),
-  shareUsers: DS.hasMany('DukeDsUser')
+  shareUsers: DS.hasMany('DukeDsUser'),
+  declineReason: DS.attr('string'),
+  performedBy: DS.attr('string'),
+  deliveryEmailText: DS.attr('string'),
+  resend() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    return adapter.resend(this.get('id')).then(this.updateAfterAction.bind(this));
+  },
+  updateAfterAction(data) {
+    // The action methods respond with an updated job, so we must update the local store
+    // with that payload. Remember, pushPayload doesn't return.
+    this.store.pushPayload('delivery', data);
+    return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
+  },
+  canResend: Ember.computed('state', function() {
+    const state = this.get('state');
+    return state === STATE_NEW || state == STATE_NOTIFIED;
+  }),
+  setNew() {
+    this.set('state', STATE_NEW);
+  }
 });
