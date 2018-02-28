@@ -61,8 +61,7 @@ test('it renders full mode', function(assert) {
   assert.equal(this.$('.row-value').eq(idx).text().trim(), 'Done');
   idx += 1;
   assert.equal(this.$('label').eq(idx).text(), 'User Message');
-  //TODO: why doesn't the textarea contents get filled in?
-  assert.equal(this.$('textarea').eq(0).text().trim(), 'Here is your data');
+  assert.equal(this.$('textarea').eq(0).val(), 'Here is your data');
   idx += 1;
   assert.equal(this.$('label').eq(idx).text(), 'Delivery Email');
   assert.equal(this.$('textarea').eq(1).text().trim(), 'From: joe@joe.joe\n\nEmail Body');

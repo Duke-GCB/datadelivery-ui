@@ -15,8 +15,7 @@ test('it renders value with readonly', function(assert) {
   this.render(hbs`{{user-message-textarea value=delivery.userMessage readonly=true}}`);
   assert.equal(this.$('label').text().trim(), 'User Message');
   assert.equal(this.$('textarea').attr('readonly'), 'readonly');
-  assert.equal(this.$('textarea').text().trim(), 'some details');
-  //TODO: why doesn't the textarea contents get filled in?
+  assert.equal(this.$('textarea').val(), 'some details');
 });
 
 test('it renders value without readonly', function(assert) {
@@ -28,12 +27,6 @@ test('it renders value without readonly', function(assert) {
   this.render(hbs`{{user-message-textarea value=delivery.userMessage readonly=false}}`);
   assert.equal(this.$('label').text().trim(), 'User Message');
   assert.equal(this.$('textarea').attr('readonly'), null);
-  assert.equal(this.$('textarea').text().trim(), 'some details');
-  //TODO: why doesn't the textarea contents get filled in?
+  assert.equal(this.$('textarea').val(), 'some details');
 });
 
-test('stuffs', function (assert) {
-  //TODO:remove this test once I figure out how to enable the ember textarea for testing
-  this.render(hbs`{{textarea value="Lots of static text that ISN'T bound" }}`);
-  assert.equal(this.$().html(), 'ok');
-});
