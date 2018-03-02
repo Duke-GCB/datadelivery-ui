@@ -28,7 +28,7 @@ export default DS.Model.extend({
   },
   canResend: Ember.computed('state', function() {
     const state = this.get('state');
-    return state === STATE_NEW || state == STATE_NOTIFIED;
+    return state == STATE_NOTIFIED;
   }),
   setNew() {
     this.set('state', STATE_NEW);
