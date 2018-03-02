@@ -16,9 +16,9 @@ export default DS.Model.extend({
   declineReason: DS.attr('string'),
   performedBy: DS.attr('string'),
   deliveryEmailText: DS.attr('string'),
-  resend() {
+  send(force) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.resend(this.get('id')).then(this.updateAfterAction.bind(this));
+    return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
   },
   updateAfterAction(data) {
     // The action methods respond with an updated job, so we must update the local store
