@@ -3,7 +3,7 @@ import { testRelationships } from '../../helpers/test-relationships';
 
 moduleForModel('delivery', 'Unit | Model | delivery', {
   // Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:duke-ds-project']
 });
 
 test('it exists', function(assert) {
