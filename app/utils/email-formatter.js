@@ -34,7 +34,7 @@ function getEmailHeaderAndBody(value) {
 
 function getOptionalHeaderLine(headerDict, name) {
   /**
-   * Returns
+   * Creates a header line using headerDict using name or '' if not in dict
    */
   var value = headerDict[name];
   if (value) {

@@ -12,7 +12,6 @@ Router.map(function() {
     this.route('show', { path: '/:delivery_id'}, function () {
       this.route('resend', {});
     });
-
   });
 });
 
