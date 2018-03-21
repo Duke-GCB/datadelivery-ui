@@ -21,7 +21,7 @@ export default DS.Model.extend({
     return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
   },
   updateAfterAction(data) {
-    // The action methods respond with an updated job, so we must update the local store
+    // The action methods respond with an updated delivery, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
     this.store.pushPayload('delivery', data);
     return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
