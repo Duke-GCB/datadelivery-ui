@@ -6,14 +6,9 @@ moduleFor('adapter:delivery', 'Unit | Adapter | delivery', {
   needs: ['service:session']
 });
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
-  let adapter = this.subject();
-  assert.ok(adapter);
-});
-
 test('it POSTS the send action without force', function(assert) {
   let adapter = this.subject();
+  assert.ok(adapter);
   adapter.set('ajax', (url, method) => {
     assert.equal(url, 'http://testhost/deliveries/1/send/');
     assert.equal(method, 'POST');
