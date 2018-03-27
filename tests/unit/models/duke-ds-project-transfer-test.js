@@ -4,7 +4,8 @@ moduleForModel('duke-ds-project-transfer', 'Unit | Model | duke ds project trans
   // Specify the other units that are required for this test.
   needs: [
     'model:duke-ds-project',
-    'model:duke-ds-user'
+    'model:duke-ds-user',
+    'model:delivery'
   ]
 });
 
