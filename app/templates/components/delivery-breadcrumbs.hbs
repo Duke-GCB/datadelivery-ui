@@ -2,14 +2,14 @@
                   routeName="deliveries.index"
                   selectedRouteName=selectedRouteName}}
 {{#if isDeliverySelected}}
-  {{breadcrumb-item label=delivery.transfer.project.name
+  {{breadcrumb-item label=transfer.project.name
                     routeName="deliveries.show"
                     context=delivery
                     selectedRouteName=selectedRouteName}}
   {{#if isResendSelected }}
     {{breadcrumb-item label="resend"
                       routeName="deliveries.show.resend"
-                      context=delivery
+                      context=transfer
                       selectedRouteName=selectedRouteName}}
   {{/if}}
 {{/if}}

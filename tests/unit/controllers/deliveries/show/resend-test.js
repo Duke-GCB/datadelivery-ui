@@ -8,12 +8,12 @@ moduleFor('controller:deliveries/show/resend', 'Unit | Controller | deliveries/s
 
 test('it resending delivery transitions to deliveris.show', function(assert) {
   let done = assert.async();
-  const delivery = Ember.Object.create({
-    transfer: {
-      project: {
+  const delivery = Ember.Object.create({});
+  const transfer = Ember.Object.create({
+    project: {
         name: 'mouse'
-      }
     },
+    delivery: Ember.RSVP.resolve(delivery)
   });
 
   delivery.save = function () {
@@ -26,14 +26,13 @@ test('it resending delivery transitions to deliveris.show', function(assert) {
   };
 
   let controller = this.subject({
-    model: delivery,
+    model: transfer,
     transitionToRoute(routeName, object, options) {
       assert.equal(routeName, 'deliveries.show');
-      assert.equal(object, delivery);
+      assert.equal(object, transfer);
       assert.equal(options.queryParams.infoMessage, 'Email message resent for delivery of project mouse.');
       done();
     }
   });
   controller.send('resend');
-  assert.equal(1, 1);
 });

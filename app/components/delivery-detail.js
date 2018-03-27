@@ -14,14 +14,15 @@ function toUserNameStr(users) {
 const DeliveryDetail = Ember.Component.extend({
   classNames: ['delivery-detail'],
   editUserMessage: false, /* minimal field display allowing **/
-  toUserNames: Ember.computed('delivery.transfer.toUsers.[]', function () {
-    const users = this.get('delivery.transfer.toUsers');
+  toUserNames: Ember.computed('transfer.toUsers.[]', function () {
+    const users = this.get('transfer.toUsers');
     return toUserNameStr(users);
-  })
+  }),
+  delivery: Ember.computed.alias('transfer.delivery')
 });
 
 DeliveryDetail.reopenClass({
-  positionalParams: ['delivery']
+  positionalParams: ['transfer']
 });
 
 export default DeliveryDetail;

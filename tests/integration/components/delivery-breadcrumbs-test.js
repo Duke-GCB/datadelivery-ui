@@ -13,16 +13,13 @@ test('it renders All Deliveries when deliveries.index selected', function(assert
 });
 
 test('it renders with delivery.show selected', function(assert) {
-  const delivery = Ember.Object.create({
-    id: 3,
-    transfer: {
-      project: {
-        name: 'Some Project'
-      }
+  const transfer = Ember.Object.create({
+    project: {
+      name: 'Some Project'
     }
   });
-  this.set('delivery', delivery);
-  this.render(hbs`{{delivery-breadcrumbs selectedRouteName="deliveries.show" delivery=delivery}}`);
+  this.set('transfer', transfer);
+  this.render(hbs`{{delivery-breadcrumbs selectedRouteName="deliveries.show" transfer=transfer}}`);
   assert.equal(this.$('a').length, 1, 'there is one anchor');
 
   assert.equal(this.$('a').text().trim(), 'All Deliveries', 'All Deliveries is a link');
@@ -30,16 +27,13 @@ test('it renders with delivery.show selected', function(assert) {
 });
 
 test('it renders with delivery.resend selected', function(assert) {
-  const delivery = Ember.Object.create({
-    id: 3,
-    transfer: {
-      project: {
-        name: 'Some Project'
-      }
+  const transfer = Ember.Object.create({
+    project: {
+      name: 'Some Project'
     }
   });
-  this.set('delivery', delivery);
-  this.render(hbs`{{delivery-breadcrumbs selectedRouteName="deliveries.show.resend" delivery=delivery}}`);
+  this.set('transfer', transfer);
+  this.render(hbs`{{delivery-breadcrumbs selectedRouteName="deliveries.show.resend" transfer=transfer}}`);
   assert.equal(this.$('a').eq(0).text().trim(), 'All Deliveries');
   assert.equal(this.$('a').eq(1).text().trim(), 'Some Project');
   assert.equal(this.$('a').length, 2, 'There are two links to parent routes.');

@@ -16,8 +16,8 @@ test('it finds a delivery based on delivery_id', function(assert) {
   });
 
   Ember.run(() => {
-    route.model({delivery_id: 1}).then(model => {
-      assert.equal(model.get('kind'), 'find_delivery');
+    route.model({transfer_id: 1}).then(model => {
+      assert.equal(model.get('kind'), 'find_duke-ds-project-transfer');
       assert.equal(model.get('id'), 1);
     });
   });

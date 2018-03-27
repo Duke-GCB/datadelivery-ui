@@ -1,11 +1,9 @@
-<td>{{#link-to "deliveries.show" delivery}}{{delivery.id}}{{/link-to}}</td>
-<td>{{ delivery.transfer.project.name }}</td>
-<td>{{ delivery.transfer.fromUser.fullName }}</td>
+<td>{{#link-to "deliveries.show" transfer}}{{transfer.id}}{{/link-to}}</td>
+<td>{{ transfer.project.name }}</td>
+<td>{{ transfer.fromUser.fullName }}</td>
 <td>
-  {{#each delivery.transfer.toUsers as |toUser|}}
+  {{#each transfer.toUsers as |toUser|}}
     {{toUser.fullName}}
   {{/each}}
-</td><td>{{#each delivery.shareUsers as |shareUser|}}
-    {{shareUser.fullName}}
-{{/each}}</td>
-<td>{{ delivery.transfer.status }}</td>
+</td>
+<td>{{ transfer.status }}</td>

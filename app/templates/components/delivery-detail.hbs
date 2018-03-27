@@ -1,7 +1,7 @@
-{{row-label-value label="From" value=delivery.transfer.fromUser.fullName}}
+{{row-label-value label="From" value=transfer.fromUser.fullName}}
 {{row-label-value label="To" value=toUserNames}}
 {{#unless brief}}
-  {{row-label-value label="Status" value=delivery.transfer.status}}
+  {{row-label-value label="Status" value=transfer.status}}
   {{#if delivery.declineReason}}
     {{row-label-value label="Decline Reason" value=delivery.declineReason}}
   {{/if}}

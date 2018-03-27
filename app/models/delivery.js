@@ -10,7 +10,7 @@ export default DS.Model.extend({
   fromUser: DS.belongsTo('DukeDsUser'),
   toUser: DS.belongsTo('DukeDsUser'),
   state: DS.attr('string'),
-  transfer: DS.belongsTo('DukeDsProjectTransfer'),
+  transferId: DS.attr('string'),
   userMessage: DS.attr('string'),
   shareUsers: DS.hasMany('DukeDsUser'),
   declineReason: DS.attr('string'),

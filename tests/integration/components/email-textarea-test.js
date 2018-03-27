@@ -24,8 +24,6 @@ Hey,
 When do you want to eat lunch?
 -joe'}}`);
   assert.equal(this.$().text().trim(), `Subject: Lunch
-From: joe@joe.joe
-To: bob@bob.bob
 Date: Jan 2 2019 12:30
 
 Hey,

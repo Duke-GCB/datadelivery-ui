@@ -8,23 +8,25 @@ function getEmailHeaderAndBody(value) {
   var header = {};
   var body = '';
   var inBody = false;
-  value.split('\n').forEach(function (line) {
-    if (!inBody && line.trim() == '') { // first CRLF by itself
-      inBody = true;
-    } else {
-      if (inBody) {
-        body += line + '\n';
+  if (value) {
+    value.split('\n').forEach(function (line) {
+      if (!inBody && line.trim() == '') { // first CRLF by itself
+        inBody = true;
       } else {
-        const sepIdx = line.indexOf(HEADER_FIELD_SEPERATOR);
-        if (sepIdx > -1) {
-          const fieldName = line.substr(0, sepIdx);
-          const fieldValue = line.substr(sepIdx + 1);
+        if (inBody) {
+          body += line + '\n';
+        } else {
+          const sepIdx = line.indexOf(HEADER_FIELD_SEPERATOR);
+          if (sepIdx > -1) {
+            const fieldName = line.substr(0, sepIdx);
+            const fieldValue = line.substr(sepIdx + 1);
 
-          header[fieldName] = fieldValue;
+            header[fieldName] = fieldValue;
+          }
         }
       }
-    }
-  });
+    });
+  }
   return {
     header: header,
     body: body
@@ -48,7 +50,7 @@ function formatEmailText(value) {
   /**
    * Strips header from email text with the exception of Subject, From, To and Date
    */
-  const headerFields = ['Subject', 'From', 'To', 'Date'];
+  const headerFields = ['Subject', 'Date'];
   var headerAndBody = getEmailHeaderAndBody(value);
   var result = '';
   headerFields.forEach(function (headerFieldName) {

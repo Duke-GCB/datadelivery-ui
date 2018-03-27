@@ -5,9 +5,9 @@ module('Unit | Utility | email formatter');
 
 // Replace this with your real tests.
 test('formatEmailText can format a simple email', function(assert) {
-  var value = 'To: joe@joe.joe\n\nEmail Body'
+  var value = 'Subject: Mouse Data\n\nEmail Body'
   let result = formatEmailText(value);
-  assert.equal(result.trim(), `To: joe@joe.joe
+  assert.equal(result.trim(), `Subject: Mouse Data
 
 Email Body`);
 });
@@ -24,8 +24,6 @@ Email Body
 More Email Body`;
   let result = formatEmailText(value);
   assert.equal(result.trim(), `Subject: Learn Something
-From: bob@bob.bob
-To: joe@joe.joe
 Date: Jan 2 2018 12:45
 
 Email Body

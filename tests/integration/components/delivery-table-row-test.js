@@ -8,26 +8,19 @@ moduleForComponent('delivery-table-row', 'Integration | Component | delivery tab
 
 test('it renders', function(assert) {
 
-  const delivery = Ember.Object.create({
+  const transfer = Ember.Object.create({
     id: 3,
-    transfer: {
-      id: 5,
-      project: {name: 'Taco'},
-      fromUser: {fullName: 'Arthur Adamson'},
-      toUsers: [{ fullName: 'Zelda Zellington'}],
-      status: 'Done'
-    },
-    shareUsers: [
-      {fullName: 'Bob Robertson'}
-    ],
+    project: {name: 'Taco'},
+    fromUser: {fullName: 'Arthur Adamson'},
+    toUsers: [{ fullName: 'Zelda Zellington'}],
+    status: 'pending'
   });
-  this.set('delivery', delivery);
-  this.render(hbs`{{delivery-table-row delivery}}`);
+  this.set('transfer', transfer);
+  this.render(hbs`{{delivery-table-row transfer}}`);
   assert.equal(this.$('td').eq(0).text().trim(), '3');
   assert.equal(this.$('td').eq(1).text().trim(), 'Taco');
   assert.equal(this.$('td').eq(2).text().trim(), 'Arthur Adamson');
   assert.equal(this.$('td').eq(3).text().trim(), 'Zelda Zellington');
-  assert.equal(this.$('td').eq(4).text().trim(), 'Bob Robertson');
-  assert.equal(this.$('td').eq(5).text().trim(), 'Done');
-  assert.equal(this.$('td').length, 6);
+  assert.equal(this.$('td').eq(4).text().trim(), 'pending');
+  assert.equal(this.$('td').length, 5);
 });

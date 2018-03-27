@@ -5,7 +5,7 @@ moduleForComponent('delivery-table-header', 'Integration | Component | delivery 
   integration: true
 });
 
-test('it renders 6 th in a tr', function(assert) {
+test('it renders 5 th in a tr', function(assert) {
   this.render(hbs`{{delivery-table-header}}`);
-  assert.equal(this.$('tr th').length, 6);
+  assert.equal(this.$('tr th').length, 5);
 });
