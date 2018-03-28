@@ -1,9 +1,20 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  errors: [],
+  errorMessages: Ember.computed('errors', function () {
+    const errorMessages = [];
+    this.get('errors').forEach(function (generalError) {
+      errorMessages.push(generalError.detail);
+    });
+    return errorMessages;
+  }),
   actions: {
     resend() {
       const thisController = this;
+      function consumeError(error) {
+        thisController.set('errors', error.errors);
+      }
       const transfer = this.get('model');
       const projectName = transfer.get('project.name');
       const deliveryMessage = 'Email message resent for delivery of project ' + projectName + '.';
@@ -17,8 +28,8 @@ export default Ember.Controller.extend({
                 infoMessage: deliveryMessage
               }
             });
-          });
-        });
+          }, consumeError);
+        }, consumeError);
       });
     }
   }

@@ -1,0 +1,8 @@
+{{#if errorMessages}}
+  {{#bs-alert type="danger"}}
+    {{#each errorMessages as |message|}}
+      <div class="error-message-alert-detail"><strong>Error:</strong> {{message}} </div>
+    {{/each}}
+  {{/bs-alert}}
+{{/if}}
+{{yield}}

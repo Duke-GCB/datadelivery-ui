@@ -10,12 +10,9 @@
   <div class="panel-footer">
     <button class="btn btn-primary" onclick={{action 'resend'}}>Send Email</button>
   </div>
-  {{#each model.delivery.errors.messages as |message|}}
-    Hey
-    <div class="error">
-      {{message}}
-    </div>
-  {{/each}}
 </div>
+
+{{error-message-alert errorMessages}}
+
 {{outlet}}
 

@@ -6,7 +6,7 @@ moduleFor('controller:deliveries/show/resend', 'Unit | Controller | deliveries/s
   // needs: ['controller:foo']
 });
 
-test('it resending delivery transitions to deliveris.show', function(assert) {
+test('it resending delivery transitions to deliveries.show', function(assert) {
   let done = assert.async();
   const delivery = Ember.Object.create({});
   const transfer = Ember.Object.create({
@@ -35,4 +35,65 @@ test('it resending delivery transitions to deliveris.show', function(assert) {
     }
   });
   controller.send('resend');
+});
+
+test('when save fails the message is added to errorMessages', function(assert) {
+  const mockError = Ember.Object.create({
+      status: 400,
+      detail: 'Error saving delivery.'
+  });
+  const delivery = Ember.Object.create({});
+  const transfer = Ember.Object.create({
+    project: {
+      name: 'mouse'
+    },
+    delivery: Ember.RSVP.resolve(delivery)
+  });
+
+  delivery.save = function () {
+    return Ember.RSVP.reject({errors: [mockError]});
+  };
+
+  let controller = this.subject({
+    model: transfer
+  });
+
+  Ember.run(() => {
+    controller.send('resend');
+  });
+  Ember.run(() => {
+    assert.deepEqual(controller.get('errorMessages'), ['Error saving delivery.']);
+  });
+});
+
+test('when save fails the message is added to errorMessages', function(assert) {
+  const mockError = Ember.Object.create({
+    status: 500,
+    detail: 'Sending service is down.'
+  });
+  const delivery = Ember.Object.create({});
+  const transfer = Ember.Object.create({
+    project: {
+      name: 'mouse'
+    },
+    delivery: Ember.RSVP.resolve(delivery)
+  });
+
+  delivery.save = function () {
+    return Ember.RSVP.resolve(delivery);
+  };
+
+  delivery.send = function () {
+    return Ember.RSVP.reject({errors: [mockError]});
+  };
+
+  let controller = this.subject({
+    model: transfer
+  });
+  Ember.run(() => {
+    controller.send('resend');
+  });
+  Ember.run(() => {
+    assert.deepEqual(controller.get('errorMessages'), ['Sending service is down.']);
+  });
 });
