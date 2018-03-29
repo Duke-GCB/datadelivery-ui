@@ -7,9 +7,11 @@
     {{delivery-detail model brief=true}}
     {{user-message-textarea value=model.delivery.userMessage readonly=false}}
   </div>
-  <div class="panel-footer">
-    <button class="btn btn-primary" onclick={{action 'resend'}}>Send Email</button>
-  </div>
+  {{#if canResend}}
+    <div class="panel-footer">
+      <button class="btn btn-primary" onclick={{action 'resend'}}>Send Email</button>
+    </div>
+  {{/if}}
 </div>
 
 {{error-message-alert errorMessages}}

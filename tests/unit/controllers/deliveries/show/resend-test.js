@@ -1,9 +1,9 @@
 import { moduleFor, test } from 'ember-qunit';
-import Ember from "ember";
+import Ember from 'ember';
 
 moduleFor('controller:deliveries/show/resend', 'Unit | Controller | deliveries/show/resend', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  needs: ['service:session', 'service:user', 'model:user']
 });
 
 test('it resending delivery transitions to deliveries.show', function(assert) {

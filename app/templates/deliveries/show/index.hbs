@@ -6,7 +6,7 @@
   <div class="panel-body">
     {{delivery-detail model}}
   </div>
-  {{#if model.canResend}}
+  {{#if canResend}}
     <div class="panel-footer">
       {{#link-to "deliveries.show.resend" model class="btn btn-primary"}}Resend{{/link-to}}
     </div>

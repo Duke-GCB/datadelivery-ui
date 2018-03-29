@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import CanResendController from './can-resend-controller';
 
-export default Ember.Controller.extend({
+export default CanResendController.extend({
   errors: [],
   errorMessages: Ember.computed('errors', function () {
     const errorMessages = [];

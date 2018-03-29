@@ -13,11 +13,6 @@ Router.map(function() {
       this.route('resend', {});
     });
   });
-  this.route('transfers', function() {
-    this.route('show', { path: '/:transfer_id'},function() {
-      this.route('resend');
-    });
-  });
 });
 
 export default Router;

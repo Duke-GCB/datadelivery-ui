@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import CanResendController from './can-resend-controller';
 
-export default Ember.Controller.extend({
+export default CanResendController.extend({
   queryParams: ['infoMessage'],
   infoMessage: null,
-  showResend: Ember.computed.alias('model.canResend'),
 });
