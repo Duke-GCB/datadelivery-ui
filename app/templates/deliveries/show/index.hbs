@@ -1,0 +1,20 @@
+{{delivery-breadcrumbs selectedRouteName="deliveries.show" transfer=model}}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Project: {{model.project.name}} </h3>
+  </div>
+  <div class="panel-body">
+    {{delivery-detail model}}
+  </div>
+  {{#if canResend}}
+    <div class="panel-footer">
+      {{#link-to "deliveries.show.resend" model class="btn btn-primary"}}Resend{{/link-to}}
+    </div>
+  {{/if}}
+</div>
+{{#if infoMessage}}
+  {{#bs-alert type="success"}}
+    {{infoMessage}}
+  {{/bs-alert}}
+{{/if}}
+{{outlet}}

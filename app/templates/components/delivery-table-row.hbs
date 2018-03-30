@@ -1,6 +1,8 @@
-<td>{{ delivery.id }}</td>
-<td>{{ delivery.project.name }}</td>
-<td>{{ delivery.fromUser.fullName }}</td>
-<td>{{ delivery.toUser.fullName}}</td>
-<td>{{ delivery.state }}</td>
-<td>{{ delivery.transferId }}</td>
+<td>{{#link-to "deliveries.show" transfer}}{{ transfer.project.name }}{{/link-to}}</td>
+<td>{{ transfer.fromUser.fullName }}</td>
+<td>
+  {{#each transfer.toUsers as |toUser|}}
+    {{toUser.fullName}}
+  {{/each}}
+</td>
+<td>{{ transfer.status }}</td>

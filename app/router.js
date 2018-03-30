@@ -8,7 +8,11 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('login');
-  this.route('deliveries');
+  this.route('deliveries', function() {
+    this.route('show', { path: '/:transfer_id'}, function () {
+      this.route('resend', {});
+    });
+  });
 });
 
 export default Router;

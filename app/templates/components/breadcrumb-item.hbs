@@ -1,0 +1,15 @@
+{{#if isSelected}}
+  {{label}}
+{{else}}
+  {{#if context}}
+    {{#link-to routeName context}}
+      {{label}}
+    {{/link-to}}
+  {{else}}
+    {{#link-to routeName}}
+      {{label}}
+    {{/link-to}}
+  {{/if}}
+{{/if}}
+{{yield}}
+

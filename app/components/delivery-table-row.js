@@ -6,7 +6,7 @@ const DeliveryTableRow = Ember.Component.extend({
 });
 
 DeliveryTableRow.reopenClass({
-  positionalParams: ['delivery']
+  positionalParams: ['transfer']
 });
 
 export default DeliveryTableRow;
