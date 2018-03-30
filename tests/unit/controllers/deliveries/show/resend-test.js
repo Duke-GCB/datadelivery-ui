@@ -66,7 +66,7 @@ test('when save fails the message is added to errorMessages', function(assert) {
   });
 });
 
-test('when save fails the message is added to errorMessages', function(assert) {
+test('when save fails with 500 the message is added to errorMessages', function(assert) {
   const mockError = Ember.Object.create({
     status: 500,
     detail: 'Sending service is down.'
@@ -95,5 +95,24 @@ test('when save fails the message is added to errorMessages', function(assert) {
   });
   Ember.run(() => {
     assert.deepEqual(controller.get('errorMessages'), ['Sending service is down.']);
+  });
+});
+
+test('when save fails due to missing delivery the message is added to errorMessages', function(assert) {
+  const transfer = Ember.Object.create({
+    project: {
+      name: 'mouse'
+    },
+    delivery: Ember.RSVP.resolve(null)
+  });
+
+  let controller = this.subject({
+    model: transfer
+  });
+  Ember.run(() => {
+    controller.send('resend');
+  });
+  Ember.run(() => {
+    assert.deepEqual(controller.get('errorMessages'), ['Delivery not found.']);
   });
 });

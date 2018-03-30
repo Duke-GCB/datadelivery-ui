@@ -15,16 +15,22 @@ export default CanResendController.extend({
       const deliveryMessage = 'Email message resent for delivery of project ' + projectName + '.';
       // save user message changes
       transfer.get('delivery').then(function (delivery) {
-        delivery.save().then(function (delivery) {
-          // resend the delivery email
-          delivery.send(true).then(function () {
-            thisController.transitionToRoute('deliveries.show', transfer, {
-              queryParams: {
-                infoMessage: deliveryMessage
-              }
-            });
+        if (delivery) {
+          delivery.save().then(function (delivery) {
+            // resend the delivery email
+            delivery.send(true).then(function () {
+              thisController.transitionToRoute('deliveries.show', transfer, {
+                queryParams: {
+                  infoMessage: deliveryMessage
+                }
+              });
+            }, consumeError);
           }, consumeError);
-        }, consumeError);
+        } else {
+          consumeError({
+            errors: [{detail:'Delivery not found.'}]
+          });
+        }
       });
     }
   }
