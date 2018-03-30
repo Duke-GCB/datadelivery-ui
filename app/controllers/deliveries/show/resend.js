@@ -3,13 +3,7 @@ import CanResendController from './can-resend-controller';
 
 export default CanResendController.extend({
   errors: [],
-  errorMessages: Ember.computed('errors', function () {
-    const errorMessages = [];
-    this.get('errors').forEach(function (generalError) {
-      errorMessages.push(generalError.detail);
-    });
-    return errorMessages;
-  }),
+  errorMessages: Ember.computed.mapBy('errors', 'detail'),
   actions: {
     resend() {
       const thisController = this;
