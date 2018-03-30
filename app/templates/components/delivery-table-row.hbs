@@ -1,5 +1,4 @@
-<td>{{#link-to "deliveries.show" transfer}}{{transfer.id}}{{/link-to}}</td>
-<td>{{ transfer.project.name }}</td>
+<td>{{#link-to "deliveries.show" transfer}}{{ transfer.project.name }}{{/link-to}}</td>
 <td>{{ transfer.fromUser.fullName }}</td>
 <td>
   {{#each transfer.toUsers as |toUser|}}

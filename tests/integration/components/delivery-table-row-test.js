@@ -17,10 +17,9 @@ test('it renders', function(assert) {
   });
   this.set('transfer', transfer);
   this.render(hbs`{{delivery-table-row transfer}}`);
-  assert.equal(this.$('td').eq(0).text().trim(), '3');
-  assert.equal(this.$('td').eq(1).text().trim(), 'Taco');
-  assert.equal(this.$('td').eq(2).text().trim(), 'Arthur Adamson');
-  assert.equal(this.$('td').eq(3).text().trim(), 'Zelda Zellington');
-  assert.equal(this.$('td').eq(4).text().trim(), 'pending');
-  assert.equal(this.$('td').length, 5);
+  assert.equal(this.$('td').eq(0).text().trim(), 'Taco');
+  assert.equal(this.$('td').eq(1).text().trim(), 'Arthur Adamson');
+  assert.equal(this.$('td').eq(2).text().trim(), 'Zelda Zellington');
+  assert.equal(this.$('td').eq(3).text().trim(), 'pending');
+  assert.equal(this.$('td').length, 4);
 });
