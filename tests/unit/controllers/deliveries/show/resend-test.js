@@ -3,10 +3,10 @@ import Ember from 'ember';
 
 moduleFor('controller:deliveries/show/resend', 'Unit | Controller | deliveries/show/resend', {
   // Specify the other units that are required for this test.
-  needs: ['service:session', 'service:user', 'model:user']
+  needs: ['service:session', 'service:duke-ds-user', 'model:duke-ds-user']
 });
 
-test('it resending delivery transitions to deliveries.show', function(assert) {
+test('it transitions to deliveries.show after resend', function(assert) {
   let done = assert.async();
   const delivery = Ember.Object.create({});
   const transfer = Ember.Object.create({

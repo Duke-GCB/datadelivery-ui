@@ -23,7 +23,7 @@ test('it queries duke-ds-users/current-duke-ds-user from the store', function(as
   assert.expect(3);
   let service = this.subject();
   assert.ok(service);
-  service.currentUser().then(function(user) {
+  service.currentDukeDsUser().then(function(user) {
     assert.equal(user.modelName, 'duke-ds-user');
     assert.equal(user.username, 'dds111');
   });
