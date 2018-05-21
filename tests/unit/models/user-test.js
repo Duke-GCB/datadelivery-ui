@@ -1,5 +1,4 @@
 import { moduleForModel, test } from 'ember-qunit';
-import { testRelationships } from '../../helpers/test-relationships';
 
 moduleForModel('user', 'Unit | Model | user', {
   // Specify the other units that are required for this test.
@@ -11,9 +10,3 @@ test('it exists', function(assert) {
   // let store = this.store();
   assert.ok(!!model);
 });
-
-const relationships = [
-  {key: 'dukeDsUser', kind: 'belongsTo', type: 'duke-ds-user'},
-];
-
-testRelationships('user', relationships);
