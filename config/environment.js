@@ -50,5 +50,10 @@ module.exports = function(environment) {
     ENV.APP.API_NAMESPACE = 'api/v2';
   }
 
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: '/auth/api-token-auth/', // Server endpoint to send authenticate request
+    serverTokenRefreshEndpoint: '/auth/api-token-refresh'
+  };
+
   return ENV;
 };
