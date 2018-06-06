@@ -6,9 +6,10 @@ export default Ember.Controller.extend({
   isDevelopmentMode: ENV.environment === 'development',
   actions: {
     authenticate() {
-      let { identification, password } = this.getProperties('identification','password');
-      // This may need to change
-      this.get('session').authenticate('authenticator:drf-token-authenticator', identification, password).catch((reason) => {
+      // Now using JWT
+      const authenticator = 'authenticator:jwt-authenticator'; // Causes JWT authenticator to be used
+      const credentials = this.getProperties('username', 'password');
+      this.get('session').authenticate(authenticator, credentials).catch((reason) => {
         this.set('errorMessage', reason);
       });
     }
