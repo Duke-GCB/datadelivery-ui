@@ -20,6 +20,9 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      API_URL: '',
+      API_NAMESPACE: '',
+      AUTHORIZE_URL: ''
     }
   };
 
@@ -48,6 +51,7 @@ module.exports = function(environment) {
   if (environment === 'production') {
     ENV.APP.API_URL = '';
     ENV.APP.API_NAMESPACE = 'api/v2';
+    ENV.APP.AUTHORIZE_URL = ENV.APP.API_URL + '/auth/authorize/';
   }
 
   ENV['ember-simple-auth-token'] = {
@@ -58,7 +62,7 @@ module.exports = function(environment) {
     serverTokenSessionEndpoint: ENV.APP.API_URL + '/auth/api-token-session/', // Endpoint to get token with session authentication
     tokenPropertyName: 'token', // Key in server response that contains the access token
     refreshTokenPropertyName: 'token', // Key in server response that contains the refresh token. Same as the access token.
-    authorizationPrefix: 'JWT '
+    authorizationPrefix: 'JWT ' // Prefix for the value of the Authorization: header. Must be expected by server
   };
 
   return ENV;
