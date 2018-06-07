@@ -55,6 +55,7 @@ module.exports = function(environment) {
     refreshLeeway: 300, // refresh 5 minutes (300 seconds) before expiration
     serverTokenEndpoint: ENV.APP.API_URL + '/auth/api-token-auth/', // Server endpoint to send authenticate request
     serverTokenRefreshEndpoint: ENV.APP.API_URL + '/auth/api-token-refresh/',
+    serverTokenSessionEndpoint: ENV.APP.API_URL + '/auth/api-token-session/', // Endpoint to get token with session authentication
     tokenPropertyName: 'token', // Key in server response that contains the access token
     refreshTokenPropertyName: 'token', // Key in server response that contains the refresh token. Same as the access token.
     authorizationPrefix: 'JWT '
