@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
     const success = () => {
       this.transitionToRoute('/deliveries');
     };
-    const failure = (reason) => {
+    const failure = (/* reason */) => {
       this.transitionToRoute('/login');
     };
     this.get('session')
