@@ -12,8 +12,7 @@ export default Ember.Controller.extend({
       this.transitionToRoute('/deliveries');
     };
     const failure = (reason) => {
-      this.set('errorMessage', reason);
-      // this.transitionToRoute('/login');
+      this.transitionToRoute('/login');
     };
     this.get('session')
       .authenticate(authenticator, credentials)
