@@ -2,7 +2,7 @@ FROM node:8 as builder
 
 WORKDIR /src
 ADD package.json /src/package.json
-ADD package-lock.json /src/package-lock.json
+# ADD package-lock.json /src/package-lock.json
 RUN npm install
 ADD . /src/
 RUN npm run build -- --environment production
