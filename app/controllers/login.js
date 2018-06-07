@@ -4,6 +4,7 @@ import ENV from 'datadelivery-ui/config/environment';
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
   isDevelopmentMode: ENV.environment === 'development',
+  authorizeUrl: ENV.APP.AUTHORIZE_URL,
   actions: {
     authenticate() {
       // Now using JWT
