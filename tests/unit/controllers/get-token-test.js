@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
-
+import { resolve, reject } from 'rsvp';
 
 moduleFor('controller:get-token', 'Unit | Controller | get token', {
   needs: ['service:session'],
@@ -8,9 +8,7 @@ moduleFor('controller:get-token', 'Unit | Controller | get token', {
 
 const MockSession = Ember.Object.extend({
   isAuthenticated: false,
-  authenticate() {
-    return new Ember.RSVP.Promise((resolve) => { resolve(); });
-  }
+  authenticate() { return resolve(); }
 });
 
 test('it exists', function(assert) {
@@ -26,7 +24,7 @@ test('it authenticates with jwt-session-authenticator when not authenticated', f
   const session = MockSession.create({
     authenticate(authenticator) {
       assert.equal(authenticator, 'authenticator:jwt-session-authenticator')
-      return new Ember.RSVP.Promise((resolve) => { resolve(); });
+      return resolve();
     },
   });
   this.subject({
@@ -50,9 +48,7 @@ test('it does not call authenticate() when session is authenticated', function(a
 test('it transitions to /login when authentication fails', function(assert) {
   assert.expect(1);
   const session = MockSession.create({
-    authenticate() {
-      return new Ember.RSVP.Promise((_, reject) => { reject(); });
-    },
+    authenticate() { return reject(); }
   });
   this.subject({
     session: session,
@@ -65,9 +61,7 @@ test('it transitions to /login when authentication fails', function(assert) {
 test('it transitions to /deliveries when authentication succeeds', function(assert) {
   assert.expect(1);
   const session = MockSession.create({
-    authenticate() {
-      return new Ember.RSVP.Promise((resolve /*, reject */) => { resolve(); });
-    },
+    authenticate() { return resolve(); },
   });
   this.subject({
     session: session,
