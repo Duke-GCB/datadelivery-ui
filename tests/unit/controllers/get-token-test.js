@@ -23,7 +23,7 @@ test('it authenticates with jwt-session-authenticator when not authenticated', f
   assert.expect(1);
   const session = MockSession.create({
     authenticate(authenticator) {
-      assert.equal(authenticator, 'authenticator:jwt-session-authenticator')
+      assert.equal(authenticator, 'authenticator:jwt-session-authenticator');
       return resolve();
     },
   });
