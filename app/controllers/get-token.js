@@ -14,8 +14,12 @@ export default Ember.Controller.extend({
     const failure = (/* reason */) => {
       this.transitionToRoute('/login');
     };
-    this.get('session')
-      .authenticate(authenticator, credentials)
-      .then(success, failure);
+    const session = this.get('session');
+
+    if(session.get('isAuthenticated')) {
+      success();
+    } else {
+        session.authenticate(authenticator, credentials).then(success, failure);
+    }
   }
 });
