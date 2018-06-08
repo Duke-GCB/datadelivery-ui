@@ -17,7 +17,7 @@
   "devDependencies": {
     "bootstrap": "^3.3.7",
     "broccoli-asset-rev": "^2.4.5",
-    "drf-ember-frontend": "^1.0.0",
+    "drf-ember-frontend": "github:Duke-GCB/drf-ember-frontend#jwt-session-auth",
     "ember-ajax": "^3.0.0",
     "ember-bootstrap": "^1.0.0-rc.3",
     "ember-cli": "2.13.3",
