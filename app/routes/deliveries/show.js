@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
+export default Ember.Route.extend({
   model(params) {
     return this.get('store').findRecord('duke-ds-project-transfer', params.transfer_id);
   },
