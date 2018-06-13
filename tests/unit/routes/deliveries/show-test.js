@@ -3,7 +3,7 @@ import Ember from 'ember';
 
 moduleFor('route:deliveries/show', 'Unit | Route | deliveries/show', {
   // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  needs: ['service:session']
 });
 
 test('it finds a delivery based on delivery_id', function(assert) {

@@ -26,3 +26,19 @@ test('visiting /deliveries requires login', function(assert) {
     assert.equal(currentURL(), '/login');
   });
 });
+
+test('visiting /deliveries/some-id requires login', function(assert) {
+  visit('/deliveries/some-id');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/login');
+  });
+});
+
+test('visiting /deliveries/some-id/resend requires login', function (assert) {
+  visit('/deliveries/some-id/resend');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/login');
+  });
+});
