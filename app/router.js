@@ -13,6 +13,7 @@ Router.map(function() {
       this.route('resend', {});
     });
   });
+  this.route('get-token');
 });
 
 export default Router;
