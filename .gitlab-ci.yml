@@ -10,11 +10,13 @@ variables:
   # Git Repo of ansible playbooks
   PLAYBOOK_REPO_URL: https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.dhe.duke.edu/gcb-informatics/gcb-ansible-cd.git
   # Playbook branch or ref to checkout
-  PLAYBOOK_REF: master
+  PLAYBOOK_REF: datadelivery-ui
   # Directory to place ansible playbooks repo
   PLAYBOOK_DIR: gcb-ansible-cd
   # Ansible playbook to use
   DEPLOY_PLAYBOOK: d4s2-webapp.yml
+  # Tag to use when running ansible-playbook
+  PLAYBOOK_TAG: ui
   # SSH key to use when running ansible
   DEPLOY_KEY: /home/gitlab-runner/.ssh/bespin-gitlab-runner-deploy-id_rsa
   # Decryption key for gcb-ansible-cd
@@ -51,7 +53,7 @@ deploy-dev:
   tags:
   - docker-build
   script:
-  - DEPLOY_USER=ubuntu DEPLOY_GROUP=d4s2-dev ./gitlab-deploy.sh
+  - DATADELIVERY_UI_DOCKER_IMAGE=$CONTAINER_IMAGE DEPLOY_USER=ubuntu DEPLOY_GROUP=d4s2-dev ./gitlab-deploy.sh
   environment:
     name: development
   only:
@@ -62,7 +64,7 @@ deploy-prod:
   tags:
   - docker-build
   script:
-  - DEPLOY_USER=gcbdeploy DEPLOY_GROUP=d4s2-prod ./gitlab-deploy.sh
+  - DATADELIVERY_UI_DOCKER_IMAGE=$CONTAINER_IMAGE DEPLOY_USER=gcbdeploy DEPLOY_GROUP=d4s2-prod ./gitlab-deploy.sh
   environment:
     name: production
   only:
