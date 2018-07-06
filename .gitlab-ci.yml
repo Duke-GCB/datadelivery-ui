@@ -1,0 +1,71 @@
+stages:
+- build
+- deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_REGISTRY: ${CI_REGISTRY}
+  # Docker image name to use when building
+  CONTAINER_IMAGE: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}-${CI_BUILD_REF}
+  # Git Repo of ansible playbooks
+  PLAYBOOK_REPO_URL: https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.dhe.duke.edu/gcb-informatics/gcb-ansible-cd.git
+  # Playbook branch or ref to checkout
+  PLAYBOOK_REF: master
+  # Directory to place ansible playbooks repo
+  PLAYBOOK_DIR: gcb-ansible-cd
+  # Ansible playbook to use
+  DEPLOY_PLAYBOOK: d4s2-webapp.yml
+  # Tag to use when running ansible-playbook
+  PLAYBOOK_TAG: ui
+  # SSH key to use when running ansible
+  DEPLOY_KEY: /home/gitlab-runner/.ssh/bespin-gitlab-runner-deploy-id_rsa
+  # Decryption key for gcb-ansible-cd
+  GIT_CRYPT_KEY: /home/gitlab-runner/.git-crypt/gcb-ansible-cd-git-crypt.key
+  # Causes docker-compose commands to use this file
+  COMPOSE_FILE: docker-compose.test.yml
+  # Prevent simultaneous builds from using the same container names during test
+  COMPOSE_PROJECT_NAME: d4s2-${CI_COMMIT_REF_SLUG}-${CI_BUILD_REF}
+
+# The gitlab runner environment will have CI_JOB_TOKEN set, which can be used as the
+# docker password for the GitLab container registry
+before_script:
+  - echo "Logging in to $DOCKER_REGISTRY"
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $DOCKER_REGISTRY
+
+# Build and test docker images.
+# Pushes back to the repo in case subsequent step runs on different host
+build:
+  stage: build
+  tags:
+  - docker-build
+  script:
+  - docker build -t $CONTAINER_IMAGE .
+  - docker push $CONTAINER_IMAGE
+
+# Deploy images using ansible-playbook
+# Clones the private gcb-ansible-cd playbook from GitLab that uses public roles submodule
+# Passes in docker registry credentials as ansible extra variables
+# Requires that ansible has already been installed on the gitlab runner host, and that the
+# SSH private key (DEPLOY_KEY) can login and sudo all
+# Also requires the symmetric git-crypt key to be placed on the gitlab runner (GIT_CRYPT_KEY)
+deploy-dev:
+  stage: deploy
+  tags:
+  - docker-build
+  script:
+  - DATADELIVERY_UI_DOCKER_IMAGE=$CONTAINER_IMAGE DEPLOY_USER=ubuntu DEPLOY_GROUP=d4s2-dev ./gitlab-deploy.sh
+  environment:
+    name: development
+  only:
+  - deploy-dev
+
+deploy-prod:
+  stage: deploy
+  tags:
+  - docker-build
+  script:
+  - DATADELIVERY_UI_DOCKER_IMAGE=$CONTAINER_IMAGE DEPLOY_USER=gcbdeploy DEPLOY_GROUP=d4s2-prod ./gitlab-deploy.sh
+  environment:
+    name: production
+  only:
+  - deploy-prod

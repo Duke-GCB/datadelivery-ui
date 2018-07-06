@@ -3,7 +3,9 @@ WORKDIR /src
 ADD package.json /src/package.json
 ADD package-lock.json /src/package-lock.json
 RUN npm install
+RUN npm install phantomjs-prebuilt
 ADD . /src/
+RUN npm test
 RUN npm run build -- --environment production
 
 FROM nginx:1.13
