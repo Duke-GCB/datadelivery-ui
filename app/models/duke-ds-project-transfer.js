@@ -6,11 +6,7 @@ export default DS.Model.extend({
   statusComment: DS.attr('string'),
   toUsers: DS.hasMany('DukeDsUser',),
   toUsersNames: Ember.computed('toUsers[].fullName', function() {
-    return this.get('toUsers').reduce(function(acc, value) {
-      if (acc) acc = acc.concat(", ");
-      acc = acc.concat(value.get('fullName'));
-      return acc
-    }, '')
+    return this.get('toUsers').mapBy('fullName').join(', ');
   }),
   fromUser: DS.belongsTo('DukeDsUser'),
   project: DS.belongsTo('DukeDsProject'),
