@@ -12,7 +12,6 @@ export default DS.Model.extend({
       return acc
     }, '')
   }),
-
   fromUser: DS.belongsTo('DukeDsUser'),
   project: DS.belongsTo('DukeDsProject'),
   delivery: DS.belongsTo('Delivery'),
