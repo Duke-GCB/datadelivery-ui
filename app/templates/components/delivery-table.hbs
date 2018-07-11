@@ -1,6 +1,9 @@
-<tbody>
-{{delivery-table-header}}
-{{#each transfers as |transfer|}}
-  {{delivery-table-row transfer}}
-{{/each}}
-</tbody>
+{{models-table
+  data=transfers
+  columns=columns
+  multipleColumnsSorting=false
+  showColumnsDropdown=false
+  showGlobalFilter=false
+  showPageSize=false
+  pageSize=20
+}}
