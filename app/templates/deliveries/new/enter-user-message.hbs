@@ -1,0 +1,30 @@
+{{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
+<h1>New Delivery</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Project: {{project.name}} </h3>
+  </div>
+  <div class="panel-body">
+    {{row-label-value label="From" value=fromUser.fullName}}
+    {{row-label-value label="To" value=toUser.fullName}}
+    {{#each shareUsers as |shareUser index|}}
+      {{#if index}}
+        {{row-label-value label="" value=shareUser.fullName}}
+      {{else}}
+        {{row-label-value label="Shared With" value=shareUser.fullName}}
+      {{/if}}
+    {{/each}}
+    {{user-message-textarea value=delivery.userMessage readonly=false}}
+  </div>
+</div>
+
+{{error-message-alert errorMessages}}
+
+{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+
+{{#bs-button type="primary" disabled=disableNext onClick=(action 'saveAndSend') class="pull-right next-button"}}
+  Create Delivery
+{{/bs-button}}
+
+{{outlet}}

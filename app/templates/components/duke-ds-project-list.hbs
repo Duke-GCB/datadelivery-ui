@@ -1,9 +1,12 @@
 {{models-table
-  data=transfers
+  data=projects
   columns=columns
   multipleColumnsSorting=false
   showColumnsDropdown=false
   showGlobalFilter=false
   showPageSize=false
   pageSize=12
+  displayDataChangedAction=(action "displayDataChanged")
 }}
+
+{{yield}}

@@ -1,9 +1,13 @@
 {{models-table
-  data=transfers
+  data=users
   columns=columns
   multipleColumnsSorting=false
   showColumnsDropdown=false
   showGlobalFilter=false
   showPageSize=false
-  pageSize=12
+  pageSize=pageSize
+  displayDataChangedAction=(action "displayDataChanged")
+  multipleSelect=multipleSelect
 }}
+
+{{yield}}

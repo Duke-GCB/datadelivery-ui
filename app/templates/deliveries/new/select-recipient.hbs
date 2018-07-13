@@ -1,0 +1,13 @@
+{{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
+<h1>New Delivery</h1>
+
+<h4>Select recipient of {{project.name}}.</h4>
+{{duke-ds-user-list model pageSize=6 selectionChanged=(action 'toUserSelectionChanged')}}
+
+<h4>Select additional users to share project.</h4>
+{{duke-ds-user-list model pageSize=6 multipleSelect=true selectionChanged=(action 'shareUsersSelectionChanged')}}
+
+{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+{{#bs-button type="primary" disabled=disableNext onClick=(action 'next') class="pull-right next-button"}}Next{{/bs-button}}
+
+{{outlet}}
