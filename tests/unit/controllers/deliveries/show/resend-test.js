@@ -3,7 +3,7 @@ import Ember from 'ember';
 
 moduleFor('controller:deliveries/show/resend', 'Unit | Controller | deliveries/show/resend', {
   // Specify the other units that are required for this test.
-  needs: ['service:session', 'service:duke-ds-user', 'model:duke-ds-user']
+  needs: ['controller:application']
 });
 
 test('it transitions to deliveries.show after resend', function(assert) {
