@@ -7,6 +7,6 @@ moduleForComponent('row-label-value', 'Integration | Component | row label value
 
 test('it renders a label and value', function(assert) {
   this.render(hbs`{{#row-label-value label="MyData:"}}myValue{{/row-label-value}}`);
-  assert.equal(this.$('.label').text().trim(), 'MyData:');
-  assert.equal(this.$('.value').text().trim(), 'myValue');
+  assert.equal(this.$('.detail-label').text().trim(), 'MyData:');
+  assert.equal(this.$('.detail-value').text().trim(), 'myValue');
 });
