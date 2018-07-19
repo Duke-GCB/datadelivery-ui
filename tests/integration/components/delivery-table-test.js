@@ -61,7 +61,7 @@ test('it renders', function(assert) {
   const outgoingField2 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(1).text().trim());
   assert.equal(outgoingField2, 'Zelda Zellington');
   const outgoingField3 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(2).text().trim());
-  assert.equal(outgoingField3, 'pending');
+  assert.equal(outgoingField3, 'Pending');
 
   // displays expected fields for incoming
   const incomingField1 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(0).text().trim());
@@ -69,5 +69,5 @@ test('it renders', function(assert) {
   const incomingField2 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(1).text().trim());
   assert.equal(incomingField2, 'Zelda Zellington');
   const incomingField3 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(2).text().trim());
-  assert.equal(incomingField3, 'accepted');
+  assert.equal(incomingField3, 'Accepted');
 });

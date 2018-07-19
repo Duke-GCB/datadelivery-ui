@@ -16,12 +16,12 @@ const DeliveryTable = Ember.Component.extend({
   outgoingColumns: [
     { propertyName: "project.name", title: "Project Name", routeName: "deliveries.show"},
     { propertyName: "toUsersNames", title: "To"},
-    { propertyName: "status", title: "State"}
+    { propertyName: "status", title: "State", component: 'delivery-state'}
   ],
   incomingColumns: [
     { propertyName: "project.name", title: "Project Name", routeName: "deliveries.show"},
     { propertyName: "fromUser.fullName", title: "From"},
-    { propertyName: "status", title: "State"}
+    { propertyName: "status", title: "State", component: 'delivery-state'}
   ]
 
 });
