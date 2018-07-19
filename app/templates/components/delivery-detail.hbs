@@ -1,16 +1,16 @@
 <dl class="dl-horizontal">
-  {{#row-label-value label="From"}}{{transfer.fromUser.fullName}}{{/row-label-value}}
-  {{#row-label-value label="To"}}{{transfer.toUsersNames}}{{/row-label-value}}
+  {{#detail-label-value label="From"}}{{transfer.fromUser.fullName}}{{/detail-label-value}}
+  {{#detail-label-value label="To"}}{{transfer.toUsersNames}}{{/detail-label-value}}
   {{#unless brief}}
-    {{#row-label-value label="Status"}}{{format-delivery-state transfer.status}}{{/row-label-value}}
+    {{#detail-label-value label="Status"}}{{format-delivery-state transfer.status}}{{/detail-label-value}}
     {{#if delivery.declineReason}}
-      {{#row-label-value label="Decline Reason"}}{{delivery.declineReason}}{{/row-label-value}}
+      {{#detail-label-value label="Decline Reason"}}{{delivery.declineReason}}{{/detail-label-value}}
     {{/if}}
     {{#if delivery.performedBy}}
-      {{#row-label-value label="Performed By"}}{{delivery.performedBy}}{{/row-label-value}}
+      {{#detail-label-value label="Performed By"}}{{delivery.performedBy}}{{/detail-label-value}}
     {{/if}}
-    {{#row-label-value label="Delivery Email"}}
+    {{#detail-label-value label="Delivery Email"}}
       {{delivery-email delivery.deliveryEmailText}}
-    {{/row-label-value}}
+    {{/detail-label-value}}
 {{/unless}}
 </dl>
