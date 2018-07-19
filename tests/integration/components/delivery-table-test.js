@@ -48,12 +48,16 @@ test('it renders', function(assert) {
   assert.equal(this.$('tbody tr a').length, 3); // each row should be selectable
 
   // displays expected column names for outgoing
-  const outgoingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(0) tr th').text().trim());
+  const outgoingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(0) tr:eq(0) th').text().trim());
   assert.equal(outgoingColumnNames , 'Project Name  To  State');
+  // Displays filter options
+  assert.equal(this.$('thead:eq(0) select option').length, 5);
 
   // displays expected column names for incoming
-  const incomingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(1) tr th').text().trim());
+  const incomingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(1) tr:eq(0) th').text().trim());
   assert.equal(incomingColumnNames, 'Project Name  From  State');
+  // Displays filter options
+  assert.equal(this.$('thead:eq(1) select option').length, 5);
 
   // displays expected fields for outgoing
   const outgoingField1 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(0).text().trim());
