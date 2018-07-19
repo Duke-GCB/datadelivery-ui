@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('email-textarea', 'Integration | Component | delivery email', {
+moduleForComponent('delivery-email', 'Integration | Component | delivery email', {
   integration: true
 });
 
