@@ -10,7 +10,7 @@
       {{#row-label-value label="Performed By"}}{{delivery.performedBy}}{{/row-label-value}}
     {{/if}}
     {{#row-label-value label="Delivery Email"}}
-      {{textarea value=delivery.deliveryEmailText readonly=true rows="8" class="form-control"}}
+      {{delivery-email delivery.deliveryEmailText}}
     {{/row-label-value}}
 {{/unless}}
 </dl>
