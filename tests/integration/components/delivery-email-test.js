@@ -15,7 +15,7 @@ data'}}`);
 
 test('it renders four header fields and body', function(assert) {
 
-  this.render(hbs`{{delivery-email value='Subject: Lunch
+  this.render(hbs`{{delivery-email 'Subject: Lunch
 From: joe@joe.joe
 To: bob@bob.bob
 Date: Jan 2 2019 12:30
@@ -27,7 +27,7 @@ When do you want to eat lunch?
 });
 
 test('it skips unknown header lines', function(assert) {
-  this.render(hbs`{{delivery-email value='Subject: Eat Lunch
+  this.render(hbs`{{delivery-email 'Subject: Eat Lunch
 Junk: Lunch
 
 Hey,
