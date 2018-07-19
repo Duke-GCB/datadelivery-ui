@@ -11,9 +11,7 @@ test('it renders brief mode', function(assert) {
     id: 5,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
-    toUsers: [
-      Ember.Object.create({ fullName: 'Zelda Zellington'})
-    ],
+    toUsersNames: [ 'Zelda Zellington' ],
     status: 'Done',
     delivery: Ember.Object.create({
       shareUsers: [
@@ -34,9 +32,7 @@ test('it renders full mode', function(assert) {
     id: 5,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
-    toUsers: [
-      Ember.Object.create({ fullName: 'Zelda Zellington'})
-    ],
+    toUsersNames: ['Zelda Zellington'],
     status: 'Done',
     delivery: Ember.Object.create({
       id: 3,
@@ -73,9 +69,7 @@ test('it renders full mode declineReason and performedBy', function(assert) {
       id: 5,
       project: {name: 'Taco'},
       fromUser: {fullName: 'Arthur Adamson'},
-      toUsers: [
-        Ember.Object.create({ fullName: 'Zelda Zellington'})
-      ],
+      toUsersNames: ['Zelda Zellington'],
       status: 'Done',
     delivery:  Ember.Object.create({
       shareUsers: [
@@ -89,7 +83,6 @@ test('it renders full mode declineReason and performedBy', function(assert) {
   });
   this.set('transfer', transfer);
   this.render(hbs`{{delivery-detail transfer}}`);
-  //assert.equal(this.$('label'), 7);
   assert.equal(this.$('label').eq(3).text(), 'Decline Reason');
   assert.equal(this.$('.row-value').eq(3).text().trim(), 'Was not needed.');
   assert.equal(this.$('label').eq(4).text(), 'Performed By');
