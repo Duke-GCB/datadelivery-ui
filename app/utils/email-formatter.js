@@ -5,9 +5,9 @@ function getEmailHeaderAndBody(value) {
    * Separates body and header in email value (https://tools.ietf.org/html/rfc7230#section-3)
    *returns a object containing the body as str and header as a dictionary
    */
-  var header = {};
-  var body = '';
-  var inBody = false;
+  let header = {};
+  let body = '';
+  let inBody = false;
   if (value) {
     value.split('\n').forEach(function (line) {
       if (!inBody && line.trim() == '') { // first CRLF by itself
@@ -38,7 +38,7 @@ function getOptionalHeaderLine(headerDict, name) {
   /**
    * Creates a header line using headerDict using name or '' if not in dict
    */
-  var value = headerDict[name];
+  const value = headerDict[name];
   if (value) {
     return name + HEADER_FIELD_SEPERATOR + value + '\n';
   }
@@ -51,8 +51,8 @@ function formatEmailText(value) {
    * Strips header from email text with the exception of Subject, From, To and Date
    */
   const headerFields = ['Subject', 'Date'];
-  var headerAndBody = getEmailHeaderAndBody(value);
-  var result = '';
+  const headerAndBody = getEmailHeaderAndBody(value);
+  let result = '';
   headerFields.forEach(function (headerFieldName) {
     result += getOptionalHeaderLine(headerAndBody.header, headerFieldName);
   });
