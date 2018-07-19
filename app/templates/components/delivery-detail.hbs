@@ -1,19 +1,16 @@
-{{row-label-value label="From" value=transfer.fromUser.fullName}}
-{{row-label-value label="To" value=toUserNames}}
-{{#unless brief}}
-  {{row-label-value label="Status" value=transfer.status}}
-  {{#if delivery.declineReason}}
-    {{row-label-value label="Decline Reason" value=delivery.declineReason}}
-  {{/if}}
-  {{#if delivery.performedBy}}
-    {{row-label-value label="Performed By" value=delivery.performedBy}}
-  {{/if}}
-  {{user-message-textarea value=delivery.userMessage readonly=true}}
-  <div class="row">
-    <div class="col-md-12"><label>Delivery Email</label></div>
-    <div class="col-md-10 small-left-margin">
-      {{email-textarea rows="8" value=delivery.deliveryEmailText }}
-    </div>
-  </div>
+<dl class="dl-horizontal">
+  {{#row-label-value label="From"}}{{transfer.fromUser.fullName}}{{/row-label-value}}
+  {{#row-label-value label="To"}}{{transfer.toUsersNames}}{{/row-label-value}}
+  {{#unless brief}}
+    {{#row-label-value label="Status"}}{{format-delivery-state transfer.status}}{{/row-label-value}}
+    {{#if delivery.declineReason}}
+      {{#row-label-value label="Decline Reason"}}{{delivery.declineReason}}{{/row-label-value}}
+    {{/if}}
+    {{#if delivery.performedBy}}
+      {{#row-label-value label="Performed By"}}{{delivery.performedBy}}{{/row-label-value}}
+    {{/if}}
+    {{#row-label-value label="Delivery Email"}}
+      {{textarea value=delivery.deliveryEmailText readonly=true rows="8" class="form-control"}}
+    {{/row-label-value}}
 {{/unless}}
-{{yield}}
+</dl>

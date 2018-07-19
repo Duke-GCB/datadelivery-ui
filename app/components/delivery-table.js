@@ -23,7 +23,6 @@ const DeliveryTable = Ember.Component.extend({
     { propertyName: "fromUser.fullName", title: "From"},
     { propertyName: "status", title: "State", component: 'delivery-state'}
   ]
-
 });
 
 DeliveryTable.reopenClass({
