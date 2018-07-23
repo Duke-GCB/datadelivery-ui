@@ -1,5 +1,6 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.index"}}
-<h1>Deliveries</h1>
-{{delivery-table model}}
+<h2>All Deliveries</h2>
+
+{{delivery-table model currentDukeDsUser}}
 
 {{#link-to 'deliveries.new' class="btn btn-primary"}}New Delivery{{/link-to}}

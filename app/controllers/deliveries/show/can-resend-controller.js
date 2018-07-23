@@ -4,8 +4,9 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  deliveriesController: Ember.inject.controller('deliveries'),
-  canResend: Ember.computed('deliveriesController.currentDukeDsUser.id', function () {
+  application: Ember.inject.controller(),
+  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
+  canResend: Ember.computed('model.canResend', 'model.fromUser.id', 'currentDukeDsUser.id', function () {
     const modelCanResend = this.get('model.canResend');
     const fromUserId = this.get('model.fromUser.id');
     const currentDukeDsUserId = this.get('deliveriesController.currentDukeDsUser.id');
