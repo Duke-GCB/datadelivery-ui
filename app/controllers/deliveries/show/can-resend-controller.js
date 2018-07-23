@@ -4,9 +4,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  session: Ember.inject.service('session'),
-  dukeDsUser: Ember.inject.service('duke-ds-user'),
-  currentDukeDsUser: null,
+  application: Ember.inject.controller(),
+  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
   canResend: Ember.computed('model.canResend', 'model.fromUser.id', 'currentDukeDsUser.id', function () {
     const modelCanResend = this.get('model.canResend');
     const fromUserId = this.get('model.fromUser.id');
@@ -15,16 +14,5 @@ export default Ember.Controller.extend({
       return false;
     }
     return modelCanResend && fromUserId == currentDukeDsUserId;
-  }),
-  authenticatedDidChange: Ember.on('init',
-    Ember.observer('session.isAuthenticated', function() {
-      if (this.get('session.isAuthenticated')) {
-        this.get('dukeDsUser').currentDukeDsUser().then(currentDukeDsUser => {
-          this.set('currentDukeDsUser', currentDukeDsUser);
-        });
-      } else {
-        this.set('currentDukeDsUser', null);
-      }
-    })
-  )
+  })
 });

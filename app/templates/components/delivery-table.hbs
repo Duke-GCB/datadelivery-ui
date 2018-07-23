@@ -1,6 +1,18 @@
+<h3>Outgoing</h3>
 {{models-table
-  data=transfers
-  columns=columns
+  data=outgoingTransfers
+  columns=outgoingColumns
+  multipleColumnsSorting=false
+  showColumnsDropdown=false
+  showGlobalFilter=false
+  showPageSize=false
+  pageSize=20
+}}
+
+<h3>Incoming</h3>
+{{models-table
+  data=incomingTransfers
+  columns=incomingColumns
   multipleColumnsSorting=false
   showColumnsDropdown=false
   showGlobalFilter=false

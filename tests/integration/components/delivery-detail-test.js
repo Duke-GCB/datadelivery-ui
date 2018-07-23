@@ -11,9 +11,7 @@ test('it renders brief mode', function(assert) {
     id: 5,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
-    toUsers: [
-      Ember.Object.create({ fullName: 'Zelda Zellington'})
-    ],
+    toUsersNames: [ 'Zelda Zellington' ],
     status: 'Done',
     delivery: Ember.Object.create({
       shareUsers: [
@@ -24,9 +22,9 @@ test('it renders brief mode', function(assert) {
 
   this.set('transfer', transfer);
   this.render(hbs`{{delivery-detail transfer brief=true}}`);
-  assert.equal(this.$('label').eq(0).text(), 'From');
-  assert.equal(this.$('label').eq(1).text(), 'To');
-  assert.equal(this.$('label').length, 2);
+  assert.equal(this.$('.detail-label').eq(0).text(), 'From');
+  assert.equal(this.$('.detail-label').eq(1).text(), 'To');
+  assert.equal(this.$('.detail-label').length, 2);
 });
 
 test('it renders full mode', function(assert) {
@@ -34,9 +32,7 @@ test('it renders full mode', function(assert) {
     id: 5,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
-    toUsers: [
-      Ember.Object.create({ fullName: 'Zelda Zellington'})
-    ],
+    toUsersNames: ['Zelda Zellington'],
     status: 'Done',
     delivery: Ember.Object.create({
       id: 3,
@@ -50,22 +46,19 @@ test('it renders full mode', function(assert) {
 
   this.set('transfer', transfer);
   this.render(hbs`{{delivery-detail transfer}}`);
-  assert.equal(this.$('label').length, 5);
+  assert.equal(this.$('.detail-label').length, 4);
   var idx = 0;
-  assert.equal(this.$('label').eq(idx).text().trim(), 'From');
-  assert.equal(this.$('.row-value').eq(idx).text().trim(), 'Arthur Adamson');
+  assert.equal(this.$('.detail-label').eq(idx).text().trim(), 'From');
+  assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Arthur Adamson');
   idx += 1;
-  assert.equal(this.$('label').eq(idx).text(), 'To');
-  assert.equal(this.$('.row-value').eq(idx).text().trim(), 'Zelda Zellington');
+  assert.equal(this.$('.detail-label').eq(idx).text(), 'To');
+  assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
   idx += 1;
-  assert.equal(this.$('label').eq(idx).text(), 'Status');
-  assert.equal(this.$('.row-value').eq(idx).text().trim(), 'Done');
+  assert.equal(this.$('.detail-label').eq(idx).text(), 'Status');
+  assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done');
   idx += 1;
-  assert.equal(this.$('label').eq(idx).text(), 'User Message');
-  assert.equal(this.$('textarea').eq(0).val(), 'Here is your data');
-  idx += 1;
-  assert.equal(this.$('label').eq(idx).text(), 'Delivery Email');
-  assert.equal(this.$('textarea').eq(1).text().trim(), 'Subject: New Data\n\nEmail Body');
+  assert.equal(this.$('.detail-label').eq(idx).text(), 'Delivery Email');
+  assert.equal(this.$('.delivery-email').text().trim(), 'Subject: New DataEmail Body');
 });
 
 test('it renders full mode declineReason and performedBy', function(assert) {
@@ -73,9 +66,7 @@ test('it renders full mode declineReason and performedBy', function(assert) {
       id: 5,
       project: {name: 'Taco'},
       fromUser: {fullName: 'Arthur Adamson'},
-      toUsers: [
-        Ember.Object.create({ fullName: 'Zelda Zellington'})
-      ],
+      toUsersNames: ['Zelda Zellington'],
       status: 'Done',
     delivery:  Ember.Object.create({
       shareUsers: [
@@ -89,9 +80,8 @@ test('it renders full mode declineReason and performedBy', function(assert) {
   });
   this.set('transfer', transfer);
   this.render(hbs`{{delivery-detail transfer}}`);
-  //assert.equal(this.$('label'), 7);
-  assert.equal(this.$('label').eq(3).text(), 'Decline Reason');
-  assert.equal(this.$('.row-value').eq(3).text().trim(), 'Was not needed.');
-  assert.equal(this.$('label').eq(4).text(), 'Performed By');
-  assert.equal(this.$('.row-value').eq(4).text().trim(), 'John Doe');
+  assert.equal(this.$('.detail-label').eq(3).text(), 'Decline Reason');
+  assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
+  assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
+  assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
 });
