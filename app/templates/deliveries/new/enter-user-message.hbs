@@ -1,21 +1,32 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
-<h1>New Delivery</h1>
-
+<h3>New Delivery</h3>
+<p class="body">
+  Click the <strong>Send Delivery</strong> button to send the delivery to the recipient.
+</p>
+<p class="body">
+  The sent email will be generated from a template and include a link for the recipient to accept or decline the delivery.
+  If you wish to add or edit a custom message (e.g. details about this specific delivery), please enter those notes in the
+  <strong>User Message</strong> area.
+</p>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Project: {{project.name}} </h3>
   </div>
   <div class="panel-body">
-    {{row-label-value label="From" value=fromUser.fullName}}
-    {{row-label-value label="To" value=toUser.fullName}}
-    {{#each shareUsers as |shareUser index|}}
-      {{#if index}}
-        {{row-label-value label="" value=shareUser.fullName}}
-      {{else}}
-        {{row-label-value label="Shared With" value=shareUser.fullName}}
-      {{/if}}
-    {{/each}}
-    {{user-message-textarea value=delivery.userMessage readonly=false}}
+    <dl class="dl-horizontal">
+
+      {{#detail-label-value label="From"}}{{fromUser.fullName}}{{/detail-label-value}}
+      {{#detail-label-value label="To"}}{{toUser.fullName}}{{/detail-label-value}}
+      {{#each shareUsers as |shareUser index|}}
+        {{#if index}}
+          {{#detail-label-value label=""}}{{shareUser.fullName}}{{/detail-label-value}}
+        {{else}}
+          {{#detail-label-value label="Shared With"}}{{shareUser.fullName}}{{/detail-label-value}}
+        {{/if}}
+      {{/each}}
+      {{#detail-label-value label="User Message"}}{{user-message-textarea value=userMessage readonly=false}}{{/detail-label-value}}
+
+    </dl>
   </div>
 </div>
 
@@ -24,7 +35,6 @@
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
 
 {{#bs-button type="primary" disabled=disableNext onClick=(action 'saveAndSend') class="pull-right next-button"}}
-  Create Delivery
+  Send Delivery
 {{/bs-button}}
-
 {{outlet}}

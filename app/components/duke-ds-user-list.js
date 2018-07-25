@@ -6,6 +6,12 @@ const DukeDSUserList = Ember.Component.extend({
   pageSize: 12,
   selectionChanged: null, /** action */
   columns: [
+    {
+      component: "select-row-checkbox",
+      useFilter: false,
+      mayBeHidden: false,
+      className: "select-row-checkbox-column",
+    },
     { propertyName: "fullName", title: "Name"},
     { propertyName: "email", title: "Email"}
   ],

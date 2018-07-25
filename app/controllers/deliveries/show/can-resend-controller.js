@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
   canResend: Ember.computed('model.canResend', 'model.fromUser.id', 'currentDukeDsUser.id', function () {
     const modelCanResend = this.get('model.canResend');
     const fromUserId = this.get('model.fromUser.id');
-    const currentDukeDsUserId = this.get('deliveriesController.currentDukeDsUser.id');
+    const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     if (!currentDukeDsUserId) {
       return false;
     }
