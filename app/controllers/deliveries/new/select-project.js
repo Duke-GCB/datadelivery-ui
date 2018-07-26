@@ -10,7 +10,6 @@ export default Ember.Controller.extend({
     next() {
       const projectId = this.get('project.id');
       this.transitionToRoute('deliveries.new.select-recipient', { queryParams: { project_id: projectId }});
-      this.set('project', null);
     },
     projectSelectionChanged(actionData) {
       var selectedItem = null;

@@ -48,8 +48,6 @@ export default Ember.Controller.extend({
               share_user_ids: shareUserIds
           }
       });
-      this.set('toUser', null);
-      this.set('shareUsers', null);
     }
   }
 });
