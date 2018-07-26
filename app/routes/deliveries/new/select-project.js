@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.get('store').findAll('duke-ds-project');
+    return this.get('store').query('duke-ds-project', {
+      isDeliverable: true
+    });
   }
 });
