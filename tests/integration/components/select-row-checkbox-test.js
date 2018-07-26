@@ -5,21 +5,27 @@ moduleForComponent('select-row-checkbox', 'Integration | Component | select row 
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders with select-row class when selected', function(assert) {
+  this.set('themeInstance', {
+    'select-row': 'selectedClass',
+    'deselect-row': 'unselectedClass',
+  });
+  this.render(hbs`{{select-row-checkbox isSelected=true themeInstance=themeInstance}}`);
+  assert.equal(this.$('span').attr('class').trim(), 'selectedClass');
+});
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it renders with deselect-row class when unselected', function(assert) {
+  this.set('themeInstance', {
+    'select-row': 'selectedClass',
+    'deselect-row': 'unselectedClass',
+  });
+  this.render(hbs`{{select-row-checkbox isSelected=false themeInstance=themeInstance}}`);
+  assert.equal(this.$('span').attr('class').trim(), 'unselectedClass');
+});
 
-  this.render(hbs`{{select-row-checkbox}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#select-row-checkbox}}
-      template block text
-    {{/select-row-checkbox}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('when span clicked passes index', function(assert) {
+  assert.expect(1);
+  this.set('externalAction', (index) => assert.equal(index, 123));
+  this.render(hbs`{{select-row-checkbox index=123 clickOnRow=(action externalAction)}}`);
+  this.$('span').click();
 });

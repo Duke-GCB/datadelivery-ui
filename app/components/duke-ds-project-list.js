@@ -10,7 +10,10 @@ const DukeDSProjectList = Ember.Component.extend({
       mayBeHidden: false,
       className: "select-row-checkbox-column",
     },
-    { propertyName: "name", title: "Project Name"}
+    {
+      propertyName: "name", title: "Project Name",
+      className: "duke-ds-project-name"
+    }
   ],
   actions: {
     displayDataChanged: function (e) {
