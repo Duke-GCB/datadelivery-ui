@@ -16,6 +16,12 @@ test('it exists', function(assert) {
   assert.ok(!!model);
 });
 
+test('it defaults state to new', function(assert) {
+  let model = this.subject();
+  const STATE_NEW = 0;
+  assert.equal(model.get('state'), STATE_NEW);
+});
+
 const relationships = [
   {key: 'project', kind: 'belongsTo', type: 'duke-ds-project'},
   {key: 'fromUser', kind: 'belongsTo', type: 'duke-ds-user'},
