@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
       this.transitionToRoute('deliveries.new.select-recipient', { queryParams: { project_id: projectId }});
     },
     saveAndSend() {
-      this.get('shareUsers').then(function (shareUsers) {
+      return Ember.RSVP.all(this.get('shareUsers')).then((shareUsers) => {
         const delivery = this.get('store').createRecord('delivery', {
           project: this.get('project'),
           fromUser: this.get('fromUser'),

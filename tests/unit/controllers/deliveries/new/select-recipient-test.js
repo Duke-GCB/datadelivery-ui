@@ -23,7 +23,7 @@ test('it handles back action', function(assert) {
   controller.send('back');
 });
 
-test('it handles next action and resets project', function(assert) {
+test('it handles next action', function(assert) {
   let project = Ember.Object.create({ id: '123' });
   let toUser = Ember.Object.create({ id: '456' });
   let shareUsers = [Ember.Object.create({ id: '789'}), Ember.Object.create({ id: '001'})];
