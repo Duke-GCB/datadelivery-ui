@@ -6,11 +6,12 @@ export default Ember.Controller.extend({
   to_user_id: null,
   share_user_ids: null,
   userMessage: null,
-  deliveriesController: Ember.inject.controller('deliveries'),
+  application: Ember.inject.controller(),
+  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
   project: Ember.computed('project_id', function () {
     return this.get('store').findRecord('duke-ds-project', this.get('project_id'));
   }),
-  fromUser: Ember.computed.alias('deliveriesController.currentDukeDsUser'),
+  fromUser: Ember.computed.alias('currentDukeDsUser'),
   toUser: Ember.computed('to_user_id', function () {
     return this.get('store').findRecord('duke-ds-user', this.get('to_user_id'));
   }),
