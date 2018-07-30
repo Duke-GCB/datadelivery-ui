@@ -17,7 +17,7 @@ test('it sets model to deliverable projects', function(assert) {
     store: {
       query(recordModel, params) {
         assert.equal(recordModel, 'duke-ds-project');
-        assert.equal(params.isDeliverable, true);
+        assert.equal(params.is_deliverable, true);
         return [Ember.Object.create({id: 123})];
       }
     }
