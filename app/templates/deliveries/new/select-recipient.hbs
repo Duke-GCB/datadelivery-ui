@@ -1,10 +1,18 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
 <h1>New Delivery</h1>
 
-<h4>Select recipient of {{project.name}}.</h4>
+<p class="body">
+  Select the recipient you wish to transfer ownership of <b>{{project.name}}</b> to.
+</p>
+<p class="body">
+  This selected user will take ownership of the project once the delivery is accepted.
+  Once the delivery is accepted you will retain read-only permissions.
+</p>
 {{duke-ds-user-list otherUsersList pageSize=6 selectionChanged=(action 'toUserSelectionChanged')}}
 
-<h4>Select additional users to share project.</h4>
+<p class="body">
+  Select additional users to share project.
+</p>
 {{duke-ds-user-list otherUsersList pageSize=6 multipleSelect=true selectionChanged=(action 'shareUsersSelectionChanged')}}
 
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}

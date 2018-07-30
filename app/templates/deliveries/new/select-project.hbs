@@ -1,7 +1,12 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
 <h1>New Delivery</h1>
-<h4>Select project to deliver.</h4>
-
+<p class="body">
+  Select a project to deliver to another user.
+</p>
+<p class="body">
+  This will transfer ownership of the project to another user.
+  Once the recipient accepts the delivery you will retain read-only permissions.
+</p>
 {{duke-ds-project-list model selectionChanged=(action 'projectSelectionChanged')}}
 
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
