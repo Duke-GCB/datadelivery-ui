@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  queryParams: ['project_id'],
-  project_id: null,
-  project: Ember.computed('project_id', function () {
-    return this.get('store').findRecord('duke-ds-project', this.get('project_id'));
+  queryParams: ['projectId'],
+  projectId: null,
+  project: Ember.computed('projectId', function () {
+    return this.get('store').findRecord('duke-ds-project', this.get('projectId'));
   }),
   application: Ember.inject.controller(),
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
       this.transitionToRoute('deliveries.new.select-project');
     },
     next() {
-      const projectId = this.get('project.id');
+      const projectId = this.get('projectId');
       const toUserId = this.get('toUser.id');
       const shareUsers = this.get('shareUsers');
       var shareUserIds = null;
@@ -43,9 +43,9 @@ export default Ember.Controller.extend({
       }
       this.transitionToRoute('deliveries.new.enter-user-message', {
           queryParams: {
-              project_id: projectId,
-              to_user_id: toUserId,
-              share_user_ids: shareUserIds
+            projectId: projectId,
+            toUserId: toUserId,
+            shareUserIds: shareUserIds
           }
       });
     }

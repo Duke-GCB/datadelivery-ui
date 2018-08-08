@@ -16,10 +16,10 @@ test('it exists', function(assert) {
 test('it handles back action', function(assert) {
   assert.expect(2);
   let controller = this.subject({
-    project_id: '123',
+    projectId: '123',
     transitionToRoute(routeName, data) {
       assert.equal(routeName, 'deliveries.new.select-recipient', 'back action should transition to select-project');
-      assert.equal(data.queryParams.project_id, '123', 'include project_id in select-project query params');
+      assert.equal(data.queryParams.projectId, '123', 'include project in select-project query params');
     }
   });
   controller.send('back');
@@ -27,7 +27,7 @@ test('it handles back action', function(assert) {
 
 test('it looks up project based on query param', function(assert) {
   let controller = this.subject({
-    project_id: '123',
+    projectId: '123',
     store: {
       findRecord(modelName, modelKey) {
         if (modelName === 'duke-ds-project') {
@@ -43,7 +43,7 @@ test('it looks up project based on query param', function(assert) {
 
 test('it looks up toUser based on query param', function(assert) {
   let controller = this.subject({
-    to_user_id: '456',
+    toUserId: '456',
     store: {
       findRecord(modelName, modelKey) {
         if (modelName === 'duke-ds-user') {
@@ -59,8 +59,8 @@ test('it looks up toUser based on query param', function(assert) {
 
 test('it looks up shareUsers based on query param', function(assert) {
   let controller = this.subject({
-    to_user_id: '456',
-    share_user_ids: '789',
+    toUserId: '456',
+    shareUserIds: '789',
     store: {
       findRecord(modelName, modelKey) {
         if (modelName === 'duke-ds-user' && modelKey === '789') {
@@ -85,7 +85,7 @@ test('it handles saveAndSend action', function(assert) {
     project: project,
     currentDukeDsUser: fromUser,
     toUser: toUser,
-    share_user_ids: '789,001',
+    shareUserIds: '789,001',
     userMessage: 'hey bob',
     store: {
       findRecord(modelName, modelKey) {

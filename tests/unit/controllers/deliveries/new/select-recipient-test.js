@@ -24,18 +24,17 @@ test('it handles back action', function(assert) {
 });
 
 test('it handles next action', function(assert) {
-  let project = Ember.Object.create({ id: '123' });
   let toUser = Ember.Object.create({ id: '456' });
   let shareUsers = [Ember.Object.create({ id: '789'}), Ember.Object.create({ id: '001'})];
   let controller = this.subject({
-    project: project,
+    projectId: '123',
     toUser: toUser,
     shareUsers: shareUsers,
     transitionToRoute(routeName, data) {
       assert.equal(routeName, 'deliveries.new.enter-user-message', 'next action should transition to enter-user-message');
-      assert.equal(data.queryParams.project_id, '123', 'next action should pass project_id');
-      assert.equal(data.queryParams.to_user_id, '456', 'next action should pass to_user_id');
-      assert.equal(data.queryParams.share_user_ids, '789,001', 'next action should pass share_user_ids');
+      assert.equal(data.queryParams.projectId, '123', 'next action should pass projectId');
+      assert.equal(data.queryParams.toUserId, '456', 'next action should pass toUserId');
+      assert.equal(data.queryParams.shareUserIds, '789,001', 'next action should pass shareUserIds');
     }
   });
   controller.send('next');
@@ -43,7 +42,7 @@ test('it handles next action', function(assert) {
 
 test('it looks up project based on query param', function(assert) {
   let controller = this.subject({
-    project_id: '123',
+    projectId: '123',
     store: {
       findRecord(modelName, modelKey) {
         assert.equal(modelName, 'duke-ds-project');

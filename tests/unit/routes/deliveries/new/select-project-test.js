@@ -11,13 +11,13 @@ test('it exists', function(assert) {
   assert.ok(route);
 });
 
-test('it sets model to deliverable projects', function(assert) {
+test('it sets model to non-deleted projects', function(assert) {
   assert.expect(4);
   let route = this.subject({
     store: {
       query(recordModel, params) {
         assert.equal(recordModel, 'duke-ds-project');
-        assert.equal(params.is_deliverable, true);
+        assert.equal(params.is_deleted, false);
         return [Ember.Object.create({id: 123})];
       }
     }
