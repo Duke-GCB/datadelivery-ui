@@ -17,7 +17,6 @@ export default Ember.Controller.extend({
     }
   }),
   toUser: null,
-  shareUsers: null,
   disableNext: Ember.computed.not('toUser'),
   actions: {
     toUserSelectionChanged(actionData) {
@@ -27,25 +26,16 @@ export default Ember.Controller.extend({
       }
       this.set('toUser', selectedItem);
     },
-    shareUsersSelectionChanged(actionData) {
-      this.set('shareUsers', actionData.selectedItems);
-    },
     back() {
       this.transitionToRoute('deliveries.new.select-project');
     },
     next() {
       const projectId = this.get('projectId');
       const toUserId = this.get('toUser.id');
-      const shareUsers = this.get('shareUsers');
-      var shareUserIds = null;
-      if (shareUsers) {
-        shareUserIds = shareUsers.mapBy('id').join(',');
-      }
       this.transitionToRoute('deliveries.new.enter-user-message', {
           queryParams: {
             projectId: projectId,
             toUserId: toUserId,
-            shareUserIds: shareUserIds
           }
       });
     }
