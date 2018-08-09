@@ -37,6 +37,7 @@ export default Ember.Controller.extend({
     }
     return authRole != 'project_admin';
   }),
+  showMissingPrivilegesError: false,
   actions: {
     projectSelectionChanged(actionData) {
       var selectedItem = null;

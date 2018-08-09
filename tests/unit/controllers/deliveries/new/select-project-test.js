@@ -47,3 +47,33 @@ test('it handles projectSelectionChanged', function(assert) {
   });
   assert.equal(controller.get('project'), project);
 });
+
+
+test('it enables showMissingPrivilegesError when user clicks Next but has no permission', function(assert) {
+  let project = Ember.Object.create({ id: '123' });
+  let controller = this.subject({
+    project: project,
+    transitionToRoute: function () {}
+  });
+  assert.equal(controller.get('showMissingPrivilegesError'), false,
+    'showMissingPrivilegesError defaults to false');
+
+  controller.set('currentUserCanDeliver', false);
+  controller.send('next');
+  assert.equal(controller.get('showMissingPrivilegesError'), true,
+    'showMissingPrivilegesError is true if user sends and has no permissions');
+
+  // user selects a project
+  controller.send('projectSelectionChanged', {
+    selectedItems: [
+      project
+    ]
+  });
+  assert.equal(controller.get('showMissingPrivilegesError'), false,
+    'showMissingPrivilegesError resets on selection changed');
+
+  controller.set('currentUserCanDeliver', true);
+  controller.send('next');
+  assert.equal(controller.get('showMissingPrivilegesError'), false,
+        'showMissingPrivilegesError is false if user sends and has permissions');
+});
