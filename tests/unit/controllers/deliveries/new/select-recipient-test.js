@@ -52,10 +52,10 @@ test('it looks up project based on query param', function(assert) {
 });
 
 test('it computes a list of users outside of the currentDukeDSUser', function(assert) {
-  let currentDukeDsUser = Ember.Object.create({ id: '123' });
+  let currentDukeDsUser = Ember.Object.create({ id: '123', fullName: 'Jane Smith' });
   let userList = [
     currentDukeDsUser,
-    Ember.Object.create({ id: '456' })
+    Ember.Object.create({ id: '456', fullName: 'John Smith' })
   ];
   let controller = this.subject({
     application: {
@@ -66,6 +66,19 @@ test('it computes a list of users outside of the currentDukeDSUser', function(as
   assert.equal(controller.get('model').length, 2);
   assert.equal(controller.get('otherUsersList').length, 1);
   assert.equal(controller.get('otherUsersList')[0].get('id'), '456');
+});
+
+test('it computes a list of users filtering out those with null fullNames', function(assert) {
+  const goodUser = Ember.Object.create({ id: '123', fullName: 'John Smith' });
+  const badUser1 = Ember.Object.create({ id: '456'});
+  badUser1.set('fullName', null);
+  const badUser2 = Ember.Object.create({ id: '789', fullName: '(null)'});
+  let controller = this.subject({
+    model: [goodUser, badUser1, badUser2],
+  });
+  assert.equal(controller.get('model').length, 3, 'There should be three users in the model');
+  assert.equal(controller.get('otherUsersList').length, 1, 'Only one has a valid fullName');
+  assert.equal(controller.get('otherUsersList')[0].get('id'), '123', 'Good user should be in the list');
 });
 
 test('it handles toUserSelectionChanged', function(assert) {
