@@ -8,12 +8,18 @@ export default Ember.Controller.extend({
   }),
   application: Ember.inject.controller(),
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
-  otherUsersList: Ember.computed('model.[]', 'currentDukeDsUser', function () {
+  validUsersList: Ember.computed('model.[]', function () {
+    // remove users with invalid fullName values
+    return this.get('model')
+      .rejectBy('fullName', null)
+      .rejectBy('fullName', '(null)');
+  }),
+  otherUsersList: Ember.computed('validUsersList.[]', 'currentDukeDsUser', function () {
     const currentDukeDSUser = this.get('currentDukeDsUser');
     if (currentDukeDSUser) {
-      return this.get('model').rejectBy('id', currentDukeDSUser.get('id'));
+      return this.get('validUsersList').rejectBy('id', currentDukeDSUser.get('id'));
     } else {
-      return this.get('model');
+      return this.get('validUsersList');
     }
   }),
   toUser: null,

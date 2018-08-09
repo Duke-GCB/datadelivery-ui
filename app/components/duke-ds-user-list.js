@@ -12,8 +12,14 @@ const DukeDSUserList = Ember.Component.extend({
       mayBeHidden: false,
       className: "select-row-checkbox-column",
     },
-    { propertyName: "fullName", title: "Name", className: "duke-ds-user-fullName"},
-    { propertyName: "email", title: "Email", className: "duke-ds-user-email"}
+    { propertyName: "fullName",
+      title: "Name",
+      className: "duke-ds-user-fullName",
+      sortPrecedence: 0
+    },
+    { propertyName: "email",
+      title: "Email",
+      className: "duke-ds-user-email"}
   ],
   actions: {
     displayDataChanged: function (e) {
