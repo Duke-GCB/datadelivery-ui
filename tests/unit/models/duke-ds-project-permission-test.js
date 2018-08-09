@@ -4,6 +4,7 @@ moduleForModel('duke-ds-project-permission', 'Unit | Model | duke ds project per
   // Specify the other units that are required for this test.
   needs: [
     'model:duke-ds-project',
+    'model:duke-ds-user',
   ]
 });
 
