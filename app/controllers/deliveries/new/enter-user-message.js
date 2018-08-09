@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  queryParams: ['projectId', 'toUserId', 'shareUserIds'],
+  queryParams: ['projectId', 'toUserId'],
   projectId: null,
   toUserId: null,
   userMessage: null,
