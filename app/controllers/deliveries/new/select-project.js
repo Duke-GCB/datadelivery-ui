@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const PROJECT_ADMIN_AUTH_ROLE = 'project_admin';
+
 export default Ember.Controller.extend({
   project: null,
   application: Ember.inject.controller(),
@@ -24,7 +26,7 @@ export default Ember.Controller.extend({
     }
   }),
   currentUserCanDeliver: Ember.computed('currentUserProjectAuthRole', function () {
-    return this.get('currentUserProjectAuthRole') == 'project_admin';
+    return this.get('currentUserProjectAuthRole') == PROJECT_ADMIN_AUTH_ROLE;
   }),
   disableNext: Ember.computed.not('currentUserCanDeliver'),
   showUserMissingPrivilegesError: Ember.computed('project.id', 'currentUserProjectAuthRole', function () {
@@ -35,9 +37,8 @@ export default Ember.Controller.extend({
     if (!authRole) {
       return false; //do not show error while we are fetching users auth role for this project
     }
-    return authRole != 'project_admin';
+    return authRole != PROJECT_ADMIN_AUTH_ROLE;
   }),
-  showMissingPrivilegesError: false,
   actions: {
     projectSelectionChanged(actionData) {
       var selectedItem = null;
@@ -45,7 +46,6 @@ export default Ember.Controller.extend({
         selectedItem = actionData.selectedItems[0];
       }
       this.set('project', selectedItem);
-      this.set('showMissingPrivilegesError', false);
     },
     back() {
       this.transitionToRoute('deliveries');
@@ -55,8 +55,6 @@ export default Ember.Controller.extend({
       if (projectId) {
         if (this.get('currentUserCanDeliver')) {
           this.transitionToRoute('deliveries.new.select-recipient', { queryParams: { projectId: projectId }})
-        } else {
-          this.set('showMissingPrivilegesError', true);
         }
       }
     }
