@@ -34,7 +34,6 @@ export default Ember.Controller.extend({
           return savedDelivery.send();
         },
         errorResponse => {
-          console.log(errorResponse.errors);
           this.set('errors', errorResponse.errors);
         }).then(sentDelivery => {
         this.transitionToRoute('deliveries.show', sentDelivery.get('transfer'));

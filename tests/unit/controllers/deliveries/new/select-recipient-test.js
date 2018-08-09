@@ -25,16 +25,13 @@ test('it handles back action', function(assert) {
 
 test('it handles next action', function(assert) {
   let toUser = Ember.Object.create({ id: '456' });
-  let shareUsers = [Ember.Object.create({ id: '789'}), Ember.Object.create({ id: '001'})];
   let controller = this.subject({
     projectId: '123',
     toUser: toUser,
-    shareUsers: shareUsers,
     transitionToRoute(routeName, data) {
       assert.equal(routeName, 'deliveries.new.enter-user-message', 'next action should transition to enter-user-message');
       assert.equal(data.queryParams.projectId, '123', 'next action should pass projectId');
       assert.equal(data.queryParams.toUserId, '456', 'next action should pass toUserId');
-      assert.equal(data.queryParams.shareUserIds, '789,001', 'next action should pass shareUserIds');
     }
   });
   controller.send('next');
@@ -82,15 +79,4 @@ test('it handles toUserSelectionChanged', function(assert) {
     ]
   });
   assert.equal(controller.get('toUser'), toUser);
-});
-
-test('it handles shareUsersSelectionChanged', function(assert) {
-  let shareUsers = [Ember.Object.create({ id: '123' })];
-  let controller = this.subject({
-    project: null,
-  });
-  controller.send('shareUsersSelectionChanged', {
-    selectedItems: shareUsers
-  });
-  assert.equal(controller.get('shareUsers'), shareUsers);
 });

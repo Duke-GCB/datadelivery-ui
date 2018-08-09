@@ -57,55 +57,23 @@ test('it looks up toUser based on query param', function(assert) {
   assert.equal(controller.get('toUser'), 'someuser');
 });
 
-test('it looks up shareUsers based on query param', function(assert) {
-  let controller = this.subject({
-    toUserId: '456',
-    shareUserIds: '789',
-    store: {
-      findRecord(modelName, modelKey) {
-        if (modelName === 'duke-ds-user' && modelKey === '789') {
-          return 'someuser';
-        }
-        return null;
-      }
-    }
-  });
-  assert.equal(controller.get('shareUsers').length, 1);
-  assert.equal(controller.get('shareUsers')[0], 'someuser');
-});
 
 test('it handles saveAndSend action', function(assert) {
-  assert.expect(10);
+  assert.expect(7);
   const project = Ember.Object.create({ id: '123' });
   const fromUser = Ember.Object.create({ id: '222' });
   const toUser = Ember.Object.create({ id: '456' });
-  const shareUser1 = Ember.Object.create({ id: '789'})
-  const shareUser2 = Ember.Object.create({ id: '001'});
   const controller = this.subject({
     project: project,
     currentDukeDsUser: fromUser,
     toUser: toUser,
-    shareUserIds: '789,001',
     userMessage: 'hey bob',
     store: {
-      findRecord(modelName, modelKey) {
-        if (modelName === 'duke-ds-user') {
-          if (modelKey === shareUser1.get('id')) {
-            return Ember.RSVP.resolve(shareUser1);
-          } else if (modelKey === shareUser2.get('id')) {
-            return Ember.RSVP.resolve(shareUser2);
-          }
-        }
-        return null;
-      },
       createRecord(modelName, payload) {
         assert.equal(modelName, 'delivery');
         assert.equal(payload.project, project);
         assert.equal(payload.fromUser, fromUser);
         assert.equal(payload.toUser, toUser);
-        assert.equal(payload.shareUsers.length, 2);
-        assert.equal(payload.shareUsers[0], shareUser1);
-        assert.equal(payload.shareUsers[1], shareUser2);
         assert.equal(payload.userMessage, 'hey bob');
         const mockDelivery = {
           get(name) {
