@@ -9,10 +9,6 @@ export default Ember.Component.extend({
     // selected route starts with deliveries.show
     return this.get('selectedRouteName').indexOf('deliveries.show') == 0;
   }),
-  isResendSelected: Ember.computed('selectedRouteName', function () {
-    return this.get('selectedRouteName') === 'deliveries.show.resend';
-  }),
-  isNewDeliverySelected: Ember.computed('selectedRouteName', function () {
-    return this.get('selectedRouteName') === 'deliveries.new';
-  }),
+  isResendSelected: Ember.computed.equal('selectedRouteName', 'deliveries.show.resend'),
+  isNewDeliverySelected: Ember.computed.equal('selectedRouteName', 'deliveries.new')
 });
