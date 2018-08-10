@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
   disableNext: Ember.computed.not('toUser'),
   actions: {
     toUserSelectionChanged(actionData) {
-      var selectedItem = null;
+      let selectedItem = null;
       if (actionData.selectedItems) {
         selectedItem = actionData.selectedItems[0];
       }

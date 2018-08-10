@@ -13,8 +13,8 @@ export default Ember.Controller.extend({
       return [];
     }
     return this.get('store').query('duke-ds-project-permission', {
-      'project': projectId,
-      'user': currentUserId,
+      project: projectId,
+      user: currentUserId,
     });
   }),
   currentUserProjectAuthRole: Ember.computed('currentUserProjectPermissions.[]', function () {
@@ -25,9 +25,7 @@ export default Ember.Controller.extend({
       return null;
     }
   }),
-  currentUserCanDeliver: Ember.computed('currentUserProjectAuthRole', function () {
-    return this.get('currentUserProjectAuthRole') == PROJECT_ADMIN_AUTH_ROLE;
-  }),
+  currentUserCanDeliver: Ember.computed.equal('currentUserProjectAuthRole', PROJECT_ADMIN_AUTH_ROLE),
   disableNext: Ember.computed.not('currentUserCanDeliver'),
   showUserMissingPrivilegesError: Ember.computed('project.id', 'currentUserProjectAuthRole', function () {
     if (this.get('project.id') == null) {
@@ -41,7 +39,7 @@ export default Ember.Controller.extend({
   }),
   actions: {
     projectSelectionChanged(actionData) {
-      var selectedItem = null;
+      let selectedItem = null;
       if (actionData.selectedItems) {
         selectedItem = actionData.selectedItems[0];
       }
