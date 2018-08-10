@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
     });
   }),
   currentUserProjectAuthRole: Ember.computed('currentUserProjectPermissions.[]', function () {
-    const authRoles = this.get('currentUserProjectPermissions').mapBy('auth_role');
+    const authRoles = this.get('currentUserProjectPermissions').mapBy('authRole');
     if (authRoles) {
       return authRoles[0];
     } else {

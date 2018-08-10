@@ -89,10 +89,10 @@ test('it computes currentUserProjectAuthRole from currentUserProjectPermissions 
   let controller = this.subject({
     currentUserProjectPermissions: []
   });
-  assert.equal(controller.get('currentUserProjectAuthRole'), null)
+  assert.equal(controller.get('currentUserProjectAuthRole'), null);
   controller.set('currentUserProjectPermissions', [
-    {'auth_role': 'project_admin'}
-  ])
+    {authRole: 'project_admin'}
+  ]);
   assert.equal(controller.get('currentUserProjectAuthRole'), 'project_admin')
 });
 
@@ -100,10 +100,10 @@ test('it computes currentUserProjectAuthRole from currentUserProjectPermissions 
   let controller = this.subject({
     currentUserProjectPermissions: []
   });
-  assert.equal(controller.get('currentUserProjectAuthRole'), null)
+  assert.equal(controller.get('currentUserProjectAuthRole'), null);
   controller.set('currentUserProjectPermissions', [
-    {'auth_role': 'project_admin'}
-  ])
+    {authRole: 'project_admin'}
+  ]);
   assert.equal(controller.get('currentUserProjectAuthRole'), 'project_admin')
 });
 
