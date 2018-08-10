@@ -12,7 +12,8 @@ export default Ember.Controller.extend({
     // remove users with invalid fullName values
     return this.get('model')
       .rejectBy('fullName', null)
-      .rejectBy('fullName', '(null)');
+      .rejectBy('fullName', '(null)')
+      .rejectBy('email', null);
   }),
   otherUsersList: Ember.computed('validUsersList.[]', 'currentDukeDsUser', function () {
     const currentDukeDSUser = this.get('currentDukeDsUser');
