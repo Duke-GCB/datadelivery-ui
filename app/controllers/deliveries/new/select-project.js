@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
     const projectId = this.get('project.id');
     const currentUserId = this.get('currentDukeDsUser.id');
     if (!projectId || !currentUserId) {
-      return [];
+      return Ember.A();
     }
     return this.get('store').query('duke-ds-project-permission', {
       project: projectId,
@@ -18,12 +18,9 @@ export default Ember.Controller.extend({
     });
   }),
   currentUserProjectAuthRole: Ember.computed('currentUserProjectPermissions.[]', function () {
-    const authRoles = this.get('currentUserProjectPermissions').mapBy('authRole');
-    if (authRoles) {
-      return authRoles[0];
-    } else {
-      return null;
-    }
+    return this.get('currentUserProjectPermissions')
+      .mapBy('authRole')
+      .get('firstObject');
   }),
   currentUserCanDeliver: Ember.computed.equal('currentUserProjectAuthRole', PROJECT_ADMIN_AUTH_ROLE),
   disableNext: Ember.computed.not('currentUserCanDeliver'),
@@ -39,11 +36,7 @@ export default Ember.Controller.extend({
   }),
   actions: {
     projectSelectionChanged(actionData) {
-      let selectedItem = null;
-      if (actionData.selectedItems) {
-        selectedItem = actionData.selectedItems[0];
-      }
-      this.set('project', selectedItem);
+      this.set('project', actionData.selectedItems.get('firstObject'));
     },
     back() {
       this.transitionToRoute('deliveries');

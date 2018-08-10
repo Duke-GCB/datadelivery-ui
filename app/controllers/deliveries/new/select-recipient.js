@@ -27,11 +27,7 @@ export default Ember.Controller.extend({
   disableNext: Ember.computed.not('toUser'),
   actions: {
     toUserSelectionChanged(actionData) {
-      let selectedItem = null;
-      if (actionData.selectedItems) {
-        selectedItem = actionData.selectedItems[0];
-      }
-      this.set('toUser', selectedItem);
+      this.set('toUser', actionData.selectedItems.get('firstObject'));
     },
     back() {
       this.transitionToRoute('deliveries.new.select-project');
