@@ -1,10 +1,13 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 export default Ember.Controller.extend({
   queryParams: ['projectId'],
   projectId: null,
   project: Ember.computed('projectId', function () {
-    return this.get('store').findRecord('duke-ds-project', this.get('projectId'));
+    return DS.PromiseObject.create({
+      promise: this.get('store').findRecord('duke-ds-project', this.get('projectId'))
+    })
   }),
   application: Ember.inject.controller(),
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),

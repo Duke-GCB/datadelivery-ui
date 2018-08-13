@@ -61,53 +61,26 @@ test('it handles projectSelectionChanged', function(assert) {
   assert.equal(controller.get('project'), project);
 });
 
-test('it computes currentUserProjectPermissions from duke-ds-project-permission', function(assert) {
-  assert.expect(5);
+test('it computes currentUserProjectPermission from duke-ds-project-permission', function(assert) {
   let project = Ember.Object.create({ id: '123' });
   let currentDukeDsUser = Ember.Object.create({id: '456'});
+  const permission = Ember.Object.create({id: '789'});
   let controller = this.subject({
     project: null,
     currentDukeDsUser: null,
     store: {
-      query: function (modelName, params) {
-        assert.equal(modelName, 'duke-ds-project-permission');
-        assert.equal(params.project, '123');
-        assert.equal(params.user, '456');
-        return [
-          'permissiondata'
-        ]
+      query: function () {
+        return Ember.RSVP.resolve(Ember.A([permission]));
       }
     }
   });
-  assert.deepEqual(controller.get('currentUserProjectPermissions'), []);
+  assert.equal(controller.get('currentUserProjectPermission.authRole'), null);
   controller.set('project', project);
   controller.set('currentDukeDsUser', currentDukeDsUser);
-  assert.deepEqual(controller.get('currentUserProjectPermissions'), ['permissiondata']);
+  controller.get('currentUserProjectPermission').then(permission => assert.equal(permission.id, '789'));
 });
 
-test('it computes currentUserProjectAuthRole from currentUserProjectPermissions array', function(assert) {
-  let controller = this.subject({
-    currentUserProjectPermissions: []
-  });
-  assert.equal(controller.get('currentUserProjectAuthRole'), null);
-  controller.set('currentUserProjectPermissions', [
-    {authRole: 'project_admin'}
-  ]);
-  assert.equal(controller.get('currentUserProjectAuthRole'), 'project_admin')
-});
-
-test('it computes currentUserProjectAuthRole from currentUserProjectPermissions array', function(assert) {
-  let controller = this.subject({
-    currentUserProjectPermissions: []
-  });
-  assert.equal(controller.get('currentUserProjectAuthRole'), null);
-  controller.set('currentUserProjectPermissions', [
-    {authRole: 'project_admin'}
-  ]);
-  assert.equal(controller.get('currentUserProjectAuthRole'), 'project_admin')
-});
-
-test('it computes showUserMissingPrivilegesError from project and currentUserProjectAuthRole', function(assert) {
+test('it computes showUserMissingPrivilegesError from project and currentUserProjectPermission', function(assert) {
   let project = Ember.Object.create({ id: '123' });
   let controller = this.subject({
     project: null
@@ -119,11 +92,11 @@ test('it computes showUserMissingPrivilegesError from project and currentUserPro
   assert.equal(controller.get('showUserMissingPrivilegesError'), false,
     'hide error when currentUserProjectAuthRole is empty');
 
-  controller.set('currentUserProjectAuthRole', 'downloader');
+  controller.set('currentUserProjectPermission', Ember.Object.create({ authRole: 'downloader'}));
   assert.equal(controller.get('showUserMissingPrivilegesError'), true,
     'show error when currentUserProjectAuthRole is not project admin');
 
-  controller.set('currentUserProjectAuthRole', 'project_admin');
+  controller.set('currentUserProjectPermission', Ember.Object.create({ authRole: 'project_admin'}));
   assert.equal(controller.get('showUserMissingPrivilegesError'), false,
     'hide error when currentUserProjectAuthRole is project admin');
 });

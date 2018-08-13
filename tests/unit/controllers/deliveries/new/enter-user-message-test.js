@@ -26,35 +26,37 @@ test('it handles back action', function(assert) {
 });
 
 test('it looks up project based on query param', function(assert) {
+  assert.expect(2);
   let controller = this.subject({
     projectId: '123',
     store: {
       findRecord(modelName, modelKey) {
         if (modelName === 'duke-ds-project') {
           assert.equal(modelKey, '123');
-          return 'someproject';
+          return Ember.RSVP.resolve('someproject');
         }
         return null;
       }
     }
   });
-  assert.equal(controller.get('project'), 'someproject');
+  controller.get('project').then(project => assert.equal(project, 'someproject'));
 });
 
 test('it looks up toUser based on query param', function(assert) {
+  assert.expect(2);
   let controller = this.subject({
     toUserId: '456',
     store: {
       findRecord(modelName, modelKey) {
         if (modelName === 'duke-ds-user') {
           assert.equal(modelKey, '456');
-          return 'someuser';
+          return Ember.RSVP.resolve('someuser');
         }
         return null;
       }
     }
   });
-  assert.equal(controller.get('toUser'), 'someuser');
+  controller.get('toUser').then(toUser => assert.equal(toUser, 'someuser'));
 });
 
 

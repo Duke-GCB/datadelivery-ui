@@ -38,17 +38,18 @@ test('it handles next action', function(assert) {
 });
 
 test('it looks up project based on query param', function(assert) {
+  assert.expect(3);
   let controller = this.subject({
     projectId: '123',
     store: {
       findRecord(modelName, modelKey) {
         assert.equal(modelName, 'duke-ds-project');
         assert.equal(modelKey, '123');
-        return 'someproject';
+        return Ember.RSVP.resolve('someproject');
       }
     }
   });
-  assert.equal(controller.get('project'), 'someproject');
+  controller.get('project').then(project => assert.equal(project, 'someproject'));
 });
 
 test('it computes a list of users outside of the currentDukeDSUser', function(assert) {

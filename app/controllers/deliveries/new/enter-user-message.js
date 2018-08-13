@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 export default Ember.Controller.extend({
   queryParams: ['projectId', 'toUserId'],
@@ -8,11 +9,15 @@ export default Ember.Controller.extend({
   application: Ember.inject.controller(),
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
   project: Ember.computed('projectId', function () {
-    return this.get('store').findRecord('duke-ds-project', this.get('projectId'));
+    return DS.PromiseObject.create({
+      promise: this.get('store').findRecord('duke-ds-project', this.get('projectId'))
+    });
   }),
   fromUser: Ember.computed.alias('currentDukeDsUser'),
   toUser: Ember.computed('toUserId', function () {
-    return this.get('store').findRecord('duke-ds-user', this.get('toUserId'));
+    return DS.PromiseObject.create({
+      promise: this.get('store').findRecord('duke-ds-user', this.get('toUserId'))
+    });
   }),
   errors: null,
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
