@@ -4,7 +4,7 @@ export default ApplicationAdapter.extend({
   urlForQuery(query) {
     /*
     Project permissions are a nested route under the duke-ds-project route.
-    There is not top level route to GET an individual permission.
+    There is no top level route to GET an individual permission.
     This means querying permissions requires a project id parameter that will be used the build the base url.
     */
     const projectId = query.project;
