@@ -9,7 +9,7 @@ export default DS.Model.extend({
   project: DS.belongsTo('DukeDsProject'),
   fromUser: DS.belongsTo('DukeDsUser'),
   toUser: DS.belongsTo('DukeDsUser'),
-  state: DS.attr('string'),
+  state: DS.attr('string', { defaultValue() { return STATE_NEW }}),
   transfer: DS.belongsTo('DukeDsProjectTransfer'),
   userMessage: DS.attr('string'),
   shareUsers: DS.hasMany('DukeDsUser'),

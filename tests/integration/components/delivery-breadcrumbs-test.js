@@ -39,3 +39,11 @@ test('it renders with delivery.resend selected', function(assert) {
   assert.equal(this.$('a').length, 2, 'There are two links to parent routes.');
   assert.equal(this.$('li').eq(2).text().trim(), 'resend', 'show resend as text');
 });
+
+test('it renders with delivery.new selected', function(assert) {
+  this.render(hbs`{{delivery-breadcrumbs selectedRouteName="deliveries.new"}}`);
+  assert.equal(this.$('li').eq(0).text().trim(), 'Data Delivery');
+  assert.equal(this.$('li').eq(1).text().trim(), 'New');
+  assert.equal(this.$('a').length, 1, 'there is one anchor');
+  assert.equal(this.$('a').text().trim(), 'Data Delivery', 'Data Delivery is a link');
+});

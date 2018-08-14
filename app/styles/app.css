@@ -1,3 +1,7 @@
 .small-left-margin {
   margin-left: 1em;
 }
+
+.select-row-checkbox-column {
+  width: 2em;
+}

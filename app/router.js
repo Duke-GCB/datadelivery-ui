@@ -12,6 +12,11 @@ Router.map(function() {
     this.route('show', { path: '/:transfer_id'}, function () {
       this.route('resend', {});
     });
+    this.route('new', function() {
+      this.route('select-project');
+      this.route('select-recipient');
+      this.route('enter-user-message');
+    });
   });
   this.route('get-token');
 });
