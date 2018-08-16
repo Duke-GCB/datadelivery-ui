@@ -2,6 +2,9 @@ import ApplicationAdapter from './application';
 
 export default ApplicationAdapter.extend({
   getUserProjectAuthRole(projectId, userId) {
+    // Returns a promise that will return the auth_role for the specified user/project or null.
+    // A list of permissions is fetched from the duke-ds-project/<projectId>/permissions/ endpoint with
+    // filtering for userId. This should always return an array of one item.
     const dukeDsProjectUrl = this.buildURL('duke-ds-project', projectId);
     const url = `${dukeDsProjectUrl}permissions/?user=${userId}`;
     return this.ajax(url).then(response => {
