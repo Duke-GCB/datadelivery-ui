@@ -6,7 +6,7 @@ export default ApplicationAdapter.extend({
     const url = `${dukeDsProjectUrl}permissions/?user=${userId}`;
     return this.ajax(url).then(response => {
       const permissions = response['duke-ds-project-permissions'];
-      if (permissions) {
+      if (permissions.length) {
         return permissions[0]['auth_role'];
       }
       return  null;
