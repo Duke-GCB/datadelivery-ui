@@ -20,6 +20,17 @@ export default DS.Model.extend({
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
   },
+  preview() {
+    let adapter = this.store.adapterFor(this.constructor.modelName);
+    let details = {
+      from_user_id: this.get('fromUser.id'),
+      to_user_id: this.get('toUser.id'),
+      project_id: this.get('transfer.project.id'),
+      transfer_id: this.get('transfer.id'),
+      user_message: this.get('userMessage')
+    };
+    return adapter.preview(details);
+  },
   updateAfterAction(data) {
     // The action methods respond with an updated delivery, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.

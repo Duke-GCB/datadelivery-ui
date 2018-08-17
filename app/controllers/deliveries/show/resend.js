@@ -4,6 +4,7 @@ import CanResendController from './can-resend-controller';
 export default CanResendController.extend({
   errors: [],
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
+  emailMessage: null,
   actions: {
     resend() {
       const thisController = this;
@@ -31,6 +32,16 @@ export default CanResendController.extend({
             errors: [{detail:'Delivery not found.'}]
           });
         }
+      });
+    },
+    preview() {
+      const delivery = this.get('model.delivery');
+      delivery.then(delivery => {
+        Ember.Logger.log(`delivery ${delivery}`);
+        return delivery.preview();
+      }).then(preview => {
+        Ember.Logger.log(`preview ${JSON.stringify(preview)}`);
+        this.set('emailMessage', preview.delivery_email_text);
       });
     }
   }
