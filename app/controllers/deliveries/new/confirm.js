@@ -11,8 +11,13 @@ export default Ember.Controller.extend({
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
   fromUser: Ember.computed.alias('currentDukeDsUser'),
 
-  currentDukeDsUserChanged: Ember.on('init', Ember.observer('fromUser', function() {
-    if(!Ember.isEmpty(this.get('fromUser'))) {
+  valuesPopulated: Ember.on('init', Ember.observer('fromUser', 'projectId', 'toUserId', 'userMessage', function() {
+    // Don't generate preview until all values are set.
+    // This is ugly
+    const values = [this.get('fromUser'), this.get('projectId'), this.get('toUserId'), this.get('userMessage')];
+    if(values.compact().get('length') < 4) {
+      return;
+    } else {
       this.generatePreview();
     }
   })
@@ -37,24 +42,34 @@ export default Ember.Controller.extend({
   },
 
   actions: {
+    back() {
+      const projectId = this.get('projectId');
+      const toUserId = this.get('toUserId');
+      this.transitionToRoute('deliveries.new.enter-user-message', { queryParams: {
+        projectId: projectId,
+        toUserId: toUserId
+      }});
+    },
     saveAndSend() {
-      return;
-      const delivery = this.get('store').createRecord('delivery', {
-        project: this.get('project'),
-        fromUser: this.get('fromUser'),
-        toUser: this.get('toUser'),
-        userMessage: this.get('userMessage')
-      });
-      return delivery.save().then(
-        savedDelivery => {
-          return savedDelivery.send();
-        },
-        errorResponse => {
-          this.setProperties({
-            errors: errorResponse.errors,
-            disableNext: false
-          });
-        }).then(sentDelivery => {
+      // We have a lot of promises to resolve here.
+      const store = this.get('store');
+      const project = this.get('store').findRecord('duke-ds-project', this.get('projectId'));
+      const fromUser = this.get('fromUser');
+      const toUser = store.findRecord('duke-ds-user', this.get('toUserId'));
+      const userMessage = this.get('userMessage');
+
+      Ember.RSVP.all([project, toUser]).then((resolved) => {
+        const delivery = this.get('store').createRecord('delivery', {
+          project: resolved[0],
+          toUser: resolved[1],
+          fromUser: fromUser,
+          userMessage: userMessage
+        });
+        return delivery.save();
+      }).then(
+        savedDelivery => { return savedDelivery.send(); },
+          errorResponse => { this.setProperties({ errors: errorResponse.errors, disableNext: false });
+      }).then(sentDelivery => {
         this.transitionToRoute('deliveries.show', sentDelivery.get('transfer'));
       });
     }

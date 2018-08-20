@@ -37,7 +37,7 @@ export default Ember.Controller.extend({
         toUserId: this.get('toUserId'),
         userMessage: this.get('userMessage')
       };
-      this.transitionToRoute('deliveries.new.confirm', { queryParams: params});
+      this.transitionToRoute('deliveries.new.confirm', { queryParams: params });
     },
   },
 });

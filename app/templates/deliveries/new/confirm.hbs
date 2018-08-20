@@ -1,3 +1,19 @@
-{{#if emailMessage }}
+{{delivery-breadcrumbs selectedRouteName="deliveries.confirm"}}
+<h1>New Delivery</h1>
+<h4>
+  Please confirm the delivery of <b>{{project.name}}</b> below.
+</h4>
+<p class="body">
+  The selected user will receive the following email to accept or decline the delivery.
+  Upon acceptance, the recipient will be the owner of the data set, and you will retain read-only access.
+</p>
+
+{{#if emailMessage}}
   {{delivery-email emailMessage}}
+{{else}}
+  <div class="well well-sm">{{#loading-indicator}}Generating Preview{{/loading-indicator}}</div>
 {{/if}}
+
+{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+{{#bs-button type="primary" disabled=disableNext onClick=(action 'saveAndSend') class="pull-right next-button"}}Send Delivery{{/bs-button}}
+
