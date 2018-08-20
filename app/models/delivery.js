@@ -20,7 +20,7 @@ export default DS.Model.extend({
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
   },
-  preview() {
+  preview(props) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     let details = {
       from_user_id: this.get('fromUser.id'),
@@ -29,6 +29,10 @@ export default DS.Model.extend({
       transfer_id: this.get('transfer.id'),
       user_message: this.get('userMessage')
     };
+    for(let prop in props) {
+      details[prop] = props[prop];
+    }
+
     return adapter.preview(details);
   },
   updateAfterAction(data) {
