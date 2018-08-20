@@ -16,6 +16,7 @@ Router.map(function() {
       this.route('select-project');
       this.route('select-recipient');
       this.route('enter-user-message');
+      this.route('confirm');
     });
   });
   this.route('get-token');
