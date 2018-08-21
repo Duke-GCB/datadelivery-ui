@@ -13,7 +13,9 @@ export default Ember.Controller.extend({
 
   valuesPopulated: Ember.on('init', Ember.observer('fromUser', 'projectId', 'toUserId', 'userMessage', function() {
     // Don't generate preview until all values are set.
-    // This is ugly
+    // This is ugly because it has to deal with multiple variants of properties that aren't all set at the same time:
+    // query parameters that are set by the router and a current user that is set by the application controller
+    // And on top of that, the saveAndSend method resolves promises for these.
     const values = [this.get('fromUser'), this.get('projectId'), this.get('toUserId'), this.get('userMessage')];
     if(values.compact().get('length') < 4) {
       return;
