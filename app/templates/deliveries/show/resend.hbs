@@ -22,16 +22,9 @@
   {{#if canResend}}
     <div class="panel-footer">
       <button class="btn btn-primary" onclick={{action 'resend'}}>Send Email</button>
-      <button class="btn btn-danger" onclick={{action 'preview'}}>Preview Email</button>
     </div>
   {{/if}}
 </div>
-
-{{#if emailMessage}}
-<div>
-  <pre>{{ emailMessage }}</pre>
-</div>
-{{/if}}
 
 {{error-message-alert errorMessages}}
 
