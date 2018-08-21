@@ -62,7 +62,17 @@ test('it handles saveAndSend action', function(assert) {
 });
 
 test('it handles back action', function(assert) {
-  assert.ok(false, 'Not yet implemented');
+  assert.expect(3);
+  const controller = this.subject({
+    projectId: '123',
+    toUserId: '456',
+    transitionToRoute(routeName, data) {
+      assert.equal(routeName, 'deliveries.new.enter-user-message');
+      assert.equal(data.queryParams.projectId, '123');
+      assert.equal(data.queryParams.toUserId, '456');
+    }
+  });
+  controller.send('back');
 });
 
 test('it generates a preview when all required properties set', function(assert) {
