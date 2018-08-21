@@ -76,7 +76,7 @@ test('delivery.preview() calls adapter.preview() with properties from delivery',
     const model = this.subject();
     model.setProperties({
       fromUser: fromUser,
-      toUser, toUser,
+      toUser: toUser,
       transfer: transfer,
       userMessage: userMessage
     });
@@ -115,7 +115,7 @@ test('Parameters to delivery.preview() override model properties in call to adap
     const model = this.subject();
     model.setProperties({
       fromUser: fromUser,
-      toUser, toUser,
+      toUser: toUser,
       transfer: transfer,
       userMessage: originalUserMessage,
     });
