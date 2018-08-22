@@ -14,6 +14,8 @@
   <div class="well well-sm">{{#loading-indicator}}Generating Preview{{/loading-indicator}}</div>
 {{/if}}
 
+{{error-message-alert errorMessages}}
+
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
 {{#bs-button type="primary" disabled=disableNext onClick=(action 'saveAndSend') class="pull-right next-button"}}Send Delivery{{/bs-button}}
 

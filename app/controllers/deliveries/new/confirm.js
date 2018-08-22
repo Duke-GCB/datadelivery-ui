@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   toUserId: null,
   userMessage: null,
   emailMessage: null,
+  disableNext: false,
   errors: null,
   application: Ember.inject.controller(),
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
@@ -53,6 +54,10 @@ export default Ember.Controller.extend({
       }});
     },
     saveAndSend() {
+      this.setProperties({
+        disableNext: true,
+        errors: null,
+      });
       // We have a lot of promises to resolve here.
       const store = this.get('store');
       const project = this.get('store').findRecord('duke-ds-project', this.get('projectId'));

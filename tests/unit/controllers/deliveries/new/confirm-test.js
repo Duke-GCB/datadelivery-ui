@@ -5,7 +5,6 @@ moduleFor('controller:deliveries/new/confirm', 'Unit | Controller | deliveries/n
   needs: ['controller:application', 'service:duke-ds-user', 'service:session']
 });
 
-// Replace this with your real tests.
 test('it exists', function(assert) {
   let controller = this.subject();
   assert.ok(controller);
@@ -18,7 +17,7 @@ test('it handles saveAndSend action', function(assert) {
   const toUser = Ember.Object.create({ id: '456' });
   const controller = this.subject({
     generatePreview() {
-      // Block other calls to createRecord
+      // stub to avoid side effects
     },
     projectId: '123',
     toUserId: '456',
@@ -59,6 +58,37 @@ test('it handles saveAndSend action', function(assert) {
   Ember.run(() => {
     controller.send('saveAndSend');
   });
+});
+
+test('it disables next and clears errors on saveAndSend action', function (assert) {
+  assert.expect(5);
+  const mockDelivery = Ember.Object.create({
+    save() {
+      return Ember.RSVP.resolve(this);
+    },
+    send() {
+      return Ember.RSVP.resolve(this);
+
+    }
+  });
+  const controller = this.subject({
+    errors: ['failure'],
+    generatePreview() {
+      // stub to avoid side effects
+    },
+    store: {
+      findRecord() { return Ember.RSVP.resolve(Ember.Object.create({})); },
+      createRecord() { return mockDelivery; }
+    },
+    transitionToRoute(routeName) {
+      assert.equal(routeName, 'deliveries.show');
+    }
+  });
+  assert.notOk(controller.get('disableNext'), 'disableNext should initially be false');
+  assert.equal(controller.get('errors.length'), 1, 'Errors should initially have one element');
+  controller.send('saveAndSend');
+  assert.ok(controller.get('disableNext'), 'disableNext should be true');
+  assert.notOk(controller.get('errors.length'), 'errors should be cleared');
 });
 
 test('it handles back action', function(assert) {

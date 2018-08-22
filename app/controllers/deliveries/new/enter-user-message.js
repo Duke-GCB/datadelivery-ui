@@ -21,17 +21,13 @@ export default Ember.Controller.extend({
   }),
   errors: null,
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
-  disableNext: false,
   actions: {
     back() {
       const projectId = this.get('projectId');
       this.transitionToRoute('deliveries.new.select-recipient', { queryParams: { projectId: projectId }});
     },
     next() {
-      this.setProperties({
-        disableNext: true,
-        errorMessage: null
-      });
+      this.set('errors', null);
       const params = {
         projectId: this.get('projectId'),
         toUserId: this.get('toUserId'),
