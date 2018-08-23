@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   emailMessage: null,
   disableNext: false,
   errors: null,
+  errorMessages: Ember.computed.mapBy('errors', 'detail'),
   application: Ember.inject.controller(),
   currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
   fromUser: Ember.computed.alias('currentDukeDsUser'),
