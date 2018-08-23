@@ -155,7 +155,7 @@ test('it handles errors from delivery.save and does not try to send', function(a
       return Ember.RSVP.reject(errorResponse);
     },
     send() {
-      assert.fail();
+      assert.ok(false, 'send should not be called');
     }
   });
   const controller = this.subject({
@@ -201,7 +201,7 @@ test('it handles errors from delivery.send after save, and does not redirect', f
       createRecord() { return mockDelivery; }
     },
     transitionToRoute() {
-      assert.fail();
+      assert.ok(false, 'transitionToRoute should not be called');
     }
   });
   Ember.run(() => {
