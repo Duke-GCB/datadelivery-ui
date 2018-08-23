@@ -21,35 +21,19 @@ export default Ember.Controller.extend({
   }),
   errors: null,
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
-  disableNext: false,
   actions: {
     back() {
       const projectId = this.get('projectId');
       this.transitionToRoute('deliveries.new.select-recipient', { queryParams: { projectId: projectId }});
     },
-    saveAndSend() {
-      this.setProperties({
-        disableNext: true,
-        errorMessage: null
-      });
-      const delivery = this.get('store').createRecord('delivery', {
-        project: this.get('project'),
-        fromUser: this.get('fromUser'),
-        toUser: this.get('toUser'),
+    next() {
+      this.set('errors', null);
+      const params = {
+        projectId: this.get('projectId'),
+        toUserId: this.get('toUserId'),
         userMessage: this.get('userMessage')
-      });
-      return delivery.save().then(
-        savedDelivery => {
-          return savedDelivery.send();
-        },
-        errorResponse => {
-          this.setProperties({
-            errors: errorResponse.errors,
-            disableNext: false
-          });
-        }).then(sentDelivery => {
-        this.transitionToRoute('deliveries.show', sentDelivery.get('transfer'));
-      });
-    }
+      };
+      this.transitionToRoute('deliveries.new.confirm', { queryParams: params });
+    },
   },
 });

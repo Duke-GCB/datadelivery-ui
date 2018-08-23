@@ -1,13 +1,23 @@
 import ApplicationAdapter from './application';
 
 export default ApplicationAdapter.extend({
+
   send(id, force) {
-    var url = this.urlForDeliveryAction(id, 'send');
+    let url = this.urlForDeliveryAction(id, 'send');
     if (force) {
       url += '?force=' + force;
     }
     return this.ajax(url, 'POST');
   },
+
+  preview(details) {
+    const modelName = 'delivery-preview';
+    const url = `${this.buildURL(modelName)}`;
+    let payload = {};
+    payload[modelName] = details;
+    return this.ajax(url, 'POST', {data: payload}).then(response => { return response[modelName]; });
+  },
+
   urlForDeliveryAction(id, action) {
     return `${this.buildURL('delivery', id)}${action}/`;
   }

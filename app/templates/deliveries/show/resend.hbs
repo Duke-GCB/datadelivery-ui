@@ -19,14 +19,11 @@
       {{/detail-label-value}}
     {{/delivery-detail}}
   </div>
-  {{#if canResend}}
-    <div class="panel-footer">
-      <button class="btn btn-primary" onclick={{action 'resend'}}>Send Email</button>
-    </div>
-  {{/if}}
 </div>
 
 {{error-message-alert errorMessages}}
 
-{{outlet}}
-
+{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+{{#if canResend}}
+  {{#bs-button type="primary" disabled=disableNext onClick=(action 'resend') class="pull-right next-button"}}Preview Email{{/bs-button}}
+{{/if}}
