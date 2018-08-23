@@ -1,4 +1,11 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.show" transfer=model}}
+
+{{#if infoMessage}}
+  {{#bs-alert type="success"}}
+    {{infoMessage}}
+  {{/bs-alert}}
+{{/if}}
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Project: {{model.project.name}} </h3>
@@ -7,11 +14,6 @@
     {{delivery-detail model}}
   </div>
 </div>
-{{#if infoMessage}}
-  {{#bs-alert type="success"}}
-    {{infoMessage}}
-  {{/bs-alert}}
-{{/if}}
 
 {{#if canResend}}
   {{#link-to "deliveries.show.resend" model class="btn btn-primary pull-right"}}Resend{{/link-to}}

@@ -2,8 +2,6 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('route:deliveries/show/resend-confirm', 'Unit | Route | deliveries/show/resend confirm', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
 });
 
 test('it exists', function(assert) {
