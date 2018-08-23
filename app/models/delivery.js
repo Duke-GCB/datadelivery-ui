@@ -29,10 +29,7 @@ export default DS.Model.extend({
       transfer_id: this.get('transfer.id'),
       user_message: this.get('userMessage')
     };
-    for(let prop in props) {
-      details[prop] = props[prop];
-    }
-
+    Ember.assign(details, props);
     return adapter.preview(details);
   },
   updateAfterAction(data) {
