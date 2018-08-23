@@ -6,15 +6,13 @@
   <div class="panel-body">
     {{delivery-detail model}}
   </div>
-  {{#if canResend}}
-    <div class="panel-footer">
-      {{#link-to "deliveries.show.resend" model class="btn btn-primary"}}Resend{{/link-to}}
-    </div>
-  {{/if}}
 </div>
 {{#if infoMessage}}
   {{#bs-alert type="success"}}
     {{infoMessage}}
   {{/bs-alert}}
 {{/if}}
-{{outlet}}
+
+{{#if canResend}}
+  {{#link-to "deliveries.show.resend" model class="btn btn-primary pull-right"}}Resend{{/link-to}}
+{{/if}}

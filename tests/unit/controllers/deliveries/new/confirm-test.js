@@ -11,7 +11,7 @@ test('it exists', function(assert) {
 });
 
 test('it handles saveAndSend action', function(assert) {
-  assert.expect(7);
+  assert.expect(8);
   const project = Ember.Object.create({ id: '123' });
   const fromUser = Ember.Object.create({ id: '222' });
   const toUser = Ember.Object.create({ id: '456' });
@@ -37,6 +37,8 @@ test('it handles saveAndSend action', function(assert) {
           get(name) {
             if (name === 'transfer') {
               return 'sometransferid';
+            } else if(name === 'project.name') {
+              return 'someprojectname';
             }
             return null;
           }
@@ -50,9 +52,10 @@ test('it handles saveAndSend action', function(assert) {
         return mockDelivery;
       }
     },
-    transitionToRoute(routeName, data) {
+    transitionToRoute(routeName, data, params) {
       assert.equal(routeName, 'deliveries.show', 'next action should transition to show new delivery');
       assert.equal(data, 'sometransferid', 'next action should pass project_id');
+      assert.equal(params.queryParams.infoMessage, 'Sent delivery notification for project someprojectname.');
     }
   });
   Ember.run(() => {

@@ -77,7 +77,14 @@ export default Ember.Controller.extend({
         savedDelivery => { return savedDelivery.send(); },
           errorResponse => { this.setProperties({ errors: errorResponse.errors, disableNext: false });
       }).then(sentDelivery => {
-        this.transitionToRoute('deliveries.show', sentDelivery.get('transfer'));
+        const projectName = sentDelivery.get('project.name');
+        const deliveryMessage = `Sent delivery notification for project ${projectName}.`;
+        const transfer = sentDelivery.get('transfer');
+        this.transitionToRoute('deliveries.show', transfer, {
+          queryParams: {
+            infoMessage: deliveryMessage
+          }
+        });
       });
     }
   }
