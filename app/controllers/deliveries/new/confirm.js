@@ -65,7 +65,11 @@ export default Ember.Controller.extend({
       const toUser = store.findRecord('duke-ds-user', this.get('toUserId'));
       const userMessage = this.get('userMessage');
 
-      Ember.RSVP.all([project, toUser]).then((resolved) => {
+      const handleError = (errorResponse) => {
+        this.set('errors', errorResponse.errors);
+      };
+
+      const handleModelResolves = (resolved) => {
         const delivery = this.get('store').createRecord('delivery', {
           project: resolved[0],
           toUser: resolved[1],
@@ -73,10 +77,13 @@ export default Ember.Controller.extend({
           userMessage: userMessage
         });
         return delivery.save();
-      }).then(
-        savedDelivery => { return savedDelivery.send(); },
-          errorResponse => { this.setProperties({ errors: errorResponse.errors, disableNext: false });
-      }).then(sentDelivery => {
+      };
+
+      const handleSave = (savedDelivery) => {
+        return savedDelivery.send();
+      };
+
+      const handleSend = (sentDelivery) => {
         const projectName = sentDelivery.get('project.name');
         const deliveryMessage = `Sent delivery notification for project ${projectName}.`;
         const transfer = sentDelivery.get('transfer');
@@ -85,7 +92,13 @@ export default Ember.Controller.extend({
             infoMessage: deliveryMessage
           }
         });
-      });
+      };
+
+      Ember.RSVP.all([project, toUser])
+        .then(handleModelResolves)
+        .then(handleSave)
+        .then(handleSend)
+        .catch(handleError);
     }
   }
 });

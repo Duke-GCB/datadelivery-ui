@@ -19,7 +19,7 @@ test('it transitions to deliveries.show after resend', function(assert) {
     },
     delivery: Ember.RSVP.resolve(delivery)
   });
-
+  delivery.set('transfer', transfer);
   delivery.save = function () {
     return Ember.RSVP.resolve(delivery);
   };

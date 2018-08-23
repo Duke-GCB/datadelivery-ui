@@ -22,32 +22,39 @@ export default CanResendController.extend({
       this.transitionToRoute('deliveries.show.resend', this.get('model'));
     },
     resend() {
-      const thisController = this;
-      function consumeError(error) {
-        thisController.set('errors', error.errors);
-      }
       const transfer = this.get('model');
       const projectName = transfer.get('project.name');
       const deliveryMessage = 'Email message resent for delivery of project ' + projectName + '.';
-      // save user message changes
-      transfer.get('delivery').then(function (delivery) {
-        if (delivery) {
-          delivery.save().then(function (delivery) {
-            // resend the delivery email
-            delivery.send(true).then(function () {
-              thisController.transitionToRoute('deliveries.show', transfer, {
-                queryParams: {
-                  infoMessage: deliveryMessage
-                }
-              });
-            }, consumeError);
-          }, consumeError);
+
+      const handleError = (errorResponse) => {
+        this.set('errors', errorResponse.errors);
+      };
+
+      const handleDelivery = (delivery) => {
+        if(Ember.isEmpty(delivery)) {
+          throw { errors: [{detail:'Delivery not found.'}] };
         } else {
-          consumeError({
-            errors: [{detail:'Delivery not found.'}]
-          });
+          return delivery.save();
         }
-      });
+      };
+
+      const handleSave = (savedDelivery) => {
+        return savedDelivery.send(true);
+      };
+
+      const handleSend = (sentDelivery) => {
+        this.transitionToRoute('deliveries.show', sentDelivery.get('transfer'), {
+          queryParams: {
+            infoMessage: deliveryMessage
+          }
+        });
+      };
+
+      transfer.get('delivery')
+        .then(handleDelivery)
+        .then(handleSave)
+        .then(handleSend)
+        .catch(handleError);
     }
   }
 });

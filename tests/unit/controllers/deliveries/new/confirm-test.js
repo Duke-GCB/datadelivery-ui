@@ -144,3 +144,70 @@ test('it generates a preview when all required properties set', function(assert)
   });
   assert.equal(controller.get('emailMessage'), 'Subject: thanks');
 });
+
+test('it handles errors from delivery.save and does not try to send', function(assert) {
+  assert.expect(2);
+  const errors = ['Save Error'];
+  const mockDelivery = Ember.Object.create({
+    save() {
+      assert.ok(true, 'save called');
+      const errorResponse = Ember.Object.create({errors: errors});
+      return Ember.RSVP.reject(errorResponse);
+    },
+    send() {
+      assert.fail();
+    }
+  });
+  const controller = this.subject({
+    generatePreview() {
+      // stub to avoid side effects
+    },
+    store: {
+      findRecord() { return Ember.RSVP.resolve(Ember.Object.create({})); },
+      createRecord() { return mockDelivery; }
+    },
+    transitionToRoute(routeName) {
+      assert.equal(routeName, 'deliveries.show');
+    }
+  });
+  Ember.run(() => {
+    controller.send('saveAndSend');
+  });
+  Ember.run(() => {
+    assert.equal(controller.get('errors.firstObject'), 'Save Error');
+  });
+});
+
+test('it handles errors from delivery.send after save, and does not redirect', function(assert) {
+  assert.expect(3);
+  const errors = ['Send Error'];
+  const mockDelivery = Ember.Object.create({
+    save() {
+      assert.ok(true, 'save called');
+      return Ember.RSVP.resolve(this);
+    },
+    send() {
+      assert.ok(true, 'send called');
+      const errorResponse = Ember.Object.create({errors: errors});
+      return Ember.RSVP.reject(errorResponse)
+    },
+  });
+  const controller = this.subject({
+    generatePreview() {
+      // stub to avoid side effects
+    },
+    store: {
+      findRecord() { return Ember.RSVP.resolve(Ember.Object.create({})); },
+      createRecord() { return mockDelivery; }
+    },
+    transitionToRoute() {
+      assert.fail();
+    }
+  });
+  Ember.run(() => {
+    controller.send('saveAndSend');
+  });
+  Ember.run(() => {
+    assert.equal(controller.get('errors.firstObject'), 'Send Error');
+  });
+});
