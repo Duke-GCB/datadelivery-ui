@@ -9,5 +9,5 @@ export default Ember.Route.extend({
     return this.get('store').query('duke-ds-project', {
       is_deleted: false
     });
-  }
+  },
 });

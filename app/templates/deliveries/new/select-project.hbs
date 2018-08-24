@@ -5,6 +5,9 @@
   This will transfer ownership of the project to another user.
   Once the recipient accepts the delivery you will retain read-only permissions.
 </p>
+
+{{error-message-alert errorMessages}}
+
 {{#bs-alert
   visible=showUserMissingPrivilegesError
   type="danger"
@@ -12,6 +15,8 @@
 }}
   You do not have admin privileges for project <strong>{{project.name}}</strong>. Please select another project.
 {{/bs-alert}}
+
+You have {{ model.length }} projects
 {{duke-ds-project-list model selectionChanged=(action 'projectSelectionChanged')}}
 
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
