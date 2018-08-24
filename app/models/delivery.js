@@ -25,8 +25,8 @@ export default DS.Model.extend({
     let details = {
       from_user_id: this.get('fromUser.id'),
       to_user_id: this.get('toUser.id'),
-      project_id: this.get('transfer.project.id'),
-      transfer_id: this.get('transfer.id'),
+      project_id: this.get('project.id'),
+      transfer_id: this.get('transfer.id') || '',
       user_message: this.get('userMessage')
     };
     Ember.assign(details, props);

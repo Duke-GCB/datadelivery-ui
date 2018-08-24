@@ -60,16 +60,23 @@ export default Ember.Controller.extend({
   // Generic back/next actions. Requires the route names to be set
   actions: {
     back() {
-      this.beforeBack().then(() => {
-        this.transitionToRoute(this.get('backRoute'));
+      this.processBack().then((result) => {
+        this.transitionToRoute(this.get('backRoute', result.get('model'), result.get('options')));
       }).catch(error => {
         this.handleError(error);
       });
     },
 
     next() {
-      this.beforeNext().then(() => {
-        this.transitionToRoute(this.get('nextRoute'));
+      this.processNext().then((result) => {
+        const route = this.get('nextRoute');
+        const model = result.get('model');
+        const options = result.get('options');
+        if(Ember.isEmpty(model) || Ember.isEmpty(options)) {
+          this.transitionToRoute(route);
+        } else {
+          this.transitionToRoute(route, model, options);
+        }
       }).catch(error => {
         this.handleError(error)
       });
@@ -87,7 +94,7 @@ export default Ember.Controller.extend({
   nextRoute: null,
 
   /* May override */
-  beforeBack() { return Ember.RSVP.resolve(); },
-  beforeNext() { return Ember.RSVP.resolve(); },
+  processBack() { return Ember.RSVP.resolve(Ember.Object.create()); },
+  processNext() { return Ember.RSVP.resolve(Ember.Object.create()); },
   disableNext: false,
 });

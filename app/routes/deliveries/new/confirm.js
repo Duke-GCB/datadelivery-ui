@@ -6,5 +6,9 @@ export default Ember.Route.extend({
       controller.set('errors', null);
       controller.set('disableNext', false);
     }
+  },
+  setupController(controller, model) {
+    this._super(controller, model);
+    controller.generatePreview();
   }
 });
