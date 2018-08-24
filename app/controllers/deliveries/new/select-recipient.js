@@ -8,7 +8,8 @@ export default BaseController.extend({
   nextRoute: 'deliveries.new.enter-user-message',
   actions: {
     toUserSelectionChanged(actionData) {
-      this.set('toUserId', actionData.selectedItems.get('firstObject.id'));
+      const toUserId = actionData.get('selectedItems.firstObject.id');
+      this.set('toUserId', toUserId);
     },
   }
 });
