@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   queryParams: [
     'projectId',
     'toUserId',
+    'userMessage'
   ],
   // This controller needs access to the new delivery object that
   // is the model in deliveries.new. Setting it in route.setupController did not happen
@@ -14,13 +15,14 @@ export default Ember.Controller.extend({
 
   newDeliveryController: Ember.inject.controller('deliveries.new'),
   delivery: Ember.computed.alias('newDeliveryController.model'),
-
+  application: Ember.inject.controller('application'),
   /* Error Handling */
   errors: null,
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
   handleError(errorResponse) { this.set('errors', errorResponse.errors)},
   clearError() { this.set('errors', null); },
-
+  // By making these ID properties computed, changing the queryParam causes a new model to be fetched
+  // and vice versa
   setDeliveryRelationship(relatedModelName, relationshipKey, relatedObjectId) {
     const delivery = this.get('delivery');
     if(Ember.isEmpty(delivery)) {
@@ -38,24 +40,23 @@ export default Ember.Controller.extend({
     }
     return relatedObjectId;
   },
-
-
-  // By making projectId computed, changing the queryParam causes a new model to be fetched
-  // and vice versa
   projectId: Ember.computed('delivery.project.id', {
     get() { return this.get('delivery.project.id'); },
     set(key, projectId) {
       return this.setDeliveryRelationship('duke-ds-project', 'project', projectId);
     }
   }),
-
   toUserId: Ember.computed('delivery.toUser.id', {
     get() { return this.get('delivery.toUser.id'); },
     set(key, toUserId) {
       return this.setDeliveryRelationship('duke-ds-user', 'toUser', toUserId);
    }
   }),
-
+  userMessage: Ember.computed.alias('delivery.userMessage'),
+  currentDukeDsUserChanged: Ember.on('init', Ember.observer('application.currentDukeDsUser', function() {
+    const currentDukeDsUser  = this.get('application.currentDukeDsUser');
+    this.get('delivery').set('fromUser', currentDukeDsUser);
+  })),
   // Generic back/next actions. Requires the route names to be set
   actions: {
     back() {
