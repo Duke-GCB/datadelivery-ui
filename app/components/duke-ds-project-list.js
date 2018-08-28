@@ -3,7 +3,7 @@ import Ember from 'ember';
 const DukeDSProjectList = Ember.Component.extend({
   projects: null,
   selectionChanged: null, /** action */
-  selectedItems: [], // TODO: Set in init
+  selectedItems: null,
   columns: [
     {
       component: "select-row-checkbox",
@@ -25,7 +25,11 @@ const DukeDSProjectList = Ember.Component.extend({
     } else {
       this.selectionChanged(selectedItems.get('firstObject'))
     }
-  })
+  }),
+  init() {
+    this._super(...arguments);
+    this.set('selectedItems', []);
+  }
 });
 
 DukeDSProjectList.reopenClass({
