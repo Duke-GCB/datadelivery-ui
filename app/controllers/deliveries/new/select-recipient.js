@@ -14,9 +14,14 @@ export default BaseController.extend({
       .rejectBy('id', this.get('fromUser.id'));
   }),
   actions: {
-    toUserSelectionChanged(actionData) {
-      const toUser = actionData.get('selectedItems.firstObject');
-      this.set('toUser', toUser);
+    toUserSelectionChanged(selectedItems) {
+      // When unchecking the single item, selectedItems.length drops to 0,
+      // but selectedItems.firstObject still references a stale object, so check for that.
+      if(selectedItems.get('length') == 0) {
+        this.set('toUser', null);
+      }  else {
+        this.set('toUser',  selectedItems.get('firstObject'));
+      }
     },
   }
 });
