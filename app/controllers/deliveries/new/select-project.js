@@ -1,16 +1,14 @@
 import Ember from 'ember';
 import BaseController from './base';
 
-const PROJECT_ADMIN_AUTH_ROLE = 'project_admin';
-
 export default BaseController.extend({
-  disableNext: Ember.computed.not('projectId'),
+  disableNext: Ember.computed.not('project.id'),
   backRoute: 'deliveries',
   nextRoute: 'deliveries.new.select-recipient',
   actions: {
     projectSelectionChanged(actionData) {
-      const projectId = actionData.get('selectedItems.firstObject.id');
-      this.set('projectId', projectId);
+      const project = actionData.get('selectedItems.firstObject');
+      this.set('project', project);
     },
   },
 });

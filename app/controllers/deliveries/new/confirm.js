@@ -2,33 +2,53 @@ import Ember from 'ember';
 import BaseController from './base';
 
 export default BaseController.extend({
-  nextRoute: 'deliveries.show', // TODO: Include the transfer!
+  nextRoute: 'deliveries.show',
   backRoute: 'deliveries.new.enter-user-message',
-  disableNext: false,
   emailMessage: null,
+  actionWillBegin() {
+    this.set('disableNext', true);
+    this.clearError();
+  },
+  actionDidSucceed() {
+    this.set('disableNext', false);
+    this.clearError();
+  },
+  actionDidFail(error) {
+    this.set('disableNext', true);
+    this.handleError(error)
+  },
+
+  deliveryKeysChanged: Ember.on('init', Ember.observer('delivery.fromUser', 'delivery.toUser', 'delivery.userMessage', 'delivery.project', function() {
+    this.generatePreview();
+  })),
   generatePreview() {
+    this.actionWillBegin();
     const delivery = this.get('delivery');
     delivery.preview().then(preview => {
       this.set('emailMessage', preview.delivery_email_text);
-    });
+      this.actionDidSucceed();
+    }).catch(this.actionDidFail.bind(this));
   },
 
-  processNext() {
-    // should return a promise resolving a result object
-    this.setProperties({
-      disableNext: true,
-      errors: null,
-    });
+  actions: {
+    saveAndSend() {
+      this.processSaveAndSend();
+    }
+  },
+
+  processSaveAndSend() {
+    this.actionWillBegin();
     const delivery = this.get('delivery');
     const handleSave = (savedDelivery) => { return savedDelivery.send(); };
     const handleSend = (sentDelivery) => {
       const projectName = sentDelivery.get('project.name');
       const deliveryMessage = `Sent delivery notification for project ${projectName}.`;
-      const transfer = sentDelivery.get('transfer');
-      const model = transfer;
+      const route = this.get('nextRoute');
+      const model = sentDelivery.get('transfer');
       const options = { queryParams: { infoMessage: deliveryMessage} };
-      return Ember.RSVP.resolve(Ember.Object.create({ model: model, options: options}));
+      this.actionDidSucceed();
+      this.transitionToRoute(route, model, options);
     };
-    return delivery.save().then(handleSave).then(handleSend);
+    delivery.save().then(handleSave).then(handleSend).catch(this.actionDidFail.bind(this));
   }
 });
