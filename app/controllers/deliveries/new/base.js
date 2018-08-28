@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
   handleError(errorResponse) { this.set('errors', errorResponse.errors)},
   clearError() { this.set('errors', null); },
+  makeError(errorText) { return {errors: [{detail: errorText}]}; },
   project: Ember.computed.alias('delivery.project'),
   toUser: Ember.computed.alias('delivery.toUser'),
   fromUser: Ember.computed.alias('delivery.fromUser'),
@@ -23,6 +24,19 @@ export default Ember.Controller.extend({
     const currentDukeDsUser  = this.get('application.currentDukeDsUser');
     this.set('fromUser', currentDukeDsUser);
   })),
+
+  willPerformAction() {
+    this.set('disableNext', true);
+    this.clearError();
+  },
+  didPerformAction() {
+    this.set('disableNext', false);
+    this.clearError();
+  },
+  actionDidFail(error) {
+    this.set('disableNext', true);
+    this.handleError(error)
+  },
 
   init() {
     this._super(...arguments);
@@ -36,4 +50,5 @@ export default Ember.Controller.extend({
 
   /* May override */
   disableNext: false,
+  working: false
 });

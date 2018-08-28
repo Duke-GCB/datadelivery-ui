@@ -7,16 +7,6 @@
 </p>
 
 {{error-message-alert errorMessages}}
-
-{{#bs-alert
-  visible=showUserMissingPrivilegesError
-  type="danger"
-  dismissible=false
-}}
-  You do not have admin privileges for project <strong>{{project.name}}</strong>. Please select another project.
-{{/bs-alert}}
-
-You have {{ model.length }} projects
 {{duke-ds-project-list model selectionChanged=(action 'projectSelectionChanged')}}
 
 {{#link-to backRoute class='btn btn-default'}}Back{{/link-to}}
