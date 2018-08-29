@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import BaseController from './base';
 
 export default BaseController.extend({
