@@ -11,9 +11,14 @@ export default Ember.Component.extend({
 
   generatePreview() {
     this.set('emailMessage', null); // causes loading indicator to appear
-    // delivery should not be a promise
-    const delivery = this.get('delivery');
-    delivery.preview().then(preview => {
+    // Delivery may be a model object that's not yet loaded (e.g. a relationship)
+    let delivery = this.get('delivery');
+    if(delivery.get('isLoaded')) {
+      delivery = Ember.RSVP.resolve(delivery);
+    }
+    delivery.then((loadedDelivery) => {
+      return loadedDelivery.preview();
+    }).then(preview => {
       this.set('emailMessage', preview.delivery_email_text);
     }).catch(this.get('onFail'));
   },

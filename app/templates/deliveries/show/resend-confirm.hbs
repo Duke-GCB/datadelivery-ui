@@ -5,11 +5,7 @@
   click <strong>Back</strong>
 </p>
 
-{{#if emailMessage}}
-  {{delivery-email emailMessage}}
-{{else}}
-  <div class="well well-sm">{{#loading-indicator}}Generating Preview{{/loading-indicator}}</div>
-{{/if}}
+{{delivery-preview delivery=model.delivery errors=errors onFail=(action 'previewFailed')}}
 
 {{error-message-alert errorMessages}}
 

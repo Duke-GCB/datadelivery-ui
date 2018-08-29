@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import DS from 'ember-data';
 
 import CanResendController from './can-resend-controller';
 
@@ -9,17 +10,12 @@ export default CanResendController.extend({
     this.set('errors', []);
   },
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
-
-  generatePreview() {
-    this.get('model.delivery').then((delivery) => {
-      return delivery.preview();
-    }).then(preview => {
-      this.set('emailMessage', preview.delivery_email_text);
-    });
-  },
   actions: {
     back() {
       this.transitionToRoute('deliveries.show.resend', this.get('model'));
+    },
+    previewFailed(error) {
+      this.set('errors', [error]);
     },
     resend() {
       const transfer = this.get('model');
