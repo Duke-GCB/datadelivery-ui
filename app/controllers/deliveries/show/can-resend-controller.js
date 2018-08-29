@@ -4,8 +4,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  dukeDsUser: Ember.inject.service('duke-ds-user'),
-  currentDukeDsUser: Ember.computed.alias('dukeDsUser.currentDukeDsUser'),
+  application: Ember.inject.controller(),
+  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
   canResend: Ember.computed('model.canResend', 'model.fromUser.id', 'currentDukeDsUser.id', function () {
     const modelCanResend = this.get('model.canResend');
     const fromUserId = this.get('model.fromUser.id');
