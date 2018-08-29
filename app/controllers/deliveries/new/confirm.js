@@ -4,25 +4,14 @@ import BaseController from './base';
 export default BaseController.extend({
   nextRoute: 'deliveries.show',
   backRoute: 'deliveries.new.enter-user-message',
-  emailMessage: null,
-  deliveryKeysChanged: Ember.on('init', Ember.observer('delivery.fromUser', 'delivery.toUser', 'delivery.userMessage', 'delivery.project', function() {
-    this.generatePreview();
-  })),
-  generatePreview() {
-    this.willPerformAction();
-    const delivery = this.get('delivery');
-    delivery.preview().then(preview => {
-      this.set('emailMessage', preview.delivery_email_text);
-      this.actionDidSucceed();
-    }).catch(this.actionDidFail.bind(this));
-  },
-
   actions: {
     saveAndSend() {
       this.processSaveAndSend();
+    },
+    previewFailed(error) { //set up as an action to pass along down to components without losing binding of `this`
+      this.actionDidFail(error);
     }
   },
-
   processSaveAndSend() {
     this.willPerformAction();
     const delivery = this.get('delivery');
