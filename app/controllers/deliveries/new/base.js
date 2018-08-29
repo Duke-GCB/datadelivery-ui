@@ -11,9 +11,10 @@ export default Ember.Controller.extend({
   // in the delivery object. When simplifying this controller, I removed the queryParams,
   // so it's not actually an issue now.
 
+  dukeDsUser: Ember.inject.service('duke-ds-user'),
+  currentDukeDsUser: Ember.computed.alias('dukeDsUser.currentDukeDsUser'),
   newDeliveryController: Ember.inject.controller('deliveries.new'),
   delivery: Ember.computed.alias('newDeliveryController.model'),
-  application: Ember.inject.controller('application'),
 
   /* Error Handling */
   errors: null,
@@ -25,8 +26,8 @@ export default Ember.Controller.extend({
   toUser: Ember.computed.alias('delivery.toUser'),
   fromUser: Ember.computed.alias('delivery.fromUser'),
   userMessage: Ember.computed.alias('delivery.userMessage'),
-  currentDukeDsUserChanged: Ember.on('init', Ember.observer('application.currentDukeDsUser', function() {
-    const currentDukeDsUser  = this.get('application.currentDukeDsUser');
+  currentDukeDsUserChanged: Ember.on('init', Ember.observer('currentDukeDsUser', function() {
+    const currentDukeDsUser  = this.get('currentDukeDsUser');
     this.set('fromUser', currentDukeDsUser);
   })),
 
