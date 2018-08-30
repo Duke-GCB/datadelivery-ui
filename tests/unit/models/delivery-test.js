@@ -87,12 +87,9 @@ test('delivery.preview() calls adapter.preview() with properties from delivery',
   });
 });
 
-test('Parameters to delivery.preview() override model properties in call to adapter.preview()', function (assert) {
-  assert.expect(5);
+test('delivery.preview() calls adapter.preview() with empty transfer id if not yet set', function (assert) {
+  assert.expect(3);
   const store = this.store();
-  const originalUserMessage = 'Original Message';
-  const updatedUserMessage = 'Updated Message';
-
   store.set('adapterFor', (modelName) => {
     return {
       preview(details) {
@@ -100,9 +97,9 @@ test('Parameters to delivery.preview() override model properties in call to adap
         assert.deepEqual(details, {
           from_user_id: 'from-123',
           to_user_id: 'to-456',
-          transfer_id: 'transfer-789',
+          transfer_id: '',
           project_id: 'project-000',
-          user_message: updatedUserMessage
+          user_message: 'Hello World'
         });
         return Ember.RSVP.resolve({});
       }
@@ -112,18 +109,15 @@ test('Parameters to delivery.preview() override model properties in call to adap
     const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
     const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
     const project = store.createRecord('duke-ds-project', {id: 'project-000'});
-    const transfer = store.createRecord('duke-ds-project-transfer', {id: 'transfer-789'});
+    const userMessage = 'Hello World';
     const model = this.subject();
     model.setProperties({
       fromUser: fromUser,
       toUser: toUser,
       project: project,
-      transfer: transfer,
-      userMessage: originalUserMessage,
+      userMessage: userMessage
     });
-    assert.notEqual(model.get('userMessage'), updatedUserMessage);
-    assert.equal(model.get('userMessage'), originalUserMessage);
-    model.preview({user_message: updatedUserMessage}).then(preview => {
+    model.preview().then(preview => {
       assert.ok(preview);
     });
   });
