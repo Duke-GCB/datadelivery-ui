@@ -2,18 +2,7 @@ import Ember from 'ember';
 import { assert } from '@ember/debug';
 
 export default Ember.Controller.extend({
-  // Note from D. Leehr 2018-08-29 on injecting controller 'deliveries'
-  // This controller needs access to the delivery object created as model in routes/deliveries/new
-  // The Ember convention is to inject other models in this controller's route.setupController(),
-  // so that controllers don't have hard-coded knowledge of other routes.
-  // setupController() does happen early enough in the controller's lifecycle for our needs
-  // Specifically, it happens after queryParam properties are set, which were bound to relationships
-  // in the delivery object. When simplifying this controller, I removed the queryParams,
-  // so it's not actually an issue now.
-
-  newDeliveryController: Ember.inject.controller('deliveries.new'),
-  delivery: Ember.computed.alias('newDeliveryController.model'),
-
+  delivery: null, // should be set in setupController
   /* Error Handling */
   errors: null,
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
