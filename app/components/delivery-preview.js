@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   delivery: null,
   emailMessage: null,
+  errors: null, // Default value
   onFail: (/*errors*/) => {}, // Defaults to an empty operation, but should be provided as an (action 'previewFailed')
   didInsertElement() {
     this._super(...arguments);
