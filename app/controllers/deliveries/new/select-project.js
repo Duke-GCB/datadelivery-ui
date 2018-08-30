@@ -20,6 +20,7 @@ export default BaseController.extend({
     }
   },
   checkProjectPermissions() {
+    this.willPerformAction();
     const userId = this.get('fromUser.id');
     this.get('project').then(project => {
       return project.getUserProjectAuthRole(userId);

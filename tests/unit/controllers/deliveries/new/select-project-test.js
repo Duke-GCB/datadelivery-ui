@@ -2,124 +2,123 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('controller:deliveries/new/select-project', 'Unit | Controller | deliveries/new/select project', {
-  // Specify the other units that are required for this test.
-  needs: ['controller:application', 'service:session', 'service:duke-ds-user']
 });
 
-// Replace this with your real tests.
 test('it exists', function(assert) {
   let controller = this.subject();
   assert.ok(controller);
 });
 
-test('it handles back action', function(assert) {
+test('it sets expected routes', function(assert) {
+  let controller = this.subject({});
+  assert.equal(controller.get('backRoute'), 'deliveries.index');
+  assert.equal(controller.get('nextRoute'), 'deliveries.new.select-recipient');
+});
+
+test('it runs handleProjectChanged once when project changes', function(assert) {
   assert.expect(1);
   let controller = this.subject({
-    transitionToRoute(routeName) {
-      assert.equal(routeName, 'deliveries', 'back action should transition to deliveries');
+    delivery: Ember.Object.create(),
+    handleProjectChanged() {
+      assert.ok(true);
     }
   });
-  controller.send('back');
+  Ember.run(() => {
+    controller.set('project', 'Project');
+  });
 });
 
-test('it handles next action', function(assert) {
-  let project = Ember.Object.create({
-    id: '123',
-    getUserProjectAuthRole() {
-      return Ember.RSVP.resolve('');
-    }
-  });
+test('it runs handleProjectChanged once when fromUser changes', function(assert) {
+  assert.expect(1);
   let controller = this.subject({
-    project: project,
-    currentUserCanDeliver: true,
-    transitionToRoute(routeName, data) {
-      assert.equal(routeName, 'deliveries.new.select-recipient', 'next action should transition to recipient selection');
-      assert.equal(data.queryParams.projectId, '123', 'next action should pass projectId');
+    delivery: Ember.Object.create(),
+    handleProjectChanged() {
+      assert.ok(true);
     }
   });
-  controller.send('next');
+  Ember.run(() => {
+    controller.set('fromUser', 'User A');
+  });
 });
 
-test('it stops next action if user cannot deliver', function(assert) {
-  assert.expect(0);
-  let project = Ember.Object.create({
-    id: '123',
-    getUserProjectAuthRole() {
-      return Ember.RSVP.resolve('');
-    }
-  });
+test('it runs handleProjectChanged once when project and fromUser change in the same loop', function(assert) {
+  assert.expect(1);
   let controller = this.subject({
-    project: project,
-    currentUserCanDeliver: false,
-    transitionToRoute() {
-      assert('Should not transition if user cannot deliver.');
+    delivery: Ember.Object.create(),
+    handleProjectChanged() {
+      assert.ok(true);
     }
   });
-  controller.send('next');
+  Ember.run(() => {
+    controller.set('project', 'Project');
+    controller.set('fromUser', 'User A');
+  });
 });
 
-test('it handles projectSelectionChanged', function(assert) {
-  let project = Ember.Object.create({
-    id: '123',
-    getUserProjectAuthRole() {
-      return Ember.RSVP.resolve('');
-    }
-  });
+test('it runs handleProjectChanged twice when project and fromUser change in the different loops', function(assert) {
+  assert.expect(2);
   let controller = this.subject({
-    project: null,
+    delivery: Ember.Object.create(),
+    handleProjectChanged() {
+      assert.ok(true);
+    }
   });
-  controller.send('projectSelectionChanged', {
-    selectedItems: [
-      project
-    ]
+  Ember.run(() => {
+    controller.set('project', 'Project');
   });
-  assert.equal(controller.get('project'), project);
+  Ember.run(() => {
+    controller.set('fromUser', 'User A');
+  });
 });
 
-test('it computes currentUserProjectAuthRole from getUserProjectAuthRole', function(assert) {
-  let project = Ember.Object.create({
-    id: '123',
-    getUserProjectAuthRole() {
+function makeController(subject, assert) {
+  return subject({
+    handleProjectChanged() {}, // Turn this off since we're calling checkProjectPermissions directly
+    willPerformAction() { assert.step('willPerform'); },
+    didPerformAction() { assert.step('didPerform'); },
+    actionDidFail() { assert.step('didFail'); }
+  })
+}
+
+test('it checks project permissions in order', function(assert) {
+  const mockUserId = '123';
+  const mockProject = Ember.Object.create({
+    getUserProjectAuthRole(userId) {
+      assert.equal(userId, mockUserId);
+      assert.step('get-permissions');
       return Ember.RSVP.resolve('project_admin');
     }
   });
-  let currentDukeDsUser = Ember.Object.create({id: '456'});
-  let controller = this.subject({
-    project: null,
-    currentDukeDsUser: null,
+  const mockDelivery = Ember.Object.create({
+    project: Ember.RSVP.resolve(mockProject),
+    fromUser: Ember.Object.create({id: mockUserId})
   });
-  assert.equal(controller.get('currentUserProjectPermission.authRole'), null);
+  let controller = makeController(this.subject, assert);
   Ember.run(() => {
-    controller.setProperties({
-      project: project,
-      currentDukeDsUser: currentDukeDsUser
-    })
+    controller.set('delivery', mockDelivery);
+    controller.checkProjectPermissions();
   });
-  assert.equal(controller.get('currentUserProjectAuthRole'), 'project_admin');
+  assert.verifySteps(['willPerform', 'get-permissions', 'didPerform']);
 });
 
-test('it computes showUserMissingPrivilegesError from project and currentUserProjectAuthRole', function(assert) {
-  let project = Ember.Object.create({
-    id: '123',
-    getUserProjectAuthRole() {
-      return Ember.RSVP.resolve('');
-    },
+
+test('it sets error if permissions are not sufficient', function(assert) {
+  const mockUserId = '123';
+  const mockProject = Ember.Object.create({
+    getUserProjectAuthRole(userId) {
+      assert.equal(userId, mockUserId);
+      assert.step('get-permissions');
+      return Ember.RSVP.resolve('file_downloader');
+    }
   });
-  let controller = this.subject({
-    project: null
+  const mockDelivery = Ember.Object.create({
+    project: Ember.RSVP.resolve(mockProject),
+    fromUser: Ember.Object.create({id: mockUserId})
   });
-  assert.equal(controller.get('showUserMissingPrivilegesError'), false,
-    'hide error when no project is selected');
-
-  controller.set('project', project);
-  assert.equal(controller.get('showUserMissingPrivilegesError'), false,
-    'hide error when currentUserProjectAuthRole is empty');
-
-  controller.set('currentUserProjectAuthRole', 'downloader');
-  assert.equal(controller.get('showUserMissingPrivilegesError'), true,
-    'show error when currentUserProjectAuthRole is not project admin');
-
-  controller.set('currentUserProjectAuthRole', 'project_admin');
-  assert.equal(controller.get('showUserMissingPrivilegesError'), false,
-    'hide error when currentUserProjectAuthRole is project admin');
+  let controller = makeController(this.subject, assert);
+  Ember.run(() => {
+    controller.set('delivery', mockDelivery);
+    controller.checkProjectPermissions();
+  });
+  assert.verifySteps(['willPerform', 'get-permissions', 'didFail']);
 });
