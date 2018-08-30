@@ -4,7 +4,7 @@ import BaseController from './base';
 const CAN_DELIVER_AUTH_ROLE = 'project_admin';
 
 export default BaseController.extend({
-  backRoute: 'deliveries',
+  backRoute: 'deliveries.index',
   nextRoute: 'deliveries.new.select-recipient',
 
   projectChanged: Ember.observer('project', 'fromUser', function() {
