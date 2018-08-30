@@ -13,7 +13,6 @@ export default Ember.Controller.extend({
 
   newDeliveryController: Ember.inject.controller('deliveries.new'),
   delivery: Ember.computed.alias('newDeliveryController.model'),
-  application: Ember.inject.controller('application'),
 
   /* Error Handling */
   errors: null,
@@ -25,10 +24,6 @@ export default Ember.Controller.extend({
   toUser: Ember.computed.alias('delivery.toUser'),
   fromUser: Ember.computed.alias('delivery.fromUser'),
   userMessage: Ember.computed.alias('delivery.userMessage'),
-  currentDukeDsUserChanged: Ember.on('init', Ember.observer('application.currentDukeDsUser', function() {
-    const currentDukeDsUser  = this.get('application.currentDukeDsUser');
-    this.set('fromUser', currentDukeDsUser);
-  })),
 
   willPerformAction() {
     this.set('disableNext', true);
