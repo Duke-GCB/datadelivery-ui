@@ -71,12 +71,13 @@ test('delivery.preview() calls adapter.preview() with properties from delivery',
     const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
     const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
     const project = store.createRecord('duke-ds-project', {id: 'project-000'});
-    const transfer = store.createRecord('duke-ds-project-transfer', {id: 'transfer-789', project: project});
+    const transfer = store.createRecord('duke-ds-project-transfer', {id: 'transfer-789'});
     const userMessage = 'Hello World';
     const model = this.subject();
     model.setProperties({
       fromUser: fromUser,
       toUser: toUser,
+      project: project,
       transfer: transfer,
       userMessage: userMessage
     });
@@ -111,11 +112,12 @@ test('Parameters to delivery.preview() override model properties in call to adap
     const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
     const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
     const project = store.createRecord('duke-ds-project', {id: 'project-000'});
-    const transfer = store.createRecord('duke-ds-project-transfer', {id: 'transfer-789', project: project});
+    const transfer = store.createRecord('duke-ds-project-transfer', {id: 'transfer-789'});
     const model = this.subject();
     model.setProperties({
       fromUser: fromUser,
       toUser: toUser,
+      project: project,
       transfer: transfer,
       userMessage: originalUserMessage,
     });
