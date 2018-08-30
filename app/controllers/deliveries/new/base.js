@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   errorMessages: Ember.computed.mapBy('errors', 'detail'),
   handleError(errorResponse) { this.set('errors', errorResponse.errors)},
   clearError() { this.set('errors', null); },
-  makeError(errorText) { return {errors: [{detail: errorText}]}; },
+  wrapError(errorText) { return {errors: [{detail: errorText}]}; },
   project: Ember.computed.alias('delivery.project'),
   toUser: Ember.computed.alias('delivery.toUser'),
   fromUser: Ember.computed.alias('delivery.fromUser'),

@@ -28,7 +28,7 @@ export default BaseController.extend({
         this.didPerformAction();
       } else {
         const projectName = this.get('project.name');
-        const errors = this.makeError(`You do not have permission to deliver project ${projectName}. Please select another project.`);
+        const errors = this.wrapError(`You do not have permission to deliver project ${projectName}. Please select another project.`);
         this.actionDidFail(errors);
       }
     });
