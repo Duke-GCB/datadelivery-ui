@@ -11,7 +11,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
   setupController(controller, model) {
-    this._super(...arguments);
+    this._super(controller, model);
     const delivery = this.modelFor('deliveries.new');
     controller.set('delivery', delivery);
   },
