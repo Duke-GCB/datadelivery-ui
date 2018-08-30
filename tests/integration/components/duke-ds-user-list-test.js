@@ -23,16 +23,14 @@ test('it renders a list of users sorted by fullName', function(assert) {
   assert.equal(this.$('.duke-ds-user-email').eq(3).text().trim(), 'joe@joe.org');
 });
 
-test('it sends selected project to selectionChanged action', function(assert) {
+test('it sends selected users to selectionChanged action', function(assert) {
   assert.expect(1);
   this.set('users', [
     {fullName: 'Joe', email: 'joe@joe.org'},
     {fullName: 'Jim', email: 'jim@jim.org'},
   ]);
-  this.set('externalAction', function (actionData) {
-    if (actionData.selectedItems[0]) {
-      assert.equal(actionData.selectedItems[0].fullName, 'Jim');
-    }
+  this.set('externalAction', function (selectedItems) {
+    assert.equal(selectedItems[0].fullName, 'Jim');
   });
   this.render(hbs`{{duke-ds-user-list users selectionChanged=(action externalAction)}}`);
   this.$('.duke-ds-user-fullName').eq(2).click(); //click Jim row

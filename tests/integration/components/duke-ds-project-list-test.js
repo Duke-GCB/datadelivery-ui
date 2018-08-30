@@ -24,7 +24,7 @@ test('it sends selected project to selectionChanged action', function(assert) {
     {name: 'Project1'},
     {name: 'Project2'}
   ]);
-  this.set('externalAction', (actionData) => assert.equal(actionData.selectedItems[0].name, 'Project2'));
+  this.set('externalAction', (selectedItem) => assert.equal(selectedItem.name, 'Project2'));
   this.render(hbs`{{duke-ds-project-list projects selectionChanged=(action externalAction)}}`);
   this.$('.duke-ds-project-name').eq(3).click(); //click Project 2 row
 });
