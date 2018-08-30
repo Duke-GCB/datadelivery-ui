@@ -13,7 +13,6 @@ test('it renders a list of users sorted by fullName', function(assert) {
   this.set('externalAction', function () {});
   this.render(hbs`{{duke-ds-user-list users selectionChanged=(action externalAction)}}`);
 
-  //assert.equal(this.$().html().trim(), 'Project Name');
   assert.equal(this.$('.duke-ds-user-fullName').eq(0).text().trim(), 'Name'); //header
   assert.equal(this.$('.duke-ds-user-email').eq(0).text().trim(), 'Email'); //header
   // index 1 is the search box
@@ -34,4 +33,18 @@ test('it sends selected users to selectionChanged action', function(assert) {
   });
   this.render(hbs`{{duke-ds-user-list users selectionChanged=(action externalAction)}}`);
   this.$('.duke-ds-user-fullName').eq(2).click(); //click Jim row
+});
+
+test('it sorts user list without calling selectionChanged', function (assert) {
+  assert.expect(2);
+  this.set('users', [
+    {id:'1', fullName: 'B', email: 'b@b.org'},
+    {id:'2', fullName: 'A', email: 'a@a.org'},
+  ]);
+  this.set('externalAction', function () {
+    assert.ok(false); // should not call this
+  });
+  this.render(hbs`{{duke-ds-user-list users selectionChanged=(action externalAction)}}`);
+  assert.equal(this.$('.duke-ds-user-fullName').eq(2).text().trim(), 'A');
+  assert.equal(this.$('.duke-ds-user-fullName').eq(3).text().trim(), 'B');
 });
