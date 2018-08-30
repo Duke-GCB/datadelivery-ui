@@ -7,7 +7,6 @@ export default BaseController.extend({
   nextRoute: 'deliveries.new.enter-user-message',
   recipients: Ember.computed('model', 'fromUser.id', function() {
     return this.get('model')
-      .sortBy('fullName')
       .rejectBy('fullName', null)
       .rejectBy('fullName', '(null)')
       .rejectBy('email', null)
