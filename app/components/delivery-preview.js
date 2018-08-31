@@ -12,8 +12,12 @@ export default Ember.Component.extend({
 
   generatePreview() {
     this.set('emailMessage', null); // causes loading indicator to appear
-    // Delivery may be a model object that's not yet loaded (e.g. a relationship)
     let delivery = this.get('delivery');
+    // `delivery` should be a model object, but may not be loaded yet (e.g. a
+    // relationship property from a transfer. We cannot call preview() until
+    // the delivery is loaded (resolved), and we cannot call then() on an already
+    // loaded delivery. So if delivery is already loaded, we wrap it in a promise,
+    // so that delivery.then() resolves to a loaded delivery in both cases.
     if(delivery.get('isLoaded')) {
       delivery = Ember.RSVP.resolve(delivery);
     }
