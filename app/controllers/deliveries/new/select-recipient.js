@@ -1,49 +1,26 @@
 import Ember from 'ember';
-import DS from 'ember-data';
+import BaseController from './base';
 
-export default Ember.Controller.extend({
-  queryParams: ['projectId'],
-  projectId: null,
-  project: Ember.computed('projectId', function () {
-    return DS.PromiseObject.create({
-      promise: this.get('store').findRecord('duke-ds-project', this.get('projectId'))
-    })
-  }),
-  application: Ember.inject.controller(),
-  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
-  validUsersList: Ember.computed('model.[]', function () {
-    // remove users with invalid fullName values
+export default BaseController.extend({
+  disableNext: Ember.computed.not('toUser.id'),
+  backRoute: 'deliveries.new.select-project',
+  nextRoute: 'deliveries.new.enter-user-message',
+  recipients: Ember.computed('model', 'fromUser.id', function() {
     return this.get('model')
       .rejectBy('fullName', null)
       .rejectBy('fullName', '(null)')
-      .rejectBy('email', null);
+      .rejectBy('email', null)
+      .rejectBy('id', this.get('fromUser.id'));
   }),
-  otherUsersList: Ember.computed('validUsersList.[]', 'currentDukeDsUser', function () {
-    const currentDukeDSUser = this.get('currentDukeDsUser');
-    if (currentDukeDSUser) {
-      return this.get('validUsersList').rejectBy('id', currentDukeDSUser.get('id'));
-    } else {
-      return this.get('validUsersList');
-    }
-  }),
-  toUser: null,
-  disableNext: Ember.computed.not('toUser'),
   actions: {
-    toUserSelectionChanged(actionData) {
-      this.set('toUser', actionData.selectedItems.get('firstObject'));
+    toUserSelectionChanged(selectedItems) {
+      // When unchecking the single item, selectedItems.length drops to 0,
+      // but selectedItems.firstObject still references a stale object, so check for that.
+      if(selectedItems.get('length') == 0) {
+        this.set('toUser', null);
+      }  else {
+        this.set('toUser',  selectedItems.get('firstObject'));
+      }
     },
-    back() {
-      this.transitionToRoute('deliveries.new.select-project');
-    },
-    next() {
-      const projectId = this.get('projectId');
-      const toUserId = this.get('toUser.id');
-      this.transitionToRoute('deliveries.new.enter-user-message', {
-          queryParams: {
-            projectId: projectId,
-            toUserId: toUserId,
-          }
-      });
-    }
   }
 });

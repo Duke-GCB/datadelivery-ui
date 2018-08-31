@@ -1,7 +1,11 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
+import NewDeliveryRouteMixin from 'datadelivery-ui/mixins/new-delivery-route-mixin';
+
+export default Ember.Route.extend(NewDeliveryRouteMixin, {
   model() {
-    return this.get('store').findAll('duke-ds-user');
+    // Force a reload here so that we don't first show a truncated list of
+    // users that happen to be in the local store already
+    return this.get('store').findAll('duke-ds-user', {reload: true});
   }
 });

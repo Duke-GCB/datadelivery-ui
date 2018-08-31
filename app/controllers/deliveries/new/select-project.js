@@ -1,52 +1,42 @@
 import Ember from 'ember';
+import BaseController from './base';
 
-const PROJECT_ADMIN_AUTH_ROLE = 'project_admin';
+const CAN_DELIVER_AUTH_ROLE = 'project_admin';
 
-export default Ember.Controller.extend({
-  project: null,
-  application: Ember.inject.controller(),
-  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
-  currentUserProjectAuthRole: null,
-  _fetchProjectAuthRole: Ember.observer('project', 'currentDukeDsUser.id', function() {
-    const project = this.get('project');
-    const currentUserId = this.get('currentDukeDsUser.id');
-    if (currentUserId && project) {
-      project.getUserProjectAuthRole(currentUserId).then((authRole) => {
-        this.set('currentUserProjectAuthRole', authRole);
-      });
-    } else {
-      this.set('currentUserProjectAuthRole', null);
-    }
+export default BaseController.extend({
+  backRoute: 'deliveries.index',
+  nextRoute: 'deliveries.new.select-recipient',
+
+  projectChanged: Ember.observer('project', 'fromUser', function() {
+    // Wrap the processing in Ember.run.once so that it does not kick off stale requests
+    Ember.run.once(this, 'handleProjectChanged');
   }),
-  currentUserCanDeliver: Ember.computed.equal('currentUserProjectAuthRole', PROJECT_ADMIN_AUTH_ROLE),
-  disableNext: Ember.computed.not('currentUserCanDeliver'),
-  showUserMissingPrivilegesError: Ember.computed('project.id', 'currentUserProjectAuthRole', function () {
-    if (this.get('project.id') == null) {
-      return false; // do not show error when no project is selected
-    }
-    const authRole = this.get('currentUserProjectAuthRole');
-    if (!authRole) {
-      return false; //do not show error while we are fetching users auth role for this project
-    }
-    return authRole != PROJECT_ADMIN_AUTH_ROLE;
-  }),
-  actions: {
-    projectSelectionChanged(actionData) {
-      this.setProperties({
-        project: actionData.selectedItems.get('firstObject'),
-        currentUserProjectAuthRole: null,
-      });
-    },
-    back() {
-      this.transitionToRoute('deliveries');
-    },
-    next() {
-      const projectId = this.get('project.id');
-      if (projectId) {
-        if (this.get('currentUserCanDeliver')) {
-          this.transitionToRoute('deliveries.new.select-recipient', { queryParams: { projectId: projectId }})
-        }
-      }
+  handleProjectChanged() {
+    this.willPerformAction(); // Ensures that next button is disabled and errors are cleared
+    const project = this.get('project.id');
+    const fromUser = this.get('fromUser.id');
+    if(project && fromUser) {
+      this.checkProjectPermissions();
     }
   },
+  checkProjectPermissions() {
+    this.willPerformAction();
+    const userId = this.get('fromUser.id');
+    this.get('project').then(project => {
+      return project.getUserProjectAuthRole(userId);
+    }).then((authRole) => {
+      if(authRole === CAN_DELIVER_AUTH_ROLE) {
+        this.didPerformAction();
+      } else {
+        const projectName = this.get('project.name');
+        const errors = this.wrapError(`You do not have permission to deliver project ${projectName}. Please select another project.`);
+        this.actionDidFail(errors);
+      }
+    });
+  },
+  actions: {
+    projectSelectionChanged(project) {
+      this.set('project', project);
+    }
+  }
 });

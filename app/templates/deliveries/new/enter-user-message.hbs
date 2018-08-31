@@ -32,9 +32,7 @@
 
 {{error-message-alert errorMessages}}
 
-{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
-{{#bs-button type="primary" onClick=(action 'next') class="pull-right next-button"}}
-  Preview Delivery
-{{/bs-button}}
+{{#link-to backRoute class='btn btn-default'}}Back{{/link-to}}
+{{#link-to nextRoute class='btn btn-primary pull-right' disabled=disableNext}}Next{{/link-to}}
 
 {{outlet}}

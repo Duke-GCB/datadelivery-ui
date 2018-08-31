@@ -3,6 +3,7 @@ import Ember from 'ember';
 const DukeDSUserList = Ember.Component.extend({
   users: null,
   multipleSelect: false,
+  selectedItems: null,
   pageSize: 12,
   selectionChanged: null, /** action */
   columns: [
@@ -21,10 +22,12 @@ const DukeDSUserList = Ember.Component.extend({
       title: "Email",
       className: "duke-ds-user-email"}
   ],
-  actions: {
-    displayDataChanged: function (e) {
-      this.get('selectionChanged')(e);
-    }
+  selectionDidChange: Ember.observer('selectedItems.[]', function() {
+    this.selectionChanged(this.get('selectedItems'));
+  }),
+  init() {
+    this._super(...arguments);
+    this.set('selectedItems', []);
   }
 });
 

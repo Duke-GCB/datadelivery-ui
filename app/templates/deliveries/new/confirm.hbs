@@ -8,14 +8,9 @@
   Upon acceptance, the recipient will be the owner of the data set, and you will retain read-only access.
 </p>
 
-{{#if emailMessage}}
-  {{delivery-email emailMessage}}
-{{else}}
-  <div class="well well-sm">{{#loading-indicator}}Generating Preview{{/loading-indicator}}</div>
-{{/if}}
+{{delivery-preview delivery=delivery errors=errors onFail=(action 'previewFailed')}}
 
 {{error-message-alert errorMessages}}
 
-{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+{{#link-to backRoute (query-params projectId=projectId toUserId=toUserId userMessage=userMessage) class='btn btn-default'}}Back{{/link-to}}
 {{#bs-button type="primary" disabled=disableNext onClick=(action 'saveAndSend') class="pull-right next-button"}}Send Delivery{{/bs-button}}
-
