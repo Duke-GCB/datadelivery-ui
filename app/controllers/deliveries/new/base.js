@@ -39,5 +39,4 @@ export default Ember.Controller.extend({
 
   /* May override */
   disableNext: false,
-  working: false
 });
