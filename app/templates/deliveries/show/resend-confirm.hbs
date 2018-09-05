@@ -1,7 +1,7 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.show.resend" transfer=model}}
 <h3>Re-send Delivery Email</h3>
 <p class="body">
-  The email below will be sent when you click <strong>Resend Delivery</strong>. If you do not wish to send this email,
+  The email below will be sent when you click <strong>Resend Delivery Email</strong>. If you do not wish to send this email,
   click <strong>Back</strong>
 </p>
 
@@ -10,5 +10,5 @@
 {{error-message-alert errorMessages}}
 
 {{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
-{{#bs-button type="primary" disabled=disableNext onClick=(action 'resend') class="pull-right next-button"}}Resend Delivery{{/bs-button}}
+{{#bs-button type="primary" disabled=disableNext onClick=(action 'resend') class="pull-right next-button"}}Resend Delivery Email{{/bs-button}}
 
