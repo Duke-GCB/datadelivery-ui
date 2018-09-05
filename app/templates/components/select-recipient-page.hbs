@@ -1,0 +1,13 @@
+{{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
+<h1>New Delivery</h1>
+<h4>
+  Select the user you wish to transfer ownership of <b class="project-name">{{projectName}}</b> to.
+</h4>
+<p class="body">
+  The selected user will take ownership of the project once the delivery is accepted.
+  Once the delivery is accepted you will retain read-only permissions.
+</p>
+{{yield}}
+
+{{#link-to backRoute class='btn btn-default back-button'}}Back{{/link-to}}
+{{#link-to nextRoute class='btn btn-primary pull-right next-button' disabled=disableNext}}Next{{/link-to}}
