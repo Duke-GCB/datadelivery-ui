@@ -23,6 +23,11 @@ test('it defaults state to new', function(assert) {
   assert.equal(model.get('state'), STATE_NEW);
 });
 
+test('it defaults userMessage to empty string', function(assert) {
+  let model = this.subject();
+  assert.equal(model.get('state'), '');
+});
+
 const relationships = [
   {key: 'project', kind: 'belongsTo', type: 'duke-ds-project'},
   {key: 'fromUser', kind: 'belongsTo', type: 'duke-ds-user'},
