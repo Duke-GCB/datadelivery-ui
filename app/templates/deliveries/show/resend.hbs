@@ -1,7 +1,7 @@
 {{delivery-breadcrumbs selectedRouteName="deliveries.show.resend" transfer=model}}
 <h3>Re-send Delivery Email</h3>
   <p class="body">
-    Click the <strong>Send Email</strong> button to re-send the delivery email to the recipient.
+    Click the <strong>Preview Email</strong> button to preview the re-send email.
   </p>
 <p class="body">
     The sent email will be generated from a template and include a link for the recipient to accept or decline the delivery.
@@ -14,9 +14,7 @@
   </div>
   <div class="panel-body">
     {{#delivery-detail model brief=true}}
-      {{#detail-label-value label="User Message"}}
-        {{user-message-textarea value=model.delivery.userMessage readonly=false}}
-      {{/detail-label-value}}
+      <dt>User Message<br />(optional)</dt><dd>{{user-message-textarea value=model.delivery.userMessage readonly=false}}</dd>
     {{/delivery-detail}}
   </div>
 </div>
