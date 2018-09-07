@@ -11,7 +11,7 @@ export default DS.Model.extend({
   toUser: DS.belongsTo('DukeDsUser'),
   state: DS.attr('string', { defaultValue() { return STATE_NEW }}),
   transfer: DS.belongsTo('DukeDsProjectTransfer'),
-  userMessage: DS.attr('string'),
+  userMessage: DS.attr('string', { defaultValue() { return '' }}),
   shareUsers: DS.hasMany('DukeDsUser'),
   declineReason: DS.attr('string'),
   performedBy: DS.attr('string'),

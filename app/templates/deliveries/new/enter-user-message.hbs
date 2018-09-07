@@ -1,14 +1,11 @@
-{{delivery-breadcrumbs selectedRouteName="deliveries.new"}}
-<h3>New Delivery</h3>
 <h4>
-  Click <strong>Send Delivery</strong> to begin transferring ownership of your project.
+  Click <strong>Next</strong> to preview the email to be sent to {{toUser.fullName}}.
 </h4>
 <p class="body">
-  This will send an email to the recipient that includes a link for the recipient to accept or delcine the delivery.
-  If the user accepts the delivery they will take ownership of the project.
-  Once the delivery is accepted you will retain read-only permissions.
+  As part of this delivery an email will be generated from a template and include a link for the recipient to accept or decline the delivery.
   If you wish to add or edit a custom message (e.g. details about this specific delivery), please enter those notes in the
-  <strong>User Message</strong> area below.
+  <strong>User Message</strong> area.
+
 </p>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -25,7 +22,7 @@
           {{#detail-label-value label="Shared With"}}{{shareUser.fullName}}{{/detail-label-value}}
         {{/if}}
       {{/each}}
-      {{#detail-label-value label="User Message"}}{{user-message-textarea value=userMessage readonly=false}}{{/detail-label-value}}
+        <dt>User Message<br />(optional)</dt><dd>{{user-message-textarea value=userMessage readonly=false}}</dd>
     </dl>
   </div>
 </div>
