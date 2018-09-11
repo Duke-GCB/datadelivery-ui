@@ -20,5 +20,10 @@ export default ApplicationAdapter.extend({
 
   urlForDeliveryAction(id, action) {
     return `${this.buildURL('delivery', id)}${action}/`;
-  }
+  },
+
+  cancel(id) {
+    const url = `${this.buildURL('delivery', id)}cancel/`;
+    return this.ajax(url, 'POST');
+  },
 });

@@ -12,6 +12,7 @@ Router.map(function() {
     this.route('show', { path: '/:transfer_id'}, function () {
       this.route('resend', {});
       this.route('resend-confirm');
+      this.route('recall');
     });
     this.route('new', function() {
       this.route('select-project');

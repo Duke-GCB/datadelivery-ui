@@ -9,9 +9,11 @@
     {{#if delivery.performedBy}}
       {{#detail-label-value label="Performed By"}}{{delivery.performedBy}}{{/detail-label-value}}
     {{/if}}
-    {{#detail-label-value label="Delivery Email"}}
-      {{delivery-email delivery.deliveryEmailText}}
-    {{/detail-label-value}}
+    {{#if showEmail}}
+      {{#detail-label-value label="Delivery Email"}}
+        {{delivery-email delivery.deliveryEmailText}}
+      {{/detail-label-value}}
+    {{/if}}
   {{/unless}}
   {{yield}}
 </dl>

@@ -15,4 +15,8 @@ export default DS.Model.extend({
     const status = this.get('status');
     return status == 'pending';
   }),
+  isCanceled: Ember.computed('status', function () {
+    const status = this.get('status');
+    return status == 'canceled'
+  })
 });

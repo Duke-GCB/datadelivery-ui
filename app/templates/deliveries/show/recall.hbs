@@ -1,0 +1,15 @@
+{{delivery-breadcrumbs selectedRouteName="deliveries.show.resend" transfer=model}}
+<h3>Cancel Delivery</h3>
+<p class="body">
+  Click the <strong>Recall Delivery</strong> button to cancel the delivery operation.
+</p>
+<p class="body">
+  This will send and email to <strong>{{model.delivery.toUser.fullName}}</strong> to inform them that the data is
+  not longer available for delivery.
+</p>
+
+{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
+
+{{#bs-button type="danger" disabled=disableNext onClick=(action 'recallDelivery')  class="pull-right next-button"}}Recall Delivery{{/bs-button}}
+
+{{outlet}}
