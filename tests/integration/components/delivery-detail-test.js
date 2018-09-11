@@ -30,6 +30,7 @@ test('it renders brief mode', function(assert) {
 test('it renders full mode', function(assert) {
   const transfer = Ember.Object.create({
     id: 5,
+    isPending: true,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
     toUsersNames: ['Zelda Zellington'],
@@ -84,4 +85,44 @@ test('it renders full mode declineReason and performedBy', function(assert) {
   assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
   assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
   assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
+});
+
+test('it renders email when transfer is pending', function(assert) {
+  const transfer = Ember.Object.create({
+    id: 5,
+    isPending: true,
+    project: {name: 'Taco'},
+    fromUser: {fullName: 'Arthur Adamson'},
+    toUsersNames: [ 'Zelda Zellington' ],
+    status: 'pending',
+    delivery: Ember.Object.create({
+      deliveryEmailText: 'Subject: Hello\n\nEmail Body',
+      shareUsers: [
+        {fullName: 'Bob Robertson'}
+      ],
+    })
+  });
+  this.set('transfer', transfer);
+  this.render(hbs`{{delivery-detail transfer}}`);
+  assert.equal(this.$('.delivery-email').html().trim(), 'Subject: Hello<br><br>Email Body<br>');
+});
+
+test('it does not render email when transfer is not pending', function(assert) {
+  const transfer = Ember.Object.create({
+    id: 5,
+    isPending: false,
+    project: {name: 'Taco'},
+    fromUser: {fullName: 'Arthur Adamson'},
+    toUsersNames: [ 'Zelda Zellington' ],
+    status: 'pending',
+    delivery: Ember.Object.create({
+      deliveryEmailText: 'Subject: Hello\n\nEmail Body',
+      shareUsers: [
+        {fullName: 'Bob Robertson'}
+      ],
+    })
+  });
+  this.set('transfer', transfer);
+  this.render(hbs`{{delivery-detail transfer}}`);
+  assert.equal(this.$('.delivery-email').html(), null);
 });

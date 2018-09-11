@@ -127,3 +127,40 @@ test('delivery.preview() calls adapter.preview() with empty transfer id if not y
     });
   });
 });
+
+test('delivery.cancel() calls adapter.cancel() then updates delivery and transfer', function (assert) {
+  assert.expect(6);
+  const mockDelivery = {
+    cancel: function (deliveryId) {
+      assert.equal(deliveryId, '123');
+      return Ember.RSVP.resolve({});
+    },
+  };
+  const model = this.subject({
+    store: {
+      adapterFor: function (modelName) {
+        assert.equal(modelName, 'delivery');
+        return mockDelivery;
+      },
+      pushPayload: function (modelName) {
+        assert.equal(modelName, 'delivery');
+      },
+      peekRecord: function (modelName, modelId) {
+        assert.equal(modelName, 'delivery');
+        assert.equal(modelId, '123');
+      }
+    },
+    get: function (name) {
+      const data = {
+        'id': '123',
+        'transfer': {
+          reload: function () {
+            assert.ok(true);
+          }
+        }
+      };
+      return data[name];
+    }
+  });
+  model.cancel();
+});

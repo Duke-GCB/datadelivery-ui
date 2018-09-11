@@ -47,3 +47,13 @@ test('Calling preview(details) wraps the details in a delivery-preview object', 
   });
   adapter.preview(payload);
 });
+
+test('Calling cancel() POSTs to delivery /cancel route', function(assert) {
+  let adapter = this.subject();
+  adapter.set('ajax', (url, method) => {
+    assert.equal(url, 'http://testhost/deliveries/cancel/');
+    assert.equal(method, 'POST');
+    return Ember.RSVP.resolve({});
+  });
+  adapter.cancel();
+});
