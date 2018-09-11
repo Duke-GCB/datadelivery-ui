@@ -1,0 +1,5 @@
+{{#if showPendingActions}}
+  {{#link-to "deliveries.show.resend" transfer class="btn btn-primary"}}Resend Delivery Email{{/link-to}}
+  {{#link-to "deliveries.show.recall" transfer class="btn btn-danger"}}Recall Delivery{{/link-to}}
+{{/if}}
+{{yield}}

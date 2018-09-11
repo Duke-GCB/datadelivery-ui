@@ -15,11 +15,4 @@
   </div>
 </div>
 
-<div class="pull-right">
-  {{#if canResend}}
-    {{#link-to "deliveries.show.resend" model class="btn btn-primary"}}Resend Delivery Email{{/link-to}}
-  {{/if}}
-  {{#if canRecall}}
-    {{#link-to "deliveries.show.recall" model class="btn btn-danger"}}Recall Delivery{{/link-to}}
-  {{/if}}
-</div>
+{{delivery-button-panel transfer=model showPendingActions=canResend}}
