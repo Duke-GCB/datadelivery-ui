@@ -30,7 +30,7 @@ test('it renders brief mode', function(assert) {
 test('it renders full mode', function(assert) {
   const transfer = Ember.Object.create({
     id: 5,
-    isPending: true,
+    canResend: true,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
     toUsersNames: ['Zelda Zellington'],
@@ -90,7 +90,7 @@ test('it renders full mode declineReason and performedBy', function(assert) {
 test('it renders email when transfer is pending', function(assert) {
   const transfer = Ember.Object.create({
     id: 5,
-    isPending: true,
+    canResend: true,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
     toUsersNames: [ 'Zelda Zellington' ],
@@ -110,7 +110,7 @@ test('it renders email when transfer is pending', function(assert) {
 test('it does not render email when transfer is not pending', function(assert) {
   const transfer = Ember.Object.create({
     id: 5,
-    isPending: false,
+    canResend: false,
     project: {name: 'Taco'},
     fromUser: {fullName: 'Arthur Adamson'},
     toUsersNames: [ 'Zelda Zellington' ],
