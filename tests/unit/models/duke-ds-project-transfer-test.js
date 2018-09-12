@@ -43,16 +43,16 @@ test('it generates toUsersNames for two names', function(assert) {
   });
 });
 
-test('isPending is true when status is pending', function(assert) {
+test('canResend is true when status is pending', function(assert) {
   const model = this.subject({
     status: 'pending'
   });
-  assert.equal(model.get('isPending'), true)
+  assert.equal(model.get('canResend'), true)
 });
 
-test('isPending is false when status is canceled', function(assert) {
+test('canResend is false when status is canceled', function(assert) {
   const model = this.subject({
     status: 'canceled'
   });
-  assert.equal(model.get('isPending'), false)
+  assert.equal(model.get('canResend'), false)
 });
