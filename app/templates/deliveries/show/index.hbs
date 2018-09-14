@@ -15,6 +15,4 @@
   </div>
 </div>
 
-{{#if canResend}}
-  {{#link-to "deliveries.show.resend" model class="btn btn-primary pull-right"}}Resend Delivery Email{{/link-to}}
-{{/if}}
+{{delivery-button-panel transfer=model showPendingActions=canResend}}

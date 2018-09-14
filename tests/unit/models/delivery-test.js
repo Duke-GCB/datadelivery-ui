@@ -127,3 +127,48 @@ test('delivery.preview() calls adapter.preview() with empty transfer id if not y
     });
   });
 });
+
+test('delivery.cancel() calls adapter.cancel() then updates delivery and transfer', function (assert) {
+  assert.expect(7);
+  const mockDelivery = {
+    cancel: function (deliveryId) {
+      assert.step(`Canceled delivery ${deliveryId}`);
+      return Ember.RSVP.resolve({});
+    },
+  };
+  const model = this.subject({
+    store: {
+      adapterFor: function (modelName) {
+        assert.step(`Fetch adapter for ${modelName}`);
+        return mockDelivery;
+      },
+      pushPayload: function (modelName) {
+        assert.step(`Pushed updated ${modelName}`);
+      },
+      peekRecord: function (modelName, modelId) {
+        assert.equal(modelName, 'delivery');
+        assert.equal(modelId, '123');
+      }
+    },
+    get: function (name) {
+      const data = {
+        'id': '123',
+        'transfer': {
+          reload: function () {
+            assert.step(`Reloaded transfer`);
+          }
+        }
+      };
+      return data[name];
+    }
+  });
+  Ember.run(() => {
+    model.cancel();
+  });
+  assert.verifySteps([
+    'Fetch adapter for delivery',
+    'Canceled delivery 123',
+    'Pushed updated delivery',
+    'Reloaded transfer',
+  ]);
+});

@@ -11,8 +11,5 @@ export default DS.Model.extend({
   fromUser: DS.belongsTo('DukeDsUser'),
   project: DS.belongsTo('DukeDsProject'),
   delivery: DS.belongsTo('Delivery'),
-  canResend: Ember.computed('status', function() {
-    const status = this.get('status');
-    return status == 'pending';
-  }),
+  canResend: Ember.computed.equal('status', 'pending')
 });
