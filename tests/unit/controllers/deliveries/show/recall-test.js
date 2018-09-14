@@ -2,8 +2,6 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('controller:deliveries/show/recall', 'Unit | Controller | deliveries/show/recall', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
 });
 
 test('it navigates to deliveries.show for back action', function(assert) {
