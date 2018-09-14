@@ -23,7 +23,7 @@ export default ApplicationAdapter.extend({
   },
 
   cancel(id) {
-    const url = `${this.buildURL('delivery', id)}cancel/`;
+    const url = this.urlForDeliveryAction(id, 'cancel');
     return this.ajax(url, 'POST');
   },
 });
