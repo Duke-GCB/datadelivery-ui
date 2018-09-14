@@ -14,18 +14,30 @@ test('it navigates to deliveries.show for back action', function(assert) {
 });
 
 test('it cancels delivery and navigates to deliveries.show for recallDelivery action', function(assert) {
-  assert.expect(2);
   let controller = this.subject({
-    get: function () {
-      return Ember.RSVP.resolve({
-        cancel: function () {
-          assert.ok(true);
-        }
-      });
+    get: function (key) {
+      if (key === 'model.delivery') {
+        return Ember.RSVP.resolve({
+          cancel: function () {
+            assert.step(`Canceled delivery`);
+          }
+        });
+      }
+      if (key === 'model.project.name') {
+        return 'MyProject'
+      }
     },
-    transitionToRoute(routeName) {
-      assert.equal(routeName, 'deliveries.show', 'back action should transition to show delivery');
+    transitionToRoute(routeName, routeModel, params) {
+      assert.step(`transitionToRoute ${routeName}`);
+      assert.equal(routeName, 'deliveries.show', 'recallDelivery action should transition to show delivery');
+      assert.equal(params.queryParams.infoMessage, 'Canceled delivery of project MyProject.');
     }
   });
-  controller.send('recallDelivery');
+  Ember.run(() => {
+    controller.send('recallDelivery');
+  });
+  assert.verifySteps([
+    'Canceled delivery',
+    'transitionToRoute deliveries.show'
+  ]);
 });
