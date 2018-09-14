@@ -48,6 +48,7 @@ export default DS.Model.extend({
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.cancel(this.get('id'))
       .then(this.updateAfterAction.bind(this))
+      // reload transfer so it will reflect the updated status
       .then(() => this.get('transfer'))
       .then(transferRelationship => transferRelationship.reload());
   },
