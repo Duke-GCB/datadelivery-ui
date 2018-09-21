@@ -8,9 +8,13 @@ const statusFilterFunction = function(status, selected) {
   return status.capitalize() == selected;
 };
 
-const DeliveryTable = Ember.Component.extend({
-  currentDukeDsUser: null,
+export default Ember.Component.extend({
+  transfers: null, // required property duke-ds-project-transfers models
+  currentDukeDsUser: null, // required property current user's duke-ds-user model
+  currentUser: null, // required property current user model
   tagName: 'div',
+  setupForDelivery: Ember.computed.alias('currentUser.setupForDelivery'),
+  notSetupForDelivery: Ember.computed.not('currentUser.setupForDelivery'),
   outgoingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     return this.get('transfers').filterBy('fromUser.id', currentDukeDsUserId);
@@ -42,11 +46,11 @@ const DeliveryTable = Ember.Component.extend({
       predefinedFilterOptions: statusOptions,
       filterFunction: statusFilterFunction
     }
-  ]
-});
+  ],
 
-DeliveryTable.reopenClass({
-  positionalParams: ['transfers', 'currentDukeDsUser']
+  actions: {
+    newDelivery: function () {
+      this.get('onNewDelivery')();
+    }
+  }
 });
-
-export default DeliveryTable;
