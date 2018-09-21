@@ -34,12 +34,13 @@ test('it renders', function(assert) {
     status: 'rejected'
 
   })];
+  const currentUser = Ember.Object.create({ id: 1 });
   const currentDukeDsUser = Ember.Object.create({ id: 1 });
   this.set('transfers', transfers);
+  this.set('currentUser', currentUser);
   this.set('currentDukeDsUser', currentDukeDsUser);
 
-
-  this.render(hbs`{{delivery-table transfers currentDukeDsUser}}`);
+  this.render(hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`);
 
   assert.equal(this.$('table').length, 2); // 2 tables
   assert.equal(this.$('thead tr').length, 4); // 2 header (label and search box)

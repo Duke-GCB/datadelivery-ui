@@ -1,12 +1,12 @@
 <h3>
   Outgoing
   {{#if setupForDelivery}}
-    <button class="btn btn-primary pull-right" onclick={{action 'newDelivery'}}>New Delivery</button>
+    {{#link-to 'deliveries.new' class="btn btn-primary pull-right"}}New Delivery{{/link-to}}
   {{/if}}
 </h3>
 
 {{#if notSetupForDelivery}}
-  {{email-setup-warning}}
+  {{email-setup-warning contactEmail="gcb-help@duke.edu"}}
 {{/if}}
 
 {{models-table
