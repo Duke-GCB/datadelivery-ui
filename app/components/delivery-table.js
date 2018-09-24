@@ -46,11 +46,5 @@ export default Ember.Component.extend({
       predefinedFilterOptions: statusOptions,
       filterFunction: statusFilterFunction
     }
-  ],
-
-  actions: {
-    newDelivery: function () {
-      this.get('onNewDelivery')();
-    }
-  }
+  ]
 });
