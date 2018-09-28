@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { assert } from '@ember/debug';
 
 // Transfer status filter options from
 // https://github.com/Duke-Translational-Bioinformatics/duke-data-service/blob/57258f5b44d31ca7f2cc630a14235aff70878f8f/app/models/project_transfer.rb#L24
@@ -13,8 +14,6 @@ export default Ember.Component.extend({
   currentDukeDsUser: null, // required property current user's duke-ds-user model
   currentUser: null, // required property current user model
   tagName: 'div',
-  setupForDelivery: Ember.computed.alias('currentUser.setupForDelivery'),
-  notSetupForDelivery: Ember.computed.not('currentUser.setupForDelivery'),
   outgoingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     return this.get('transfers').filterBy('fromUser.id', currentDukeDsUserId);
@@ -46,5 +45,10 @@ export default Ember.Component.extend({
       predefinedFilterOptions: statusOptions,
       filterFunction: statusFilterFunction
     }
-  ]
+  ],
+  didReceiveAttrs() {
+    this._super(...arguments);
+    assert('DeliveryTable component requires transfers property', this.get('transfers'));
+    // currentDukeDsUser and currentUser are also required but are temporarily null until they resolve
+  }
 });

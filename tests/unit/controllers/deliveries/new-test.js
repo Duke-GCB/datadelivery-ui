@@ -1,7 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from "ember";
 
-const mockUser = Ember.Object.create({id: 23, fullName: 'Michael Jordan'});
+const mockUser = Ember.Object.create({id: 23, fullName: 'Michael Jordan', setupForDelivery: true});
 
 const MockApplicationController = Ember.Object.extend({
   currentDukeDsUser: mockUser
@@ -22,7 +22,7 @@ test('it exists', function(assert) {
 });
 
 test('it updates delivery.fromUser when currentDukeDsUser changes', function(assert) {
-  const newUser = Ember.Object.create({id: 33, fullName: 'Larry Bird'});
+  const newUser = Ember.Object.create({id: 33, fullName: 'Larry Bird', setupForDelivery: true});
   const mockDelivery = Ember.Object.create();
   let controller = this.subject({model: mockDelivery});
   assert.notEqual(mockDelivery.get('fromUser'), newUser);
@@ -38,4 +38,15 @@ test('it updates delivery.fromUser when model changes', function(assert) {
   assert.notEqual(mockDelivery.get('fromUser'), mockUser); // Not yet set
   controller.set('model', mockDelivery);
   assert.equal(mockDelivery.get('fromUser'), mockUser);
+});
+
+test('it transitions to setup-instructions when currentDukeDsUser is not setupForDelivery', function(assert) {
+  const newUser = Ember.Object.create({id: 33, fullName: 'Larry Bird', setupForDelivery: false});
+  const mockDelivery = Ember.Object.create();
+  let controller = this.subject({model: mockDelivery});
+  controller.transitionToRoute = (routeName) => {
+    assert.equal(routeName, "deliveries.setup-instructions");
+  };
+  const application = controller.get('application');
+  application.set('currentDukeDsUser', newUser);
 });

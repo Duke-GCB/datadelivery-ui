@@ -77,7 +77,7 @@ test('it renders', function(assert) {
   assert.equal(incomingField3, 'Accepted');
 });
 
-test('it renders new delivery when user is setup for delivery', function(assert) {
+test('it renders new delivery link', function(assert) {
   const transfers = [Ember.Object.create({
     id: 3,
     project: {name: 'Taco'},
@@ -101,7 +101,7 @@ test('it renders new delivery when user is setup for delivery', function(assert)
     status: 'rejected'
 
   })];
-  const currentUser = Ember.Object.create({ id: 1, setupForDelivery: true });
+  const currentUser = Ember.Object.create({ id: 1});
   const currentDukeDsUser = Ember.Object.create({ id: 1});
   this.set('transfers', transfers);
   this.set('currentUser', currentUser);
@@ -111,41 +111,4 @@ test('it renders new delivery when user is setup for delivery', function(assert)
 
   assert.equal(this.$('.new-delivery-button').text(), 'New Delivery');
   assert.equal(this.$('.email-setup-warning-anchor').text(), '');
-});
-
-
-test('it renders email-setup-warning when user is NOT setup for delivery', function(assert) {
-  const transfers = [Ember.Object.create({
-    id: 3,
-    project: {name: 'Taco'},
-    fromUser: {fullName: 'Arthur Adamson', id: 1},
-    toUsersNames: 'Zelda Zellington',
-    toUsers: [Ember.Object.create({id: 26})],
-    status: 'pending'
-  }), Ember.Object.create({
-    id: 2,
-    project: {name: 'Burger'},
-    fromUser: {fullName: 'Zelda Zellington', id: 26},
-    toUsersNames: 'Arthur Adamson',
-    toUsers: [Ember.Object.create({id: 1})],
-    status: 'accepted'
-  }), Ember.Object.create({
-    id: 3,
-    project: {name: 'Pizza'},
-    fromUser: {fullName: 'Arthur Adamson', id: 1},
-    toUsersNames: 'Zelda Zellington',
-    toUsers: [Ember.Object.create({id: 26})],
-    status: 'rejected'
-
-  })];
-  const currentUser = Ember.Object.create({ id: 1, setupForDelivery: false });
-  const currentDukeDsUser = Ember.Object.create({ id: 1});
-  this.set('transfers', transfers);
-  this.set('currentUser', currentUser);
-  this.set('currentDukeDsUser', currentDukeDsUser);
-
-  this.render(hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`);
-
-  assert.equal(this.$('.new-delivery-button').text(), '');
-  assert.equal(this.$('.email-setup-warning-anchor').text(), 'gcb-help@duke.edu');
 });

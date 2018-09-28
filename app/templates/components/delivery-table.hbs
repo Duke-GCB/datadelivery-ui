@@ -1,13 +1,7 @@
 <h3>
   Outgoing
-  {{#if setupForDelivery}}
-    {{#link-to 'deliveries.new' class="new-delivery-button btn btn-primary pull-right"}}New Delivery{{/link-to}}
-  {{/if}}
+  {{#link-to 'deliveries.new' class="new-delivery-button btn btn-primary pull-right"}}New Delivery{{/link-to}}
 </h3>
-
-{{#if notSetupForDelivery}}
-  {{email-setup-warning contactEmail="gcb-help@duke.edu"}}
-{{/if}}
 
 {{models-table
   data=outgoingTransfers
