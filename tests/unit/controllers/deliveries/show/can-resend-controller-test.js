@@ -3,7 +3,7 @@ import Ember from 'ember';
 
 moduleFor('controller:deliveries/show/can-resend-controller', 'Unit | Controller | deliveries/show/can resend controller', {
   // Specify the other units that are required for this test.
-  needs: ['controller:application', 'service:session', 'service:duke-ds-user', 'service:user']
+  needs: ['controller:application', 'service:session', 'service:duke-ds-user']
 });
 
 test('canResend is false when no currentDukeDsUser', function(assert) {

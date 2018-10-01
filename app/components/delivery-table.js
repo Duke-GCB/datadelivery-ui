@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { assert } from '@ember/debug';
 
 // Transfer status filter options from
 // https://github.com/Duke-Translational-Bioinformatics/duke-data-service/blob/57258f5b44d31ca7f2cc630a14235aff70878f8f/app/models/project_transfer.rb#L24
@@ -9,10 +8,8 @@ const statusFilterFunction = function(status, selected) {
   return status.capitalize() == selected;
 };
 
-export default Ember.Component.extend({
-  transfers: null, // required property duke-ds-project-transfers models
-  currentDukeDsUser: null, // required property current user's duke-ds-user model
-  currentUser: null, // required property current user model
+const DeliveryTable = Ember.Component.extend({
+  currentDukeDsUser: null,
   tagName: 'div',
   outgoingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
@@ -45,10 +42,11 @@ export default Ember.Component.extend({
       predefinedFilterOptions: statusOptions,
       filterFunction: statusFilterFunction
     }
-  ],
-  didReceiveAttrs() {
-    this._super(...arguments);
-    assert('DeliveryTable component requires transfers property', this.get('transfers'));
-    // currentDukeDsUser and currentUser are also required but are temporarily null until they resolve
-  }
+  ]
 });
+
+DeliveryTable.reopenClass({
+  positionalParams: ['transfers', 'currentDukeDsUser']
+});
+
+export default DeliveryTable;
