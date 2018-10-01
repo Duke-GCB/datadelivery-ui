@@ -40,7 +40,7 @@ test('it updates delivery.fromUser when model changes', function(assert) {
   assert.equal(mockDelivery.get('fromUser'), mockUser);
 });
 
-test('it transitions to setup-instructions when currentDukeDsUser is not setupForDelivery', function(assert) {
+test('it transitions to setup-instructions when currentUser is not setupForDelivery', function(assert) {
   const newUser = Ember.Object.create({id: 33, fullName: 'Larry Bird', setupForDelivery: false});
   const mockDelivery = Ember.Object.create();
   let controller = this.subject({model: mockDelivery});
@@ -48,5 +48,5 @@ test('it transitions to setup-instructions when currentDukeDsUser is not setupFo
     assert.equal(routeName, "deliveries.setup-instructions");
   };
   const application = controller.get('application');
-  application.set('currentDukeDsUser', newUser);
+  application.set('currentUser', newUser);
 });

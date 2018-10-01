@@ -9,9 +9,12 @@ export default Ember.Controller.extend({
     if(delivery) {
       delivery.set('fromUser', currentDukeDsUser);
     }
+  })),
+  currentUserChanged: Ember.on('init', Ember.observer('application.currentUser', 'model', function() {
+    const currentUser  = this.get('application.currentUser');
     // if the current user is loaded but is not setup for delivery show instructions
-    if (currentDukeDsUser) {
-      if (!currentDukeDsUser.get('setupForDelivery')) {
+    if (currentUser) {
+      if (!currentUser.get('setupForDelivery')) {
         this.transitionToRoute('deliveries.setup-instructions');
       }
     }
