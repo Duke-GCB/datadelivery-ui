@@ -34,12 +34,13 @@ test('it renders', function(assert) {
     status: 'rejected'
 
   })];
+  const currentUser = Ember.Object.create({ id: 1 });
   const currentDukeDsUser = Ember.Object.create({ id: 1 });
   this.set('transfers', transfers);
+  this.set('currentUser', currentUser);
   this.set('currentDukeDsUser', currentDukeDsUser);
 
-
-  this.render(hbs`{{delivery-table transfers currentDukeDsUser}}`);
+  this.render(hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`);
 
   assert.equal(this.$('table').length, 2); // 2 tables
   assert.equal(this.$('thead tr').length, 4); // 2 header (label and search box)
@@ -74,4 +75,40 @@ test('it renders', function(assert) {
   assert.equal(incomingField2, 'Zelda Zellington');
   const incomingField3 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(2).text().trim());
   assert.equal(incomingField3, 'Accepted');
+});
+
+test('it renders new delivery link', function(assert) {
+  const transfers = [Ember.Object.create({
+    id: 3,
+    project: {name: 'Taco'},
+    fromUser: {fullName: 'Arthur Adamson', id: 1},
+    toUsersNames: 'Zelda Zellington',
+    toUsers: [Ember.Object.create({id: 26})],
+    status: 'pending'
+  }), Ember.Object.create({
+    id: 2,
+    project: {name: 'Burger'},
+    fromUser: {fullName: 'Zelda Zellington', id: 26},
+    toUsersNames: 'Arthur Adamson',
+    toUsers: [Ember.Object.create({id: 1})],
+    status: 'accepted'
+  }), Ember.Object.create({
+    id: 3,
+    project: {name: 'Pizza'},
+    fromUser: {fullName: 'Arthur Adamson', id: 1},
+    toUsersNames: 'Zelda Zellington',
+    toUsers: [Ember.Object.create({id: 26})],
+    status: 'rejected'
+
+  })];
+  const currentUser = Ember.Object.create({ id: 1});
+  const currentDukeDsUser = Ember.Object.create({ id: 1});
+  this.set('transfers', transfers);
+  this.set('currentUser', currentUser);
+  this.set('currentDukeDsUser', currentDukeDsUser);
+
+  this.render(hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`);
+
+  assert.equal(this.$('.new-delivery-button').text(), 'New Delivery');
+  assert.equal(this.$('.email-setup-warning-anchor').text(), '');
 });

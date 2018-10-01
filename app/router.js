@@ -20,6 +20,7 @@ Router.map(function() {
       this.route('enter-user-message');
       this.route('confirm');
     });
+    this.route('setup-instructions');
   });
   this.route('get-token');
 });
