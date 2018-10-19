@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6-browsers
+      - image: circleci/node:6
     working_directory: ~/repo
     steps:
       - checkout
@@ -11,7 +11,11 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm install
+      - run:
+          command: |
+            npm config set spin false
+            npm install
+            sudo npm install -g phantomjs-prebuilt
 
       - save_cache:
           paths:
