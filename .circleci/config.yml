@@ -15,7 +15,7 @@ jobs:
           command: |
             npm config set spin false
             npm install
-            sudo npm install -g phantomjs-prebuilt
+            npm install phantomjs-prebuilt
 
       - save_cache:
           paths:
