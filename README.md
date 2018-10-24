@@ -1,7 +1,9 @@
 # datadelivery-ui
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+An [ember.js](http://emberjs.com/) application frontend for [D4S2](https://github.com/Duke-GCB/D4S2).
+
+
+[![CircleCI](https://circleci.com/gh/Duke-GCB/datadelivery-ui.svg?style=svg)](https://circleci.com/gh/Duke-GCB/datadelivery-ui)
 
 ## Prerequisites
 
