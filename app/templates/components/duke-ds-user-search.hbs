@@ -11,9 +11,5 @@
 -->
 
 {{duke-ds-user-search-fields onSearch=(action 'doSearch')}}
-{{#each users as |user|}}
-  <p>{{user}}</p>
-{{/each}}
-
-
+{{duke-ds-user-list users=users}}
 {{yield}}

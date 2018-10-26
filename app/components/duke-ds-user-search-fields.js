@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const KINDS = [
-  {mode: 'name', name: 'Name', placeholder: 'Person\'s Name'},
+  {mode: 'full_name_contains', name: 'Name', placeholder: 'Full Name'},
   {mode: 'username', name: 'NetID', placeholder: 'Duke NetID'},
   {mode: 'email', name: 'Email', placeholder: 'Email Address'}
 ];
@@ -15,9 +15,11 @@ export default Ember.Component.extend({
   onSearch: () => {}, // Default implementation
   actions: {
     search() {
+      let params = {};
       const query = this.get('query');
       const mode = this.get('kind.mode');
-      this.get('onSearch')(mode, query);
+      Ember.set(params, mode, query);
+      this.get('onSearch')(params);
     }
   },
   didReceiveAttrs() {
