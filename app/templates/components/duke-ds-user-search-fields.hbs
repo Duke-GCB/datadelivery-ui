@@ -1,6 +1,10 @@
-{{#bs-form as |form|}}
-  <label class="control-label">Username</label>
-  {{input class='form-control' value=searchQuery}}
-  {{#bs-button type="primary" onClick=(action search)}}Search{{/bs-button}}
+<div class="well well-sm">
+{{#bs-form formLayout='inline' model=this onSubmit=(action 'search') as |form|}}
+  {{form.element controlType="input" label="Search Users" property="query" required=true}}
+  {{#form.element}}<span>by</span>{{/form.element}}
+  {{#each modes as |m|}}
+    <label>{{radio-button value=m.mode checked=mode}} <span>{{m.name}}</span></label>
+  {{/each}}
+  {{bs-button defaultText="Search" type="primary" buttonType="submit"}}
 {{/bs-form}}
-{{yield}}
+</div>

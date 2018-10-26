@@ -10,9 +10,9 @@
 
 -->
 
-{{duke-ds-user-search-fields onSearch=(action doSearch)}}
+{{duke-ds-user-search-fields onSearch=(action 'doSearch')}}
 {{#each users as |user|}}
-  User: {{user}}
+  <p>{{user}}</p>
 {{/each}}
 
 
