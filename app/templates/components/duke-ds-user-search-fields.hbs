@@ -1,0 +1,6 @@
+{{#bs-form as |form|}}
+  <label class="control-label">Username</label>
+  {{input class='form-control' value=searchQuery}}
+  {{#bs-button type="primary" onClick=(action search)}}Search{{/bs-button}}
+{{/bs-form}}
+{{yield}}
