@@ -26,3 +26,24 @@ test('it queries the store on doSearch and sets users', function(assert) {
   // doSearch should set the results to component.users
   assert.deepEqual(component.get('users'), mockUsers);
 });
+
+test('it clears selected users on doSearch', function(assert) {
+  let component = this.subject({store: Ember.Object.create({query() { return Ember.RSVP.resolve(); }})});
+  component.set('selectedUsers', [1]);
+  assert.equal(component.get('selectedUsers.length'), 1);
+  // Send the action in a loop
+  Ember.run(() => { component.send('doSearch'); });
+  assert.equal(component.get('selectedUsers.length'), 0);
+});
+
+test('it sends onUserSelected when receiving selectionChanged', function(assert) {
+  assert.expect(1);
+  const mockUser = Ember.Object.create({name: 'Chris'});
+  const onUserSelected = function(user) {
+    assert.equal(user, mockUser);
+  };
+  let component = this.subject({onUserSelected: onUserSelected});
+  Ember.run(() => {
+    component.send('selectionChanged', mockUser);
+  });
+});
