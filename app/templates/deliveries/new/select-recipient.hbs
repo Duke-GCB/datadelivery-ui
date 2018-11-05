@@ -5,8 +5,8 @@
   The selected user will take ownership of the project once the delivery is accepted.
   Once the delivery is accepted you will retain read-only permissions.
 </p>
-{{duke-ds-user-search}}
 
+{{duke-ds-user-search onUserSelected=(action 'recipientSelectionChanged')}}
 
 {{#link-to backRoute class='btn btn-default'}}Back{{/link-to}}
 {{#link-to nextRoute class='btn btn-primary pull-right' disabled=disableNext}}Next{{/link-to}}

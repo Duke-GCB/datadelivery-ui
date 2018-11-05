@@ -5,6 +5,8 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
   users: null,
   selectedUsers: null,
+  onUserSelected: () => {}, // Default implementation
+
   actions: {
     doSearch(params) {
       this.clearSelectedUsers();
@@ -14,7 +16,7 @@ export default Ember.Component.extend({
       });
     },
     selectionChanged(selectedUser) {
-      Ember.Logger.log(`User selected: ${Ember.inspect(selectedUser.get('username'))}`);
+      this.get('onUserSelected')(selectedUser);
     }
   },
   clearSelectedUsers() {
