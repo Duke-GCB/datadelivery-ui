@@ -5,21 +5,9 @@ moduleForComponent('duke-ds-user-search', 'Integration | Component | duke ds use
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
+test('it renders search fields and a user listing', function(assert) {
   this.render(hbs`{{duke-ds-user-search}}`);
+  assert.equal(this.$('.duke-ds-user-search-fields').length, 1);
+  assert.equal(this.$('.duke-ds-user-list').length, 1);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#duke-ds-user-search}}
-      template block text
-    {{/duke-ds-user-search}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });

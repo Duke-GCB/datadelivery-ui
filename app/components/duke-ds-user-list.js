@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const DukeDSUserList = Ember.Component.extend({
+  classNames: ['duke-ds-user-list'],
   users: null,
   multipleSelect: false,
   selectedItems: null,
