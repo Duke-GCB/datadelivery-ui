@@ -3,10 +3,10 @@
     <div class="input-group">
       <div class="input-group-addon">
         {{#each kinds as |k|}}
-          <label class="input-group-text">{{radio-button value=k checked=kind}} <span>{{k.name}}</span></label>
+          <label class="input-group-text mode">{{radio-button value=k checked=kind class=k.mode}} <span>{{k.name}}</span></label>
         {{/each}}
       </div>
-      {{el.control}}
+      {{el.control class="query-field"}}
     </div>
   {{/form.element}}
   {{bs-button defaultText="Search" type="primary" buttonType="submit" class='pull-right'}}

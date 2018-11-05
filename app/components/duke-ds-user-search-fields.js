@@ -25,6 +25,5 @@ export default Ember.Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('kind', DEFAULT_KIND);
-
   }
 });
