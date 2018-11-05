@@ -5,8 +5,9 @@ moduleForComponent('duke-ds-user-search', 'Integration | Component | duke ds use
   integration: true
 });
 
-test('it renders search fields and a user listing', function(assert) {
+test('it renders search fields but no user list when no users', function(assert) {
   this.render(hbs`{{duke-ds-user-search}}`);
   assert.equal(this.$('.duke-ds-user-search-fields').length, 1);
-  assert.equal(this.$('.duke-ds-user-list').length, 1);
+  // When no users, don't render user list
+  assert.equal(this.$('.duke-ds-user-list').length, 0);
 });

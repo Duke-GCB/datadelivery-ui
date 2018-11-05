@@ -6,8 +6,8 @@ moduleForComponent('duke-ds-user-search-fields', 'Integration | Component | duke
 });
 
 test('it renders', function(assert) {
-  this.render(hbs`{{duke-ds-user-search-fields}}`);
-  assert.equal(this.$('label.control-label').text().trim(), 'Search DukeDS Users');
+  this.render(hbs`{{duke-ds-user-search-fields labelText='Search Label'}}`);
+  assert.equal(this.$('label.control-label').text().trim(), 'Search Label');
   assert.equal(this.$('label.mode').text().trim(), 'Name NetID Email');
 });
 
