@@ -1,3 +1,6 @@
 {{duke-ds-user-search-fields onSearch=(action 'doSearch')}}
-{{duke-ds-user-list users=users}}
+{{#if users}}
+  <h4>Search Results:</h4>
+  {{duke-ds-user-list users=users selectedItems=selectedUsers selectionChanged=(action 'selectionChanged')}}
+{{/if}}
 {{yield}}

@@ -24,7 +24,9 @@ const DukeDSUserList = Ember.Component.extend({
       className: "duke-ds-user-email"}
   ],
   selectionDidChange: Ember.observer('selectedItems.[]', function() {
-    this.selectionChanged(this.get('selectedItems'));
+    if(this.get('selectionChanged')) {
+      this.selectionChanged(this.get('selectedItems'));
+    }
   }),
   init() {
     this._super(...arguments);

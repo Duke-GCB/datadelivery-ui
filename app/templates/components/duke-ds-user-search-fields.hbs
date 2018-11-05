@@ -1,7 +1,7 @@
 {{#bs-form formLayout='vertical' model=this onSubmit=(action 'search') as |form|}}
-  {{#form.element controlType="text" label="Search DukeDS Users" property="query" placeholder=kind.placeholder  as |el|}}
+  {{#form.element controlType="text" label=labelText property="query" placeholder=kind.placeholder  as |el|}}
     <div class="input-group">
-      <div class="input-group-addon">
+      <div class="input-group-addon">Search By&nbsp;
         {{#each kinds as |k|}}
           <label class="input-group-text mode">{{radio-button value=k checked=kind class=k.mode}} <span>{{k.name}}</span></label>
         {{/each}}
