@@ -23,7 +23,6 @@ Router.map(function() {
     this.route('setup-instructions');
   });
   this.route('get-token');
-  this.route('user-search');
 });
 
 export default Router;
