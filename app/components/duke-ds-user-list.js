@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const DukeDSUserList = Ember.Component.extend({
+  classNames: ['duke-ds-user-list'],
   users: null,
   multipleSelect: false,
   selectedItems: null,
@@ -18,12 +19,18 @@ const DukeDSUserList = Ember.Component.extend({
       className: "duke-ds-user-fullName",
       sortPrecedence: 0
     },
+    { propertyName: "username",
+      title: "NetID",
+      className: "duke-ds-user-username"
+    },
     { propertyName: "email",
       title: "Email",
       className: "duke-ds-user-email"}
   ],
   selectionDidChange: Ember.observer('selectedItems.[]', function() {
-    this.selectionChanged(this.get('selectedItems'));
+    if(this.get('selectionChanged')) {
+      this.selectionChanged(this.get('selectedItems'));
+    }
   }),
   init() {
     this._super(...arguments);

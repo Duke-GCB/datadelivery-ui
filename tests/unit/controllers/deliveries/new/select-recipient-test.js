@@ -65,10 +65,10 @@ test('it filters out null names and emails from the list of recipients', functio
 });
 
 
-test('it handles toUserSelectionChanged', function(assert) {
+test('it handles recipientSelectionChanged', function(assert) {
   let toUser = Ember.Object.create({ id: '123' });
   let delivery = Ember.Object.create();
   let controller = this.subject({ delivery: delivery });
-  controller.send('toUserSelectionChanged', [toUser]);
+  controller.send('recipientSelectionChanged', [toUser]);
   assert.equal(controller.get('toUser'), toUser);
 });

@@ -13,7 +13,7 @@ export default BaseController.extend({
       .rejectBy('id', this.get('fromUser.id'));
   }),
   actions: {
-    toUserSelectionChanged(selectedItems) {
+    recipientSelectionChanged(selectedItems) {
       // When unchecking the single item, selectedItems.length drops to 0,
       // but selectedItems.firstObject still references a stale object, so check for that.
       if(selectedItems.get('length') == 0) {
