@@ -1,15 +1,15 @@
 import Ember from 'ember';
 
 const KINDS = [
-  {mode: 'full_name_contains', name: 'Name', placeholder: 'Full Name'},
-  {mode: 'username', name: 'NetID', placeholder: 'Duke NetID'},
-  {mode: 'email', name: 'Email', placeholder: 'Email Address'}
+  {mode: 'full_name_contains', name: 'Name', placeholder: 'Full or Partial Name'},
+  {mode: 'username', name: 'NetID', placeholder: 'Exact Duke NetID'},
+  {mode: 'email', name: 'Email', placeholder: 'Exact Email Address'}
 ];
 
 const DEFAULT_KIND = KINDS[0];
 
 export default Ember.Component.extend({
-  labelText: 'Search for a Duke DS User',
+  labelText: 'Search for a User',
   classNames: ['duke-ds-user-search-fields'],
   query: null,
   kinds: KINDS,

@@ -1,27 +1,30 @@
   <form class="form-horizontal">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="row">
-          <label class="col-md-6 control-label">
-            Search By
-          </label>
-          <div class="col-md-6">
-            {{#each kinds as |k|}}
-              <div class="radio">
-                <label class="mode">
-                  {{radio-button value=k checked=kind class=k.mode}}
-                  {{k.name}}
-                </label>
-              </div>
-            {{/each}}
+    <fieldset>
+      <legend>{{labelText}}</legend>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="row">
+            <label class="col-md-6 control-label">
+              Search By
+            </label>
+            <div class="col-md-6">
+              {{#each kinds as |k|}}
+                <div class="radio">
+                  <label class="mode">
+                    {{radio-button value=k checked=kind class=k.mode}}
+                    {{k.name}}
+                  </label>
+                </div>
+              {{/each}}
+            </div>
           </div>
         </div>
+        <div class="col-md-8">
+          {{input class="form-control query-field" value=this.query placeholder=kind.placeholder}}
+        </div>
+        <div class="col-md-1">
+          {{#bs-button type="info" buttonType="submit"  onClick=(action 'search')}}Search{{/bs-button}}
+        </div>
       </div>
-      <div class="col-md-8">
-        {{input class="form-control query-field" value=this.query placeholder=kind.placeholder}}
-      </div>
-      <div class="col-md-1">
-        {{#bs-button type="info" buttonType="submit"  onClick=(action 'search')}}Search{{/bs-button}}
-      </div>
-    </div>
+    </fieldset>
   </form>

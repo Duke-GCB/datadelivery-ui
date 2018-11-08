@@ -15,9 +15,9 @@ test('it renders', function(assert) {
 
 test('it calls onSearch with name, username, and email modes', function(assert) {
   const modesAndQueries = [
-    {query: 'Jane Doe', mode: 'full_name_contains', placeholder: 'Full Name'},
-    {query: 'jdoe123', mode: 'username', placeholder: 'Duke NetID'},
-    {query: 'jane.doe@example.org', mode: 'email', placeholder: 'Email Address'}
+    {query: 'Jane Doe', mode: 'full_name_contains', placeholder: 'Full or Partial Name'},
+    {query: 'jdoe123', mode: 'username', placeholder: 'Exact Duke NetID'},
+    {query: 'jane.doe@example.org', mode: 'email', placeholder: 'Exact Email Address'}
   ];
 
   assert.expect(modesAndQueries.length * 2); // two assertions for every mode
