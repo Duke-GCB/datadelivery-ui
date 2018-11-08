@@ -6,9 +6,11 @@ moduleForComponent('duke-ds-user-search-fields', 'Integration | Component | duke
 });
 
 test('it renders', function(assert) {
-  this.render(hbs`{{duke-ds-user-search-fields labelText='Search Label'}}`);
-  assert.equal(this.$('label.control-label').text().trim(), 'Search Label');
-  assert.equal(this.$('label.mode').text().trim(), 'Name NetID Email');
+  this.render(hbs`{{duke-ds-user-search-fields}}`);
+  assert.equal(this.$('label.control-label').text().trim(), 'Search By');
+  assert.equal(this.$('label.mode').eq(0).text().trim(), 'Name');
+  assert.equal(this.$('label.mode').eq(1).text().trim(), 'NetID');
+  assert.equal(this.$('label.mode').eq(2).text().trim(), 'Email');
 });
 
 test('it calls onSearch with name, username, and email modes', function(assert) {
