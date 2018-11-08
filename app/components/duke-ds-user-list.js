@@ -19,6 +19,10 @@ const DukeDSUserList = Ember.Component.extend({
       className: "duke-ds-user-fullName",
       sortPrecedence: 0
     },
+    { propertyName: "username",
+      title: "NetID",
+      className: "duke-ds-user-username"
+    },
     { propertyName: "email",
       title: "Email",
       className: "duke-ds-user-email"}
