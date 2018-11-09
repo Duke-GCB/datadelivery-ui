@@ -41,7 +41,9 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+We use Docker and Ansible to deploy this application, as described in the [d4s2-webapp](https://github.com/Duke-GCB/gcb-ansible-roles/tree/master/d4s2_webapp) role.
+
+Docker images are built on-demand as described by the [datadelivery.yml](https://github.com/Duke-GCB/gcb-ansible/blob/master/datadelivery.yml) playbook
 
 ## Further Reading / Useful Links
 
