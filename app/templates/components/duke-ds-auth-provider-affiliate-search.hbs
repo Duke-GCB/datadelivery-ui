@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-xs-12">
+    {{duke-ds-user-search-fields onSearch=(action 'doSearch')}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h4>Search Results:</h4>
+    {{duke-ds-user-list users=affiliates selectedItems=selectedAffiliates selectionChanged=(action 'selectionChanged')}}
+  </div>
+</div>

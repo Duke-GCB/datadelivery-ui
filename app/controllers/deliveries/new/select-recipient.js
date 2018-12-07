@@ -13,13 +13,17 @@ export default BaseController.extend({
       .rejectBy('id', this.get('fromUser.id'));
   }),
   actions: {
-    recipientSelectionChanged(selectedItems) {
+    affiliateSelected(selectedAffiliates) {
       // When unchecking the single item, selectedItems.length drops to 0,
       // but selectedItems.firstObject still references a stale object, so check for that.
-      if(selectedItems.get('length') == 0) {
+      if(selectedAffiliates.get('length') == 0) {
         this.set('toUser', null);
-      }  else {
-        this.set('toUser',  selectedItems.get('firstObject'));
+      } else {
+        // Obtain the duke-ds-user from this affiliate
+        const affiliate = selectedAffiliates.get('firstObject');
+        affiliate.getOrRegisterUser().then(dukeDsUser => {
+          this.set('toUser', dukeDsUser);
+        });
       }
     },
   }

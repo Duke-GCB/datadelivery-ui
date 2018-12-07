@@ -6,7 +6,7 @@
   Once the delivery is accepted you will retain read-only permissions.
 </p>
 
-{{duke-ds-user-search onUserSelected=(action 'recipientSelectionChanged')}}
+{{duke-ds-auth-provider-affiliate-search onAffiliateSelected=(action 'affiliateSelected')}}
 
 {{#link-to backRoute class='btn btn-default'}}Back{{/link-to}}
 {{#link-to nextRoute class='btn btn-primary pull-right' disabled=disableNext}}Next{{/link-to}}
