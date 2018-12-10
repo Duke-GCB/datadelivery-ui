@@ -6,6 +6,8 @@
 <div class="row">
   <div class="col-xs-12">
     <h4>Search Results:</h4>
-    {{duke-ds-user-list users=affiliates selectedItems=selectedAffiliates selectionChanged=(action 'selectionChanged')}}
+    {{duke-ds-user-list users=filteredAffiliates
+                        selectedItems=selectedAffiliates
+                        selectionChanged=(action 'selectionChanged')}}
   </div>
 </div>
