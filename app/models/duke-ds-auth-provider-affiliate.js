@@ -12,6 +12,5 @@ export default DS.Model.extend({
       this.store.pushPayload(userModelName, data);
       return this.store.peekRecord(userModelName, data[Ember.String.pluralize(userModelName)].id);
     });
-
   },
 });
