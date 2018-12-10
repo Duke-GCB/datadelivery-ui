@@ -40,8 +40,8 @@ test('it filters out the fromUser from the list of affiliates', function(assert)
   });
 
   assert.equal(controller.get('affiliates.length'), 2);
-  assert.equal(controller.get('recipientAffiliates.length'), 1);
-  assert.equal(controller.get('recipientAffiliates.firstObject.uid'), 'affiliate-456');
+  assert.equal(controller.get('filteredAffiliates.length'), 1);
+  assert.equal(controller.get('filteredAffiliates.firstObject.uid'), 'affiliate-456');
 });
 
 test('it filters out null names and emails from the list of recipients', function(assert) {
@@ -60,8 +60,8 @@ test('it filters out null names and emails from the list of recipients', functio
   });
 
   assert.equal(controller.get('affiliates.length'), 4);
-  assert.equal(controller.get('recipientAffiliates.length'), 1);
-  assert.equal(controller.get('recipientAffiliates.firstObject.uid'), '1');
+  assert.equal(controller.get('filteredAffiliates.length'), 1);
+  assert.equal(controller.get('filteredAffiliates.firstObject.uid'), '1');
 });
 
 

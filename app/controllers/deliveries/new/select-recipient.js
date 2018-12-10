@@ -6,7 +6,7 @@ export default BaseController.extend({
   backRoute: 'deliveries.new.select-project',
   nextRoute: 'deliveries.new.enter-user-message',
   affiliates: null, // All affiliates returned by search
-  recipientAffiliates: Ember.computed('allAffiliates', 'fromUser.username', function () {
+  filteredAffiliates: Ember.computed('affiliates', 'fromUser.username', function () {
     return this.get('affiliates')
       .rejectBy('fullName', null)
       .rejectBy('fullName', '(null)')
