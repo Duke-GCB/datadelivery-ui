@@ -8,5 +8,5 @@ moduleForComponent('duke-ds-auth-provider-affiliate-search', 'Integration | Comp
 test('it renders search fields and a user listing', function(assert) {
   this.render(hbs`{{duke-ds-auth-provider-affiliate-search}}`);
   assert.equal(this.$('.duke-ds-user-search-fields').length, 1);
-  assert.equal(this.$('.duke-ds-user-list').length, 1);
+  assert.equal(this.$('.duke-ds-auth-provider-affiliate-list').length, 1);
 });

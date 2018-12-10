@@ -49,3 +49,32 @@ test('it sends onAffiliateSelected when receiving selectionChanged', function(as
     component.send('selectionChanged', mockAffiliate);
   });
 });
+
+test('it filters out the excludeUser from the list of affiliates', function(assert) {
+  let excludeUser = Ember.Object.create({ id: 'user-123', username: 'affiliate-123' });
+  let affiliates  = [
+    Ember.Object.create({ uid: 'affiliate-123'}),
+    Ember.Object.create({ uid: 'affiliate-456'})
+  ];
+
+  let component = this.subject({excludeUser: excludeUser, affiliates: affiliates});
+
+  assert.equal(component.get('affiliates.length'), 2);
+  assert.equal(component.get('filteredAffiliates.length'), 1);
+  assert.equal(component.get('filteredAffiliates.firstObject.uid'), 'affiliate-456');
+});
+
+test('it filters out null names and emails from the list of affiliates', function(assert) {
+  let affiliates = [
+    Ember.Object.create({ uid: '1', fullName: 'John Smith', email: 'john@smith.org'}),
+    Ember.Object.create({ uid: '2', fullName: null, email: 'john@smith.org'}),
+    Ember.Object.create({ uid: '3', fullName: '(null)', email: 'john@smith.org'}),
+    Ember.Object.create({ uid: '4', fullName: 'John Smith', email: null}),
+  ];
+
+  let component = this.subject({affiliates: affiliates});
+
+  assert.equal(component.get('affiliates.length'), 4);
+  assert.equal(component.get('filteredAffiliates.length'), 1);
+  assert.equal(component.get('filteredAffiliates.firstObject.uid'), '1');
+});

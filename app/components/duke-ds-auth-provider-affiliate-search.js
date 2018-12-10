@@ -33,7 +33,9 @@ export default Ember.Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('affiliates', []);
+    if(!this.get('affiliates')) {
+      this.set('affiliates', []);
+    }
     this.set('selectedAffiliates', []);
   }
 });
