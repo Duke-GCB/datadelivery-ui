@@ -1,12 +1,15 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('adapter:duke-ds-auth-provider-affiliate', 'Unit | Adapter | duke ds auth provider affiliate', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
+  needs: ['service:session']
 });
 
-// Replace this with your real tests.
-test('it exists', function(assert) {
+test('it POSTs the getOrRegisterUser action to the correct URL', function (assert) {
   let adapter = this.subject();
   assert.ok(adapter);
+  adapter.set('ajax', (url, method) => {
+    assert.equal(url, 'http://testhost/duke-ds-auth-provider-affiliates/abc123/get-or-register-user/');
+    assert.equal(method, 'POST');
+  });
+  adapter.getOrRegisterUser('abc123');
 });
