@@ -5,12 +5,13 @@ export default BaseController.extend({
   disableNext: Ember.computed.not('toUser.id'),
   backRoute: 'deliveries.new.select-project',
   nextRoute: 'deliveries.new.enter-user-message',
-  recipients: Ember.computed('model', 'fromUser.id', function() {
-    return this.get('model')
+  affiliates: null, // All affiliates returned by search
+  recipientAffiliates: Ember.computed('allAffiliates', 'fromUser.username', function () {
+    return this.get('affiliates')
       .rejectBy('fullName', null)
       .rejectBy('fullName', '(null)')
       .rejectBy('email', null)
-      .rejectBy('id', this.get('fromUser.id'));
+      .rejectBy('uid', this.get('fromUser.username'));
   }),
   actions: {
     affiliateSelected(selectedAffiliates) {
