@@ -15,10 +15,10 @@ test('it renders a list of affiliates sorted by fullName', function(assert) {
 
   assert.equal(this.$('.duke-ds-auth-provider-affiliate-fullName').eq(1).text().trim(), 'Jim');
   assert.equal(this.$('.duke-ds-auth-provider-affiliate-email').eq(1).text().trim(), 'jim@jim.org');
-  assert.equal(this.$('.duke-ds-auth-provider-affiliate-netid').eq(1).text().trim(), '1');
+  assert.equal(this.$('.duke-ds-auth-provider-affiliate-netid').eq(1).text().trim(), '2');
   assert.equal(this.$('.duke-ds-auth-provider-affiliate-fullName').eq(2).text().trim(), 'Joe');
   assert.equal(this.$('.duke-ds-auth-provider-affiliate-email').eq(2).text().trim(), 'joe@joe.org');
-  assert.equal(this.$('.duke-ds-auth-provider-affiliate-netid').eq(2).text().trim(), '2');
+  assert.equal(this.$('.duke-ds-auth-provider-affiliate-netid').eq(2).text().trim(), '1');
 });
 
 test('it sends selected affiliates to selectionChanged action', function(assert) {
