@@ -2,8 +2,6 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('adapter:delivery', 'Unit | Adapter | delivery', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
   needs: ['service:session']
 });
 

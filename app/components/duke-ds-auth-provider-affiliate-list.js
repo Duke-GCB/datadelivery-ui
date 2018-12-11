@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
-const DukeDSUserList = Ember.Component.extend({
-  classNames: ['duke-ds-user-list'],
-  users: null,
+const DukeDSAuthProviderAffiliateList = Ember.Component.extend({
+  classNames: ['duke-ds-auth-provider-affiliate-list'],
+  affiliates: null,
   multipleSelect: false,
   selectedItems: null,
   pageSize: 12,
@@ -16,16 +16,16 @@ const DukeDSUserList = Ember.Component.extend({
     },
     { propertyName: "fullName",
       title: "Name",
-      className: "duke-ds-user-fullName",
+      className: "duke-ds-auth-provider-affiliate-fullName",
       sortPrecedence: 0
     },
-    { propertyName: "username",
+    { propertyName: "uid",
       title: "NetID",
-      className: "duke-ds-user-username"
+      className: "duke-ds-auth-provider-affiliate-netid"
     },
     { propertyName: "email",
       title: "Email",
-      className: "duke-ds-user-email"}
+      className: "duke-ds-auth-provider-affiliate-email"}
   ],
   selectionDidChange: Ember.observer('selectedItems.[]', function() {
     if(this.get('selectionChanged')) {
@@ -38,8 +38,8 @@ const DukeDSUserList = Ember.Component.extend({
   }
 });
 
-DukeDSUserList.reopenClass({
-  positionalParams: ['users']
+DukeDSAuthProviderAffiliateList.reopenClass({
+  positionalParams: ['affiliates']
 });
 
-export default DukeDSUserList;
+export default DukeDSAuthProviderAffiliateList;
