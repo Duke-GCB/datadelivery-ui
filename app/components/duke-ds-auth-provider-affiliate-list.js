@@ -21,7 +21,7 @@ const DukeDSAuthProviderAffiliateList = Ember.Component.extend({
     },
     { propertyName: "uid",
       title: "NetID",
-      className: "duke-ds-auth-provider-affiliate-username"
+      className: "duke-ds-auth-provider-affiliate-netid"
     },
     { propertyName: "email",
       title: "Email",
