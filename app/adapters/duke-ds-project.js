@@ -12,7 +12,14 @@ export default ApplicationAdapter.extend({
       if (permissions.length) {
         return permissions[0]['auth_role'];
       }
-      return  null;
+      return null;
     });
   },
+  getSummary(projectId) {
+    const dukeDsProjectUrl = this.buildURL('duke-ds-project', projectId);
+    const url = `${dukeDsProjectUrl}summary/`;
+    return this.ajax(url).then(response => {
+      return response['duke-ds-project-summaries'];
+    });
+  }
 });
