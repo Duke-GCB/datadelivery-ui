@@ -14,6 +14,17 @@
         {{delivery-email delivery.deliveryEmailText}}
       {{/detail-label-value}}
     {{/if}}
+    {{#if showProjectDetails}}
+      {{#detail-label-value label="Project Size"}}
+        {{duke-ds-project-size transfer.project}}
+      {{/detail-label-value}}
+      {{#detail-label-value label="View Project"}}
+        {{duke-ds-project-link transfer.project}}
+      {{/detail-label-value}}
+      {{#detail-label-value label="Download Project"}}
+        {{duke-ds-project-zip-download-link transfer.project}}
+      {{/detail-label-value}}
+    {{/if}}
   {{/unless}}
   {{yield}}
 </dl>
