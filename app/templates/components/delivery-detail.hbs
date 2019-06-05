@@ -15,6 +15,7 @@
       {{/detail-label-value}}
     {{/if}}
     {{#if showProjectDetails}}
+      <div class="project-details">
       {{#detail-label-value label="Project Size"}}
         {{duke-ds-project-size transfer.project}}
       {{/detail-label-value}}
@@ -24,6 +25,7 @@
       {{#detail-label-value label="Download Project"}}
         {{duke-ds-project-zip-download-link transfer.project}}
       {{/detail-label-value}}
+      </div>
     {{/if}}
   {{/unless}}
   {{yield}}
