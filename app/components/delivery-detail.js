@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 const DeliveryDetail = Ember.Component.extend({
+  transfer: null,
+  showProjectDetails: false,
   classNames: ['delivery-detail'],
   editUserMessage: false, /* minimal field display allowing **/
   delivery: Ember.computed.alias('transfer.delivery'),
@@ -8,7 +10,7 @@ const DeliveryDetail = Ember.Component.extend({
 });
 
 DeliveryDetail.reopenClass({
-  positionalParams: ['transfer']
+  positionalParams: ['transfer', 'showProjectDetails']
 });
 
 export default DeliveryDetail;

@@ -2,8 +2,6 @@ import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleFor('adapter:duke-ds-project', 'Unit | Adapter | duke ds project', {
-  // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
   needs: ['service:session']
 });
 
@@ -33,4 +31,19 @@ test('it computes a promise for getUserProjectAuthRole that returns null', funct
   });
   const authRolePromise = adapter.getUserProjectAuthRole(456, 789);
   authRolePromise.then((value) => assert.equal(value, null));
+});
+
+test('it computes a promise for getSummary that returns a value', function(assert) {
+  assert.expect(2);
+  let adapter = this.subject();
+  adapter.set('ajax', (url) => {
+    assert.equal(url, 'http://testhost/duke-ds-projects/123/summary/');
+    return Ember.RSVP.resolve({
+      'duke-ds-project-summaries': {
+        'total_size': 1000
+      }
+    });
+  });
+  const authRolePromise = adapter.getSummary(123);
+  authRolePromise.then((summary) => assert.equal(summary.total_size, 1000));
 });

@@ -126,3 +126,22 @@ test('it does not render email when transfer is not pending', function(assert) {
   this.render(hbs`{{delivery-detail transfer}}`);
   assert.equal(this.$('.delivery-email').html(), null);
 });
+
+test('it renders project details when showProjectDetails=true', function(assert) {
+  const transfer = Ember.Object.create({
+    project: Ember.Object.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
+    status: 'accepted',
+  });
+  this.set('transfer', transfer);
+  this.set('showProjectDetails', true);
+  this.render(hbs`{{delivery-detail transfer showProjectDetails}}`);
+  assert.equal(this.$('.project-details').length, 1);
+});
+
+test('it hides project details when showProjectDetails=false', function(assert) {
+  const transfer = Ember.Object.create({ status: 'accepted' });
+  this.set('transfer', transfer);
+  this.set('showProjectDetails', false);
+  this.render(hbs`{{delivery-detail transfer showProjectDetails}}`);
+  assert.equal(this.$('.project-details').length, 0);
+});
