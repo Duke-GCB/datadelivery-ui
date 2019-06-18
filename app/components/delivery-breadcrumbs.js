@@ -4,11 +4,23 @@ export default Ember.Component.extend({
   tagName: 'ol',
   classNames: ['breadcrumb'],
   transfer: null, /* specific transfer to be passed to child breadcrumbs */
-  selectedRouteName: null, /* route we should select ('deliveries.index', 'deliveries.show', etc) */
-  isDeliverySelected: Ember.computed('selectedRouteName', function () {
-    // selected route starts with deliveries.show
-    return this.get('selectedRouteName').indexOf('deliveries.show') == 0;
+  selectedRouteName: null ,/* route we should select ('deliveries.index', 'deliveries.show', etc) */
+  routeStartsWith(routePrefix) {
+    return this.get('selectedRouteName').indexOf(routePrefix) == 0;
+  },
+  // delivery routes
+  deliveryIndex: Ember.computed('selectedRouteName', function() {
+    return this.routeStartsWith('deliveries.');
   }),
-  isResendSelected: Ember.computed.equal('selectedRouteName', 'deliveries.show.resend'),
-  isNewDeliverySelected: Ember.computed.equal('selectedRouteName', 'deliveries.new')
+  deliveryShow: Ember.computed('selectedRouteName', function () {
+    return this.routeStartsWith('deliveries.show');
+  }),
+  deliveryShowResend: Ember.computed.equal('selectedRouteName', 'deliveries.show.resend'),
+  deliveryNew: Ember.computed.equal('selectedRouteName', 'deliveries.new'),
+
+  // duke-ds-projects routes
+  dukeDsProjects: Ember.computed('selectedRouteName', function() {
+    return this.routeStartsWith('duke-ds-projects.');
+  }),
+  dukeDsProject: Ember.computed.equal('selectedRouteName', 'duke-ds-projects.show')
 });
