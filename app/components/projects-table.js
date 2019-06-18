@@ -7,6 +7,7 @@ const ProjectColumns = [
 ];
 
 export default Ember.Component.extend({
+  classNames: ['projects-table'],
   projects: null,
   columns: null,
   init() {
