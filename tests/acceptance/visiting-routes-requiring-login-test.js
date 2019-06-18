@@ -42,3 +42,19 @@ test('visiting /deliveries/some-id/resend requires login', function (assert) {
     assert.equal(currentURL(), '/login');
   });
 });
+
+test('visiting /duke-ds-projects requires login', function(assert) {
+  visit('/duke-ds-projects');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/login');
+  });
+});
+
+test('visiting /duke-ds-projects/some-id requires login', function(assert) {
+  visit('/duke-ds-projects/some-id');
+
+  andThen(function() {
+    assert.equal(currentURL(), '/login');
+  });
+});

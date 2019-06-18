@@ -23,6 +23,9 @@ Router.map(function() {
     this.route('setup-instructions');
   });
   this.route('get-token');
+  this.route('duke-ds-projects', function() {
+    this.route('show', { path: '/:project_id'} );
+  });
 });
 
 export default Router;
