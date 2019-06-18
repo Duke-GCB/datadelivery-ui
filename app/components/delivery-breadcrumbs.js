@@ -19,8 +19,8 @@ export default Ember.Component.extend({
   deliveryNew: Ember.computed.equal('selectedRouteName', 'deliveries.new'),
 
   // duke-ds-projects routes
-  dukeDsProjects: Ember.computed('selectedRouteName', function() {
+  dukeDsProjectIndex: Ember.computed('selectedRouteName', function() {
     return this.routeStartsWith('duke-ds-projects.');
   }),
-  dukeDsProject: Ember.computed.equal('selectedRouteName', 'duke-ds-projects.show')
+  dukeDsProjectShow: Ember.computed.equal('selectedRouteName', 'duke-ds-projects.show')
 });

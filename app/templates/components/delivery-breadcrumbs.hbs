@@ -1,5 +1,5 @@
 {{#if deliveryIndex}}
-  {{breadcrumb-item label="Data Delivery"
+  {{breadcrumb-item label="Deliveries"
                     routeName="deliveries.index"
                     selectedRouteName=selectedRouteName}}
   {{#if deliveryShow}}
@@ -17,6 +17,17 @@
     {{breadcrumb-item label="New"
                       routeName="deliveries.new"
                       selectedRouteName=selectedRouteName}}
+  {{/if}}
+{{else if dukeDsProjectIndex}}
+  {{breadcrumb-item label="Duke DS Projects"
+                    routeName="duke-ds-projects.index"
+                    selectedRouteName=selectedRouteName}}
+  {{#if dukeDsProjectShow}}
+    {{breadcrumb-item label=project.name
+                      routeName="duke-ds-projects.show"
+                      context=project
+                      selectedRouteName=selectedRouteName}}
+
   {{/if}}
 {{/if}}
 {{yield}}
