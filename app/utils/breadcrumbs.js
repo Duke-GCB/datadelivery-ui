@@ -9,7 +9,7 @@ const RouteLabels = {
   'deliveries': 'Deliveries',
   'deliveries.show': context => Ember.get(context, 'project.name'),
   'deliveries.show.resend': 'Resend',
-  'deliveries.show.resend-confrirm': 'Confirm Resend',
+  'deliveries.show.resend-confirm': 'Confirm Resend',
   'deliveries.new': 'New',
   'deliveries.show.recall': 'Recall',
   'duke-ds-projects': 'Duke DS Projects',
@@ -54,6 +54,8 @@ function makeCrumbs(routeLabels, homeCrumb, routeName, context) {
     });
     crumbs.addObjects(routeCrumbs);
   }
+  // Filter out any crumbs with no label
+  crumbs = crumbs.filterBy('label');
   return crumbs;
 }
 

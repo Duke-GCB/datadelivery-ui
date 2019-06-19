@@ -1,5 +1,6 @@
 import { getLabel, stripIndex, makeCrumbs, RouteLabels, HomeCrumb } from 'datadelivery-ui/utils/breadcrumbs';
 import { module, test } from 'qunit';
+import Ember from 'ember';
 
 module('Unit | Utility | breadcrumbs');
 
@@ -45,5 +46,19 @@ test('makeCrumbs makes crumbs for deliveries.show.resend', function(assert) {
     { routeName: 'deliveries', label: 'Deliveries'},
     { routeName: 'deliveries.show', label: 'My Project'},
     { routeName: 'deliveries.show.resend', label: 'Resend'},
+  ]);
+});
+
+test('makeCrumbs filters out routes with no label', function(assert) {
+  const testLabels = {
+    'route': 'Route',
+    'route.sixty': 'Sixty'
+  };
+  assert.notOk(getLabel(testLabels, 'route.sixty.six'));
+  const crumbs = makeCrumbs(testLabels, HomeCrumb, 'route.sixty.six');
+  assert.deepEqual(crumbs, [
+    { routeName: 'index', label: 'Home'},
+    { routeName: 'route', label: 'Route'},
+    { routeName: 'route.sixty', label: 'Sixty'},
   ]);
 });
