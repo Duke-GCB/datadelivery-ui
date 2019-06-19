@@ -1,4 +1,4 @@
-import { getLabel, stripIndex, makeCrumbs } from 'datadelivery-ui/utils/breadcrumbs';
+import { getLabel, stripIndex, makeCrumbs, RouteLabels, HomeCrumb } from 'datadelivery-ui/utils/breadcrumbs';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | breadcrumbs');
@@ -20,9 +20,18 @@ test('stripIndex removes trailing .index', function(assert) {
   assert.equal(stripIndex('index'), 'index'); // AM I sure about this one?
 });
 
-test('makeCrumbs always includes home', function(assert) {
-  const homeCrumb = {routeName: 'index', label: 'Home'};
-  const context = null;
-  const crumbs = makeCrumbs([], homeCrumb, 'index', context);
+test('makeCrumbs makes 1 crumb for index', function(assert) {
+  const crumbs = makeCrumbs(RouteLabels, HomeCrumb, 'index');
   assert.equal(crumbs.length, 1);
+  assert.equal(crumbs[0].label, 'Home');
+  assert.equal(crumbs[0].routeName, 'index');
+});
+
+test('makeCrumbs makes two crumbs for deliveries', function(assert) {
+  const crumbs = makeCrumbs(RouteLabels, HomeCrumb, 'deliveries');
+  assert.equal(crumbs.length, 2);
+  assert.equal(crumbs[0].label, 'Home');
+  assert.equal(crumbs[0].routeName, 'index');
+  assert.equal(crumbs[1].label, 'Deliveries');
+  assert.equal(crumbs[1].routeName, 'deliveries');
 });
