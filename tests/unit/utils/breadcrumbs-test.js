@@ -17,21 +17,33 @@ test('getLabel returns strings, functions, or contexts as needed', function (ass
 test('stripIndex removes trailing .index', function(assert) {
   assert.equal(stripIndex('deliveries.index'), 'deliveries');
   assert.equal(stripIndex('deliveries.show'), 'deliveries.show');
-  assert.equal(stripIndex('index'), 'index'); // AM I sure about this one?
+  assert.equal(stripIndex('index'), '');
+  assert.equal(stripIndex('someindex'), 'someindex');
+  assert.equal(stripIndex('.index'), '');
 });
 
 test('makeCrumbs makes 1 crumb for index', function(assert) {
   const crumbs = makeCrumbs(RouteLabels, HomeCrumb, 'index');
-  assert.equal(crumbs.length, 1);
-  assert.equal(crumbs[0].label, 'Home');
-  assert.equal(crumbs[0].routeName, 'index');
+  assert.deepEqual(crumbs, [
+    { routeName: 'index', label: 'Home'},
+  ]);
 });
 
 test('makeCrumbs makes two crumbs for deliveries', function(assert) {
   const crumbs = makeCrumbs(RouteLabels, HomeCrumb, 'deliveries');
-  assert.equal(crumbs.length, 2);
-  assert.equal(crumbs[0].label, 'Home');
-  assert.equal(crumbs[0].routeName, 'index');
-  assert.equal(crumbs[1].label, 'Deliveries');
-  assert.equal(crumbs[1].routeName, 'deliveries');
+  assert.deepEqual(crumbs, [
+    { routeName: 'index', label: 'Home'},
+    { routeName: 'deliveries', label: 'Deliveries'}
+  ]);
+});
+
+test('makeCrumbs makes crumbs for deliveries.show.resend', function(assert) {
+  const delivery = Ember.Object.create({project: {name: 'My Project'}});
+  const crumbs = makeCrumbs(RouteLabels, HomeCrumb, 'deliveries.show.resend', delivery);
+  assert.deepEqual(crumbs, [
+    { routeName: 'index', label: 'Home'},
+    { routeName: 'deliveries', label: 'Deliveries'},
+    { routeName: 'deliveries.show', label: 'My Project'},
+    { routeName: 'deliveries.show.resend', label: 'Resend'},
+  ]);
 });

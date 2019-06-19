@@ -29,7 +29,8 @@ function getLabel(routeLabels, routeName, context) {
 }
 
 function stripIndex(routeName) {
-  return routeName.replace(/\.index$/, '');
+  // Replace either 'index' alone or a trailing '.index
+  return routeName.replace(/^index$|\.index$/, '');
 }
 
 const HomeCrumb = {
@@ -38,17 +39,21 @@ const HomeCrumb = {
 };
 
 function makeCrumbs(routeLabels, homeCrumb, routeName, context) {
-  // If the route ends with .index, we don't need that part
+  // Handle the case where the route is 'index' or ends with '.index'
   routeName = stripIndex(routeName);
-  let parts = routeName.split('.');
-  let crumbs = parts.map((part, index) => {
-    const prefix = parts.slice(0, index + 1).join('.');
-    return {
-      routeName: prefix,
-      label: getLabel(routeLabels, prefix, context)
-    };
-  });
-  crumbs.insertAt(0, homeCrumb);
+  let crumbs = [homeCrumb]; // Always start with home
+  // If routeName is an empty string, we don't need to add any crumbs
+  if (routeName) {
+    let parts = routeName.split('.');
+    const routeCrumbs = parts.map((part, index) => {
+      const crumbRouteName = parts.slice(0, index + 1).join('.');
+      return {
+        routeName: crumbRouteName,
+        label: getLabel(routeLabels, crumbRouteName, context)
+      };
+    });
+    crumbs.addObjects(routeCrumbs);
+  }
   return crumbs;
 }
 
