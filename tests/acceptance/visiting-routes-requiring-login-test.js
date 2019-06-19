@@ -11,11 +11,11 @@ test('visiting /login does not require login', function(assert) {
   });
 });
 
-test('visiting / requires login', function(assert) {
+test('visiting / does not require login', function(assert) {
   visit('/');
 
   andThen(function() {
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/');
   });
 });
 
