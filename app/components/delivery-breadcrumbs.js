@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { makeCrumbs, stripIndex } from 'datadelivery-ui/utils/breadcrumbs';
+import { makeCrumbs, stripIndex, HomeCrumb, RouteLabels} from 'datadelivery-ui/utils/breadcrumbs';
 
 export default Ember.Component.extend({
   router: Ember.inject.service('-routing'),
@@ -10,6 +10,8 @@ export default Ember.Component.extend({
   classNames: ['breadcrumb'],
   context: null,
   crumbs: Ember.computed('currentRouteName', function() {
-    return makeCrumbs(this.get('currentRouteName'), this.get('context'));
+    const currentRouteName = this.get('currentRouteName');
+    const context = this.get('context');
+    return makeCrumbs(RouteLabels, HomeCrumb, currentRouteName, context);
   })
 });

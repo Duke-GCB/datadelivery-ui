@@ -16,8 +16,8 @@ const RouteLabels = {
   'duke-ds-projects.show': context => Ember.get(context, 'name')
 };
 
-function getLabel(routeName, context) {
-  const label = RouteLabels[routeName];
+function getLabel(routeLabels, routeName, context) {
+  const label = routeLabels[routeName];
   const labelType = Ember.typeOf(label);
   if (labelType  === 'function') {
     return label(context);
@@ -34,10 +34,10 @@ function stripIndex(routeName) {
 
 const HomeCrumb = {
   routeName: 'index',
-  label: getLabel('index')
+  label: getLabel(RouteLabels, 'index')
 };
 
-function makeCrumbs(routeName, context) {
+function makeCrumbs(routeLabels, homeCrumb, routeName, context) {
   // If the route ends with .index, we don't need that part
   routeName = stripIndex(routeName);
   let parts = routeName.split('.');
@@ -45,11 +45,11 @@ function makeCrumbs(routeName, context) {
     const prefix = parts.slice(0, index + 1).join('.');
     return {
       routeName: prefix,
-      label: getLabel(prefix, context)
+      label: getLabel(routeLabels, prefix, context)
     };
   });
-  crumbs.insertAt(0, HomeCrumb);
+  crumbs.insertAt(0, homeCrumb);
   return crumbs;
 }
 
-export { makeCrumbs, stripIndex, getLabel, RouteLabels};
+export { makeCrumbs, stripIndex, getLabel, HomeCrumb, RouteLabels};
