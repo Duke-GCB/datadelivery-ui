@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   selectedRouteName: null, /* used to determine if this route is selected */
   context: null, /* context to be used with routeName */
   isSelected: Ember.computed('routeName', 'selectedRouteName', function () {
+    // Tried Ember.computed.equal but it doesn't work here :(
     return this.get('routeName') === this.get('selectedRouteName');
   })
 });
