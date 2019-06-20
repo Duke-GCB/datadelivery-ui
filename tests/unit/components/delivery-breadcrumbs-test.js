@@ -5,7 +5,7 @@ moduleForComponent('delivery-breadcrumbs', 'Unit | Component | delivery breadcru
   unit: true
 });
 
-test('it computes crumbs from the currentRouteName', function(assert) {
+test('it computes crumbs from router.currentRouteName', function(assert) {
   const MockRouter = Ember.Object.create({currentRouteName: 'index'});
   const component = this.subject({ router: MockRouter });
 

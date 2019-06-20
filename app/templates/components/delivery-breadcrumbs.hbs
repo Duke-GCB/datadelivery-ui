@@ -1,5 +1,5 @@
 {{#each crumbs as |crumb|}}
   {{breadcrumb-item label=crumb.label
                     routeName=crumb.routeName
-                    selectedRouteName=currentRouteName}}
+                    selectedRouteName=strippedRouteName}}
 {{/each}}

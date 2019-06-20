@@ -3,14 +3,15 @@ import { makeCrumbs, stripIndex, HomeCrumb, RouteLabels} from 'datadelivery-ui/u
 
 export default Ember.Component.extend({
   router: Ember.inject.service('-routing'),
-  currentRouteName: Ember.computed.readOnly('router.currentRouteName'),
+  strippedRouteName: Ember.computed('router.currentRouteName', function() {
+    // a trailing .index or index by itself is not meaningful for our route lookups
+    return stripIndex(this.get('router.currentRouteName'));
+  }),
   tagName: 'ol',
   classNames: ['breadcrumb'],
   context: null,
-  crumbs: Ember.computed('currentRouteName', 'context', function() {
-    const currentRouteName = this.get('currentRouteName');
-    // a trailing .index or index by itself is not meaningful for our route lookups
-    const strippedRouteName = stripIndex(currentRouteName);
+  crumbs: Ember.computed('strippedRouteName', 'context', function() {
+    const strippedRouteName = this.get('strippedRouteName');
     const context = this.get('context');
     return makeCrumbs(RouteLabels, HomeCrumb, strippedRouteName, context);
   })
