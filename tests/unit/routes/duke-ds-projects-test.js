@@ -1,6 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:index', 'Unit | Route | index', {
+moduleFor('route:duke-ds-projects', 'Unit | Route | duke ds projects', {
+  needs: ['service:session']
 });
 
 test('it exists', function(assert) {

@@ -1,20 +1,5 @@
-{{breadcrumb-item label="Data Delivery"
-                  routeName="deliveries.index"
-                  selectedRouteName=selectedRouteName}}
-{{#if isDeliverySelected}}
-  {{breadcrumb-item label=transfer.project.name
-                    routeName="deliveries.show"
-                    context=delivery
-                    selectedRouteName=selectedRouteName}}
-  {{#if isResendSelected }}
-    {{breadcrumb-item label="resend"
-                      routeName="deliveries.show.resend"
-                      context=transfer
-                      selectedRouteName=selectedRouteName}}
-  {{/if}}
-{{else if isNewDeliverySelected}}
-  {{breadcrumb-item label="New"
-                    routeName="deliveries.new"
-                    selectedRouteName=selectedRouteName}}
-{{/if}}
-{{yield}}
+{{#each crumbs as |crumb|}}
+  {{breadcrumb-item label=crumb.label
+                    routeName=crumb.routeName
+                    selectedRouteName=strippedRouteName}}
+{{/each}}
