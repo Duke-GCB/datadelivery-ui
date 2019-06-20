@@ -3,7 +3,7 @@ import { makeCrumbs, stripIndex, HomeCrumb, RouteLabels} from 'datadelivery-ui/u
 
 export default Ember.Component.extend({
   router: Ember.inject.service('-routing'),
-  currentRouteName: Ember.computed.alias('router.currentRouteName'),
+  currentRouteName: Ember.computed.readOnly('router.currentRouteName'),
   tagName: 'ol',
   classNames: ['breadcrumb'],
   context: null,
