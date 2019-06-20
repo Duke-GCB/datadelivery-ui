@@ -30,7 +30,12 @@ function getLabel(routeLabels, routeName, context) {
 
 function stripIndex(routeName) {
   // Replace either 'index' alone or a trailing '.index
-  return routeName.replace(/^index$|\.index$/, '');
+  if (routeName) {
+    return routeName.replace(/^index$|\.index$/, '');
+  } else {
+    return null;
+  }
+
 }
 
 const HomeCrumb = {

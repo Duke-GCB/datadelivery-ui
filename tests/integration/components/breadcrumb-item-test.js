@@ -6,21 +6,10 @@ moduleForComponent('breadcrumb-item', 'Integration | Component | breadcrumb item
   integration: true
 });
 
-test('it renders template block', function(assert) {
-  // Template block usage:
-  this.render(hbs`
-    {{#breadcrumb-item}}
-      template block text
-    {{/breadcrumb-item}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
-});
-
 test('it renders without link when selected', function(assert) {
   this.render(hbs`{{breadcrumb-item label="All" routeName="item.index" selectedRouteName="item.index"}}`);
-  assert.equal(this.$().text().trim(), 'All');
-  assert.equal(this.$('a').length, 0);
+  assert.equal(this.$('.breadcrumb-item').text().trim(), 'All');
+  assert.equal(this.$('.breadcrumb-item a').length, 0);
 });
 
 test('it renders without link when not selected', function(assert) {
