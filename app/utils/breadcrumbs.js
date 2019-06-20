@@ -35,7 +35,6 @@ function stripIndex(routeName) {
   } else {
     return null;
   }
-
 }
 
 const HomeCrumb = {
