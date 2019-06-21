@@ -9,7 +9,7 @@ import Controller, { inject as controller } from '@ember/controller';
 export default Controller.extend({
   application: controller(),
   currentDukeDsUser: alias('application.currentDukeDsUser'),
-  canResend: computed('model.canResend', 'model.fromUser.id', 'currentDukeDsUser.id', function () {
+  canResend: computed('model.{canResend,fromUser.id}', 'currentDukeDsUser.id', function () {
     const modelCanResend = this.get('model.canResend');
     const fromUserId = this.get('model.fromUser.id');
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
