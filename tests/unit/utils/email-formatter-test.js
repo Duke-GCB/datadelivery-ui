@@ -12,32 +12,32 @@ module('Unit | Utility | email formatter', function() {
     let result = formatEmailText(value);
     assert.equal(result.trim(), `Subject: Mouse Data
 
-  Email Body`);
+Email Body`);
   });
 
   test('formatEmailText can pull out all necessary header fields and filter out other header fields', function(assert) {
     var value = `To: joe@joe.joe
-  From: bob@bob.bob
-  Subject: Learn Something
-  HeaderJunk: Yep
-  Date: Jan 2 2018 12:45
-  MessageID: 123909123091233
+From: bob@bob.bob
+Subject: Learn Something
+HeaderJunk: Yep
+Date: Jan 2 2018 12:45
+MessageID: 123909123091233
 
-  Email Body
-  More Email Body`;
+Email Body
+More Email Body`;
     let result = formatEmailText(value);
     assert.equal(result.trim(), `Subject: Learn Something
-  Date: Jan 2 2018 12:45
+Date: Jan 2 2018 12:45
 
-  Email Body
-  More Email Body`);
+Email Body
+More Email Body`);
   });
 
   test('getEmailHeaderAndBody can create dictionary from header lines and str from body', function(assert) {
     const result = getEmailHeaderAndBody(`From: Joe
 
-  bodyData
-  AnotherLine`);
+bodyData
+AnotherLine`);
 
     assert.equal(result.header.From.trim(), 'Joe')
     assert.equal(result.body.trim(), 'bodyData\nAnotherLine')
