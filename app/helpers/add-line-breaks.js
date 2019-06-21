@@ -1,5 +1,5 @@
 import { helper as buildHelper } from '@ember/component/helper';
-import { htmlSafe } from '@ember/template';
+import { htmlSafe } from '@ember/string';
 
 export function addLineBreaks(params) {
   const text = params[0];
