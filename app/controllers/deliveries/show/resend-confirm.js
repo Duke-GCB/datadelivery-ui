@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import { mapBy } from '@ember/object/computed';
 
 import CanResendController from './can-resend-controller';
 
@@ -8,7 +9,7 @@ export default CanResendController.extend({
     this._super(...arguments);
     this.set('errors', []);
   },
-  errorMessages: Ember.computed.mapBy('errors', 'detail'),
+  errorMessages: mapBy('errors', 'detail'),
   actions: {
     back() {
       this.transitionToRoute('deliveries.show.resend', this.get('model'));
@@ -26,7 +27,7 @@ export default CanResendController.extend({
       };
 
       const handleDelivery = (delivery) => {
-        if(Ember.isEmpty(delivery)) {
+        if(isEmpty(delivery)) {
           throw { errors: [{detail:'Delivery not found.'}] };
         } else {
           return delivery.save();

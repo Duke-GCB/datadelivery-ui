@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import Component from '@ember/component';
 
-const DukeDSAuthProviderAffiliateList = Ember.Component.extend({
+const DukeDSAuthProviderAffiliateList = Component.extend({
   classNames: ['duke-ds-auth-provider-affiliate-list'],
   affiliates: null,
   multipleSelect: false,
@@ -27,7 +28,7 @@ const DukeDSAuthProviderAffiliateList = Ember.Component.extend({
       title: "Email",
       className: "duke-ds-auth-provider-affiliate-email"}
   ],
-  selectionDidChange: Ember.observer('selectedItems.[]', function() {
+  selectionDidChange: observer('selectedItems.[]', function() {
     if(this.get('selectionChanged')) {
       this.selectionChanged(this.get('selectedItems'));
     }

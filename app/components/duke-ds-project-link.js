@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { readOnly } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const DukeDsProjectLink = Ember.Component.extend({
+const DukeDsProjectLink = Component.extend({
   tagName: 'a',
   classNames: ['duke-ds-project-link'],
   attributeBindings: ['href'],
-  href: Ember.computed.readOnly('ddsProject.url'),
+  href: readOnly('ddsProject.url'),
   ddsProject: null,
 });
 

@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Controller, { inject as controller } from '@ember/controller';
 
-export default Ember.Controller.extend({
-  application: Ember.inject.controller(),
-  currentDukeDsUser: Ember.computed.alias('application.currentDukeDsUser'),
-  currentUser: Ember.computed.alias('application.currentUser')
+export default Controller.extend({
+  application: controller(),
+  currentDukeDsUser: alias('application.currentDukeDsUser'),
+  currentUser: alias('application.currentUser')
 });

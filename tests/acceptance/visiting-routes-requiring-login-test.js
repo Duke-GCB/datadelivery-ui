@@ -1,60 +1,49 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'datadelivery-ui/tests/helpers/module-for-acceptance';
+import { currentURL, visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 
-moduleForAcceptance('Acceptance | visiting routes requiring login');
+module('Acceptance | visiting routes requiring login', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('visiting /login does not require login', function(assert) {
-  visit('/login');
+  test('visiting /login does not require login', async function(assert) {
+    await visit('/login');
 
-  andThen(function() {
     assert.equal(currentURL(), '/login');
   });
-});
 
-test('visiting / does not require login', function(assert) {
-  visit('/');
+  test('visiting / does not require login', async function(assert) {
+    await visit('/');
 
-  andThen(function() {
     assert.equal(currentURL(), '/');
   });
-});
 
-test('visiting /deliveries requires login', function(assert) {
-  visit('/deliveries');
+  test('visiting /deliveries requires login', async function(assert) {
+    await visit('/deliveries');
 
-  andThen(function() {
     assert.equal(currentURL(), '/login');
   });
-});
 
-test('visiting /deliveries/some-id requires login', function(assert) {
-  visit('/deliveries/some-id');
+  test('visiting /deliveries/some-id requires login', async function(assert) {
+    await visit('/deliveries/some-id');
 
-  andThen(function() {
     assert.equal(currentURL(), '/login');
   });
-});
 
-test('visiting /deliveries/some-id/resend requires login', function (assert) {
-  visit('/deliveries/some-id/resend');
+  test('visiting /deliveries/some-id/resend requires login', async function(assert) {
+    await visit('/deliveries/some-id/resend');
 
-  andThen(function() {
     assert.equal(currentURL(), '/login');
   });
-});
 
-test('visiting /duke-ds-projects requires login', function(assert) {
-  visit('/duke-ds-projects');
+  test('visiting /duke-ds-projects requires login', async function(assert) {
+    await visit('/duke-ds-projects');
 
-  andThen(function() {
     assert.equal(currentURL(), '/login');
   });
-});
 
-test('visiting /duke-ds-projects/some-id requires login', function(assert) {
-  visit('/duke-ds-projects/some-id');
+  test('visiting /duke-ds-projects/some-id requires login', async function(assert) {
+    await visit('/duke-ds-projects/some-id');
 
-  andThen(function() {
     assert.equal(currentURL(), '/login');
   });
 });

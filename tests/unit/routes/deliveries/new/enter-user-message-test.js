@@ -1,23 +1,23 @@
-import { moduleFor, test } from 'ember-qunit';
-import Ember from "ember";
+import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('route:deliveries/new/enter-user-message', 'Unit | Route | deliveries/new/enter user message', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
-});
+module('Unit | Route | deliveries/new/enter user message', function(hooks) {
+  setupTest(hooks);
 
-test('it exists', function(assert) {
-  let route = this.subject();
-  assert.ok(route);
-});
-
-test('it resets errors when exiting', function(assert) {
-  let route = this.subject({});
-  let controller = Ember.Object.create({
-    errors:'SomeErrors'
+  test('it exists', function(assert) {
+    let route = this.owner.lookup('route:deliveries/new/enter-user-message');
+    assert.ok(route);
   });
-  route.resetController(controller, false);
-  assert.equal(controller.get('errors'), 'SomeErrors')
-  route.resetController(controller, true);
-  assert.equal(controller.get('errors'), null)
+
+  test('it resets errors when exiting', function(assert) {
+    let route = this.owner.factoryFor('route:deliveries/new/enter-user-message').create({});
+    let controller = EmberObject.create({
+      errors:'SomeErrors'
+    });
+    route.resetController(controller, false);
+    assert.equal(controller.get('errors'), 'SomeErrors')
+    route.resetController(controller, true);
+    assert.equal(controller.get('errors'), null)
+  });
 });

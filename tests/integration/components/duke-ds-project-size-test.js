@@ -1,36 +1,39 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
-moduleForComponent('duke-ds-project-size', 'Integration | Component | duke ds project size', {
-  integration: true
-});
+module('Integration | Component | duke ds project size', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it fetches and renders summary', function (assert) {
-  const summary = {
-    total_size: 5 * 1024 * 1024 * 1024,
-    file_count: 345,
-    folder_count: 47
-  };
-  const ddsProject = Ember.Object.create({
-    isLoaded: true,
-    getSummary() {
-      return Ember.RSVP.resolve(summary);
-    }
+  test('it fetches and renders summary', async function(assert) {
+    const summary = {
+      total_size: 5 * 1024 * 1024 * 1024,
+      file_count: 345,
+      folder_count: 47
+    };
+    const ddsProject = EmberObject.create({
+      isLoaded: true,
+      getSummary() {
+        return resolve(summary);
+      }
+    });
+    this.set('ddsProject', ddsProject);
+    await render(hbs`{{duke-ds-project-size ddsProject}}`);
+    assert.equal(find('.duke-ds-project-size').textContent.trim(), '5 GiB - 345 files, 47 folders');
   });
-  this.set('ddsProject', ddsProject);
-  this.render(hbs`{{duke-ds-project-size ddsProject}}`);
-  assert.equal(this.$('.duke-ds-project-size').text().trim(), '5 GiB - 345 files, 47 folders');
-});
 
-test('it renders loading state while summary is null', function(assert) {
-  const ddsProject = Ember.Object.create({
-    isLoaded: true,
-    getSummary() {
-      return Ember.RSVP.resolve(null);
-    }
+  test('it renders loading state while summary is null', async function(assert) {
+    const ddsProject = EmberObject.create({
+      isLoaded: true,
+      getSummary() {
+        return resolve(null);
+      }
+    });
+    this.set('ddsProject', ddsProject);
+    await render(hbs`{{duke-ds-project-size ddsProject}}`);
+    assert.equal(find('.duke-ds-project-size').textContent.trim(), 'Calculating');
   });
-  this.set('ddsProject', ddsProject);
-  this.render(hbs`{{duke-ds-project-size ddsProject}}`);
-  assert.equal(this.$('.duke-ds-project-size').text().trim(), 'Calculating');
 });

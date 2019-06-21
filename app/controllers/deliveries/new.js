@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import { on } from '@ember/object/evented';
+import Controller, { inject as controller } from '@ember/controller';
 
-export default Ember.Controller.extend({
-  application: Ember.inject.controller('application'),
-  currentDukeDsUserChanged: Ember.on('init', Ember.observer('application.currentDukeDsUser', 'model', function() {
+export default Controller.extend({
+  application: controller('application'),
+  currentDukeDsUserChanged: on('init', observer('application.currentDukeDsUser', 'model', function() {
     // When the current user is loaded or our delivery model is loaded, set the fromUser
     const currentDukeDsUser  = this.get('application.currentDukeDsUser');
     const delivery = this.get('model');
@@ -10,7 +12,7 @@ export default Ember.Controller.extend({
       delivery.set('fromUser', currentDukeDsUser);
     }
   })),
-  currentUserChanged: Ember.on('init', Ember.observer('application.currentUser', 'model', function() {
+  currentUserChanged: on('init', observer('application.currentUser', 'model', function() {
     const currentUser  = this.get('application.currentUser');
     // if the current user is loaded but is not setup for delivery show instructions
     if (currentUser) {

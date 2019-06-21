@@ -1,29 +1,32 @@
-import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-const UserStoreStub = Ember.Object.extend({
+const UserStoreStub = EmberObject.extend({
   queryRecord(modelName) {
-    return Ember.RSVP.resolve({
+    return resolve({
       modelName: modelName,
       username: 'abc123'
     });
   }
 });
 
-moduleFor('service:user', 'Unit | Service | user', {
-  needs: ['model:user'],
-  beforeEach() {
-    this.register('service:store', UserStoreStub);
-    this.inject.service('store', {as: 'store'});
-  }
-});
+module('Unit | Service | user', function(hooks) {
+  setupTest(hooks);
 
-test('it queries users/current-user from the store', function(assert) {
-  assert.expect(3);
-  let service = this.subject();
-  assert.ok(service);
-  service.currentUser().then(function(user) {
-    assert.equal(user.modelName, 'user');
-    assert.equal(user.username, 'abc123');
+  hooks.beforeEach(function() {
+    this.owner.register('service:store', UserStoreStub);
+    this.store = this.owner.lookup('service:store');
+  });
+
+  test('it queries users/current-user from the store', function(assert) {
+    assert.expect(3);
+    let service = this.owner.lookup('service:user');
+    assert.ok(service);
+    service.currentUser().then(function(user) {
+      assert.equal(user.modelName, 'user');
+      assert.equal(user.username, 'abc123');
+    });
   });
 });

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
 const ProjectColumns = [
   { propertyName: "name", title: "Project Name", routeName: "duke-ds-projects.show"},
@@ -6,7 +6,7 @@ const ProjectColumns = [
   { propertyName: "lastUpdatedOn", title: "Last Updated"}
 ];
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['projects-table'],
   projects: null,
   columns: null,

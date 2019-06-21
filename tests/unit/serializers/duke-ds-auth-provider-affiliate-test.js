@@ -1,15 +1,17 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('duke-ds-auth-provider-affiliate', 'Unit | Serializer | duke ds auth provider affiliate', {
-  // Specify the other units that are required for this test.
-  needs: ['serializer:duke-ds-auth-provider-affiliate']
-});
+import { run } from '@ember/runloop';
 
-// Replace this with your real tests.
-test('it serializes records', function(assert) {
-  let record = this.subject();
+module('Unit | Serializer | duke ds auth provider affiliate', function(hooks) {
+  setupTest(hooks);
 
-  let serializedRecord = record.serialize();
+  // Replace this with your real tests.
+  test('it serializes records', function(assert) {
+    let record = run(() => this.owner.lookup('service:store').createRecord('duke-ds-auth-provider-affiliate'));
 
-  assert.ok(serializedRecord);
+    let serializedRecord = record.serialize();
+
+    assert.ok(serializedRecord);
+  });
 });

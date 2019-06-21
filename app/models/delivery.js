@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { resolve } from 'rsvp';
 import DS from 'ember-data';
 
 const STATE_NEW = 0;
@@ -35,9 +36,9 @@ export default DS.Model.extend({
     // The action methods respond with an updated delivery, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
     this.store.pushPayload('delivery', data);
-    return Ember.RSVP.resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
+    return resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
   },
-  canResend: Ember.computed('state', function() {
+  canResend: computed('state', function() {
     const state = this.get('state');
     return state == STATE_NOTIFIED;
   }),

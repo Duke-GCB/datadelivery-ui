@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 import { assert } from '@ember/debug';
 
-export default Ember.Component.extend({
+export default Component.extend({
   contactEmail: null,
   emailSubject: null,
-  mailToContactEmail: Ember.computed('contactEmail', 'emailSubject', function () {
+  mailToContactEmail: computed('contactEmail', 'emailSubject', function () {
     const contactEmail = this.get('contactEmail');
     const emailSubject = this.get('emailSubject');
     return `mailto:${contactEmail}?subject=${emailSubject}`

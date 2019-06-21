@@ -1,25 +1,27 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('error-message-alert', 'Integration | Component | error message alert', {
-  integration: true
-});
+module('Integration | Component | error message alert', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
+  test('it renders', async function(assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-  this.set('errorMessages', ['Message one', 'Message two'])
-  this.render(hbs`{{error-message-alert errorMessages}}`);
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+    this.set('errorMessages', ['Message one', 'Message two'])
+    await render(hbs`{{error-message-alert errorMessages}}`);
 
-  assert.equal(this.$('.error-message-alert-detail').text().trim(), 'Error: Message one Error: Message two');
+    assert.equal(find('.error-message-alert-detail').textContent.trim(), 'Error: Message one Error: Message two');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#error-message-alert}}
-      Some Extra text
-    {{/error-message-alert}}
-  `);
+    // Template block usage:
+    await render(hbs`
+      {{#error-message-alert}}
+        Some Extra text
+      {{/error-message-alert}}
+    `);
 
-  assert.equal(this.$().text().trim(), 'Some Extra text');
+    assert.equal(find('*').textContent.trim(), 'Some Extra text');
+  });
 });

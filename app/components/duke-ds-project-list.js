@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import Component from '@ember/component';
 
-const DukeDSProjectList = Ember.Component.extend({
+const DukeDSProjectList = Component.extend({
   projects: null,
   selectionChanged: null, /** action */
   selectedItems: null,
@@ -16,7 +17,7 @@ const DukeDSProjectList = Ember.Component.extend({
       className: "duke-ds-project-name"
     }
   ],
-  selectionDidChange: Ember.observer('selectedItems.[]', function() {
+  selectionDidChange: observer('selectedItems.[]', function() {
     // When unchecking the single item, selectedItems.length drops to 0,
     // but selectedItems.firstObject still references the old project
     const selectedItems = this.get('selectedItems');

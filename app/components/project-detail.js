@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const ProjectDetail = Ember.Component.extend({
+const ProjectDetail = Component.extend({
   project: null,
   classNames: ['project-detail']
 });

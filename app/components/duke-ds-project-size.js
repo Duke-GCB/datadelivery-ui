@@ -1,18 +1,20 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const DukeDsProjectSize = Ember.Component.extend({
+const DukeDsProjectSize = Component.extend({
   classNames: ['duke-ds-project-size'],
   ddsProject: null,
   ddsProjectSummary: null,
-  total_size: Ember.computed.alias('ddsProjectSummary.total_size'),
-  file_count: Ember.computed.alias('ddsProjectSummary.file_count'),
-  folder_count: Ember.computed.alias('ddsProjectSummary.folder_count'),
+  total_size: alias('ddsProjectSummary.total_size'),
+  file_count: alias('ddsProjectSummary.file_count'),
+  folder_count: alias('ddsProjectSummary.folder_count'),
 
   fetchSummary() {
     let ddsProject = this.get('ddsProject');
     // If ddsProject is already fulfilled, make it into a simple promise
     if(ddsProject.get('isLoaded')) {
-      ddsProject = Ember.RSVP.resolve(ddsProject);
+      ddsProject = resolve(ddsProject);
     }
     ddsProject.then((loadedProject) => {
       return loadedProject.getSummary();

@@ -1,10 +1,11 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('route:duke-ds-projects', 'Unit | Route | duke ds projects', {
-  needs: ['service:session']
-});
+module('Unit | Route | duke ds projects', function(hooks) {
+  setupTest(hooks);
 
-test('it exists', function(assert) {
-  let route = this.subject();
-  assert.ok(route);
+  test('it exists', function(assert) {
+    let route = this.owner.lookup('route:duke-ds-projects');
+    assert.ok(route);
+  });
 });

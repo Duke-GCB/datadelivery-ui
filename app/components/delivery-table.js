@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 import { assert } from '@ember/debug';
 
 // Transfer status filter options from
@@ -9,16 +10,16 @@ const statusFilterFunction = function(status, selected) {
   return status.capitalize() == selected;
 };
 
-export default Ember.Component.extend({
+export default Component.extend({
   transfers: null, // required property duke-ds-project-transfers models
   currentDukeDsUser: null, // required property current user's duke-ds-user model
   currentUser: null, // required property current user model
   tagName: 'div',
-  outgoingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
+  outgoingTransfers: computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     return this.get('transfers').filterBy('fromUser.id', currentDukeDsUserId);
   }),
-  incomingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
+  incomingTransfers: computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     return this.get('transfers').filter(function(transfer) {
       return transfer.get('toUsers').mapBy('id').includes(currentDukeDsUserId);
