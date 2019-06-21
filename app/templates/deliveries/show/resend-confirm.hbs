@@ -5,10 +5,10 @@
   click <strong>Back</strong>
 </p>
 
-{{delivery-preview delivery=model.delivery errors=errors onFail=(action 'previewFailed')}}
+{{delivery-preview delivery=model.delivery errors=errors onFail=(action "previewFailed")}}
 
 {{error-message-alert errorMessages}}
 
-{{#bs-button type="default" onClick=(action 'back') class="back-button"}}Back{{/bs-button}}
-{{#bs-button type="primary" disabled=disableNext onClick=(action 'resend') class="pull-right next-button"}}Resend Delivery{{/bs-button}}
+{{#bs-button type="default" onClick=(action "back") class="back-button"}}Back{{/bs-button}}
+{{#bs-button type="primary" disabled=disableNext onClick=(action "resend") class="pull-right next-button"}}Resend Delivery{{/bs-button}}
 

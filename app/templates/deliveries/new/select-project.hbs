@@ -5,9 +5,9 @@
 </p>
 
 {{error-message-alert errorMessages}}
-{{duke-ds-project-list model selectionChanged=(action 'projectSelectionChanged')}}
+{{duke-ds-project-list model selectionChanged=(action "projectSelectionChanged")}}
 
-{{#link-to backRoute class='btn btn-default'}}Back{{/link-to}}
-{{#link-to nextRoute class='btn btn-primary pull-right' disabled=disableNext}}Next{{/link-to}}
+{{#link-to backRoute class="btn btn-default"}}Back{{/link-to}}
+{{#link-to nextRoute class="btn btn-primary pull-right" disabled=disableNext}}Next{{/link-to}}
 
 {{outlet}}
