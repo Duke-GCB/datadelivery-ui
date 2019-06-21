@@ -8,26 +8,6 @@ const DukeDSAuthProviderAffiliateList = Component.extend({
   selectedItems: null,
   pageSize: 12,
   selectionChanged: null, /** action */
-  columns: [
-    {
-      component: "select-row-checkbox",
-      useFilter: false,
-      mayBeHidden: false,
-      className: "select-row-checkbox-column",
-    },
-    { propertyName: "fullName",
-      title: "Name",
-      className: "duke-ds-auth-provider-affiliate-fullName",
-      sortPrecedence: 0
-    },
-    { propertyName: "uid",
-      title: "NetID",
-      className: "duke-ds-auth-provider-affiliate-netid"
-    },
-    { propertyName: "email",
-      title: "Email",
-      className: "duke-ds-auth-provider-affiliate-email"}
-  ],
   selectionDidChange: observer('selectedItems.[]', function() {
     if(this.get('selectionChanged')) {
       this.selectionChanged(this.get('selectedItems'));
@@ -36,6 +16,26 @@ const DukeDSAuthProviderAffiliateList = Component.extend({
   init() {
     this._super(...arguments);
     this.set('selectedItems', []);
+    this.columns = [
+      {
+        component: "select-row-checkbox",
+        useFilter: false,
+        mayBeHidden: false,
+        className: "select-row-checkbox-column",
+      },
+      { propertyName: "fullName",
+        title: "Name",
+        className: "duke-ds-auth-provider-affiliate-fullName",
+        sortPrecedence: 0
+      },
+      { propertyName: "uid",
+        title: "NetID",
+        className: "duke-ds-auth-provider-affiliate-netid"
+      },
+      { propertyName: "email",
+        title: "Email",
+        className: "duke-ds-auth-provider-affiliate-email"}
+    ];
   }
 });
 
