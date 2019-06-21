@@ -1,9 +1,9 @@
-/* eslint-env node */
+'use strict';
 
 module.exports = function(environment) {
-  var ENV = {
-    modulePrefix: 'datadelivery-ui',
-    environment: environment,
+  let ENV = {
+      modulePrefix: 'datadelivery-ui',
+    environment,
     rootURL: '/',
     locationType: 'auto',
     EmberENV: {
@@ -46,6 +46,7 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.API_URL = 'http://testhost';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
