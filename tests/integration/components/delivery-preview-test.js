@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import { resolve, reject } from 'rsvp';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
@@ -11,7 +10,7 @@ module('Integration | Component | delivery preview', function(hooks) {
 
   const DELIVERY_EMAIL_TEXT = 'Subject: Hello World';
 
-  test('it generates preview when rendered, showing delivery_email_text from delivery.preview()', function(assert) {
+  test('it generates preview when rendered, showing delivery_email_text from delivery.preview()', async function(assert) {
     assert.expect(5);
     const delivery = EmberObject.create({
       isLoaded: true,
@@ -20,12 +19,10 @@ module('Integration | Component | delivery preview', function(hooks) {
         return resolve({delivery_email_text: DELIVERY_EMAIL_TEXT});
       }
     });
-    run(async () => {
-      this.set('delivery', delivery);
-      assert.step('start');
-      await render(hbs`{{delivery-preview delivery=delivery}}`);
-      assert.step('end');
-    });
+    this.set('delivery', delivery);
+    assert.step('start');
+    await render(hbs`{{delivery-preview delivery=delivery}}`);
+    assert.step('end');
     assert.equal(find('*').textContent.trim(), DELIVERY_EMAIL_TEXT);
     assert.verifySteps(['start','preview','end']);
   });
@@ -36,7 +33,7 @@ module('Integration | Component | delivery preview', function(hooks) {
     assert.equal(find('*').textContent.trim(), 'Generating Preview');
   });
 
-  test('it calls onFail when preview() fails', function (assert) {
+  test('it calls onFail when preview() fails', async function (assert) {
     const mockError = {detail: 'Preview Failed'};
     const delivery = EmberObject.create({
       isLoaded: true,
@@ -47,13 +44,11 @@ module('Integration | Component | delivery preview', function(hooks) {
     });
     // This component does not render errors, it calls an error handler
     const onFail = (error) => { assert.equal(error, mockError) };
-    run(async () => {
-      this.set('delivery', delivery);
-      this.set('onFail', onFail);
-      assert.step('start');
-      await render(hbs`{{delivery-preview delivery=delivery onFail=onFail}}`);
-      assert.step('end');
-    });
+    this.set('delivery', delivery);
+    this.set('onFail', onFail);
+    assert.step('start');
+    await render(hbs`{{delivery-preview delivery=delivery onFail=onFail}}`);
+    assert.step('end');
     assert.verifySteps(['start','preview','end']);
   });
 });

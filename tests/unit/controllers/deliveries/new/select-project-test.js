@@ -96,14 +96,13 @@ module('Unit | Controller | deliveries/new/select project', function(hooks) {
       project: resolve(mockProject),
       fromUser: EmberObject.create({id: mockUserId})
     });
-    let controller = makeController(this.subject, assert);
+    let controller = makeController(this.owner.factoryFor('controller:deliveries/new/select-project').create, assert);
     run(() => {
       controller.set('delivery', mockDelivery);
       controller.checkProjectPermissions();
     });
     assert.verifySteps(['willPerform', 'get-permissions', 'didPerform']);
   });
-
 
   test('it sets error if permissions are not sufficient', function(assert) {
     const mockUserId = '123';
@@ -118,7 +117,7 @@ module('Unit | Controller | deliveries/new/select project', function(hooks) {
       project: resolve(mockProject),
       fromUser: EmberObject.create({id: mockUserId})
     });
-    let controller = makeController(this.subject, assert);
+    let controller = makeController(this.owner.factoryFor('controller:deliveries/new/select-project').create, assert);
     run(() => {
       controller.set('delivery', mockDelivery);
       controller.checkProjectPermissions();

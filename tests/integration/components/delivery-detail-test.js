@@ -125,7 +125,7 @@ module('Integration | Component | delivery detail', function(hooks) {
     });
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer}}`);
-    assert.equal(find('.delivery-email').innerHTML, null);
+    assert.equal(find('.delivery-email'), null);
   });
 
   test('it renders project details when showProjectDetails=true', async function(assert) {

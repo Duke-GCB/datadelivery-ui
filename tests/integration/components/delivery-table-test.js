@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll, find } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | delivery table', function(hooks) {
@@ -45,23 +45,23 @@ module('Integration | Component | delivery table', function(hooks) {
       hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`
     );
 
-    assert.equal(findAll('table').length, 2); // 2 tables
-    assert.equal(findAll('thead tr').length, 4); // 2 header (label and search box)
-    assert.equal(findAll('tbody:eq(0) tr').length, 2); // 1 row in outgoing
-    assert.equal(findAll('tbody:eq(1) tr').length, 1); // 2 rows in incoming
-    assert.equal(findAll('tbody tr a').length, 3); // each row should be selectable
+    assert.equal(this.$('table').length, 2); // 2 tables
+    assert.equal(this.$('thead tr').length, 4); // 2 header (label and search box)
+    assert.equal(this.$('tbody:eq(0) tr').length, 2); // 1 row in outgoing
+    assert.equal(this.$('tbody:eq(1) tr').length, 1); // 2 rows in incoming
+    assert.equal(this.$('tbody tr a').length, 3); // each row should be selectable
 
     // displays expected column names for outgoing
-    const outgoingColumnNames = removeMultipleSpacesAndNewlines(find('thead:eq(0) tr:eq(0) th').textContent.trim());
+    const outgoingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(0) tr:eq(0) th').text().trim());
     assert.equal(outgoingColumnNames , 'Project Name  To  State');
     // Displays filter options
-    assert.equal(findAll('thead:eq(0) select option').length, 5);
+    assert.equal(this.$('thead:eq(0) select option').length, 5);
 
     // displays expected column names for incoming
-    const incomingColumnNames = removeMultipleSpacesAndNewlines(find('thead:eq(1) tr:eq(0) th').textContent.trim());
+    const incomingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(1) tr:eq(0) th').text().trim());
     assert.equal(incomingColumnNames, 'Project Name  From  State');
     // Displays filter options
-    assert.equal(findAll('thead:eq(1) select option').length, 5);
+    assert.equal(this.$('thead:eq(1) select option').length, 5);
 
     // displays expected fields for outgoing
     const outgoingField1 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(0).text().trim());
@@ -114,7 +114,7 @@ module('Integration | Component | delivery table', function(hooks) {
       hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`
     );
 
-    assert.equal(find('.new-delivery-button').textContent, 'New Delivery');
-    assert.equal(find('.email-setup-warning-anchor').textContent, '');
+    assert.equal(this.$('.new-delivery-button').text(), 'New Delivery');
+    assert.equal(this.$('.email-setup-warning-anchor').text(), '');
   });
 });

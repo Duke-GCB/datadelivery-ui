@@ -1,16 +1,14 @@
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | delivery button panel', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
-    this.setup = function() {
-      this.owner.lookup('router:main').setupRouter();
-    };
+    this.owner.lookup('router:main').startRouting(true);
   });
 
   test('it shows buttons when showPendingActions is true', async function(assert) {
@@ -26,6 +24,6 @@ module('Integration | Component | delivery button panel', function(hooks) {
 
   test('it shows no buttons when showPendingActions is false', async function(assert) {
     await render(hbs`{{delivery-button-panel showPendingActions=false}}`);
-    assert.equal(find('a').textContent, '');
+    assert.equal(this.$('a').html(), undefined);
   });
 });
