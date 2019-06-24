@@ -52,83 +52,72 @@ module('Unit | Model | delivery', function(hooks) {
     });
   });
 
-  /*
-  TODO restore tests
   test('delivery.preview() calls adapter.preview() with properties from delivery', function (assert) {
-    assert.expect(3);
+    assert.expect(2);
     const store = this.owner.lookup('service:store');
-    store.set('adapterFor', (modelName) => {
-      return {
-        preview(details) {
-          assert.equal(modelName, 'delivery');
-          assert.deepEqual(details, {
-            from_user_id: 'from-123',
-            to_user_id: 'to-456',
-            transfer_id: 'transfer-789',
-            project_id: 'project-000',
-            user_message: 'Hello World'
-          });
-          return resolve({});
-        }
-      };
-    });
-    run(() => {
-      const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
-      const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
-      const project = store.createRecord('duke-ds-project', {id: 'project-000'});
-      const transfer = store.createRecord('duke-ds-project-transfer', {id: 'transfer-789'});
-      const userMessage = 'Hello World';
-      const model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
-      model.setProperties({
-        fromUser: fromUser,
-        toUser: toUser,
-        project: project,
-        transfer: transfer,
-        userMessage: userMessage
+    const fromUser = run(() => store.createRecord('duke-ds-user', {id: 'from-123X'}));
+    const toUser = run(() => store.createRecord('duke-ds-user', {id: 'to-456'}));
+    const project = run(() => store.createRecord('duke-ds-project', {id: 'project-000'}));
+    const transfer = run(() => store.createRecord('duke-ds-project-transfer', {id: 'transfer-789'}));
+    const userMessage = 'Hello World';
+    const model = run(() => store.createRecord('delivery', {
+      fromUser: fromUser,
+      toUser: toUser,
+      project: project,
+      transfer: transfer,
+      userMessage: userMessage
+    }));
+    const deliveryAdaptor = store.adapterFor('delivery');
+    deliveryAdaptor.preview = function(details) {
+      assert.deepEqual(details, {
+        from_user_id: 'from-123X',
+        to_user_id: 'to-456',
+        transfer_id: 'transfer-789',
+        project_id: 'project-000',
+        user_message: 'Hello World'
       });
-      model.preview().then(preview => {
-        assert.ok(preview);
-      });
-    });
+      return resolve({});
+    };
+    const preview = run(() => model.preview());
+    assert.ok(preview);
   });
 
   test('delivery.preview() calls adapter.preview() with empty transfer id if not yet set', function (assert) {
     assert.expect(3);
     const store = this.owner.lookup('service:store');
-    store.set('adapterFor', (modelName) => {
-      return {
-        preview(details) {
-          assert.equal(modelName, 'delivery');
-          assert.deepEqual(details, {
-            from_user_id: 'from-123',
-            to_user_id: 'to-456',
-            transfer_id: '',
-            project_id: 'project-000',
-            user_message: 'Hello World'
-          });
-          return resolve({});
-        }
-      };
+    const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
+    const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
+    const project = store.createRecord('duke-ds-project', {id: 'project-000'});
+    const userMessage = 'Hello World';
+    const model = this.owner.lookup('service:store').createRecord('delivery', {
+      fromUser: fromUser,
+      toUser: toUser,
+      project: project,
+      userMessage: userMessage
     });
-    run(() => {
-      const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
-      const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
-      const project = store.createRecord('duke-ds-project', {id: 'project-000'});
-      const userMessage = 'Hello World';
-      const model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
-      model.setProperties({
-        fromUser: fromUser,
-        toUser: toUser,
-        project: project,
-        userMessage: userMessage
-      });
-      model.preview().then(preview => {
-        assert.ok(preview);
-      });
+    model.set('store', {
+      adapterFor: function(modelName) {
+        return {
+          preview(details) {
+            assert.equal(modelName, 'delivery');
+            assert.deepEqual(details, {
+              from_user_id: 'from-123',
+              to_user_id: 'to-456',
+              transfer_id: '',
+              project_id: 'project-000',
+              user_message: 'Hello World'
+            });
+            return resolve({});
+          }
+        };
+      }
+    });
+    model.preview().then(preview => {
+      assert.ok(preview);
     });
   });
 
-  test('delivery.cancel() calls adapter.cancel() then updates delivery and transfer', function (assert) {
+  test('delivery.cancel() calls adapter.cancel() then updates delivery and transfer', async function (assert) {
     assert.expect(7);
     const mockDelivery = {
       cancel: function (deliveryId) {
@@ -136,35 +125,32 @@ module('Unit | Model | delivery', function(hooks) {
         return resolve({});
       },
     };
-    const model = run(() => this.owner.lookup('service:store').createRecord('delivery', {
-      store: {
-        adapterFor: function (modelName) {
-          assert.step(`Fetch adapter for ${modelName}`);
-          return mockDelivery;
-        },
-        pushPayload: function (modelName) {
-          assert.step(`Pushed updated ${modelName}`);
-        },
-        peekRecord: function (modelName, modelId) {
-          assert.equal(modelName, 'delivery');
-          assert.equal(modelId, '123');
-        }
+    const model = await this.owner.lookup('service:store').createRecord('delivery');
+    model.set('store', {
+      adapterFor: function (modelName) {
+        assert.step(`Fetch adapter for ${modelName}`);
+        return mockDelivery;
       },
-      get: function (name) {
-        const data = {
-          'id': '123',
-          'transfer': {
-            reload: function () {
-              assert.step(`Reloaded transfer`);
-            }
-          }
-        };
-        return data[name];
-      }
-    }));
-    run(() => {
-      model.cancel();
+      pushPayload: function (modelName) {
+        assert.step(`Pushed updated ${modelName}`);
+      },
+      peekRecord: function (modelName, modelId) {
+        assert.equal(modelName, 'delivery');
+        assert.equal(modelId, '123');
+      },
     });
+    model.set('get', function (name) {
+      const data = {
+        'id': '123',
+        'transfer': {
+          reload: function () {
+            assert.step(`Reloaded transfer`);
+          }
+        }
+      };
+      return data[name];
+    });
+    await model.cancel();
     assert.verifySteps([
       'Fetch adapter for delivery',
       'Canceled delivery 123',
@@ -172,5 +158,4 @@ module('Unit | Model | delivery', function(hooks) {
       'Reloaded transfer',
     ]);
   });
-  */
 });
