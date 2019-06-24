@@ -14,15 +14,15 @@ module('Unit | Model | delivery', function(hooks) {
     assert.ok(!!model);
   });
 
-  test('it defaults state to new', function(assert) {
+  test('it defaults deliveryState to new', function(assert) {
     let model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
     const STATE_NEW = 0;
-    assert.equal(model.get('state'), STATE_NEW);
+    assert.equal(model.get('deliveryState'), STATE_NEW);
   });
 
   test('it defaults userMessage to empty string', function(assert) {
     let model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
-    assert.equal(model.get('state'), '');
+    assert.equal(model.get('deliveryState'), '');
   });
 
   const relationships = [

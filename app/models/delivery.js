@@ -10,7 +10,7 @@ export default DS.Model.extend({
   project: DS.belongsTo('DukeDsProject'),
   fromUser: DS.belongsTo('DukeDsUser'),
   toUser: DS.belongsTo('DukeDsUser'),
-  state: DS.attr('string', { defaultValue() { return STATE_NEW }}),
+  deliveryState: DS.attr('string', { key: 'state', defaultValue() { return STATE_NEW }}),
   transfer: DS.belongsTo('DukeDsProjectTransfer'),
   userMessage: DS.attr('string', { defaultValue() { return '' }}),
   shareUsers: DS.hasMany('DukeDsUser'),
