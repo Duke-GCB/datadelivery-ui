@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import Ember from "ember";
+import { pluralize } from 'ember-inflector';
 
 export default DS.Model.extend({
   uid: DS.attr('string'),
@@ -10,7 +10,7 @@ export default DS.Model.extend({
     const userModelName = 'duke-ds-user';
     return adapter.getOrRegisterUser(this.get('uid')).then(data => {
       this.store.pushPayload(userModelName, data);
-      return this.store.peekRecord(userModelName, data[Ember.String.pluralize(userModelName)].id);
+      return this.store.peekRecord(userModelName, data[pluralize(userModelName)].id);
     });
   },
 });

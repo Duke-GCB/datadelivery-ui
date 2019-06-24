@@ -74,16 +74,16 @@ module('Unit | Controller | deliveries/new/select project', function(hooks) {
     });
   });
 
-  function makeController(subject, assert) {
-    return subject({
+  function makeControllerDict(assert) {
+    return {
       handleProjectChanged() {}, // Turn this off since we're calling checkProjectPermissions directly
       willPerformAction() { assert.step('willPerform'); },
       didPerformAction() { assert.step('didPerform'); },
       actionDidFail() { assert.step('didFail'); }
-    })
+    }
   }
 
-  test('it checks project permissions in order', function(assert) {
+  test('it checks project permissions in order', async function(assert) {
     const mockUserId = '123';
     const mockProject = EmberObject.create({
       getUserProjectAuthRole(userId) {
@@ -96,15 +96,15 @@ module('Unit | Controller | deliveries/new/select project', function(hooks) {
       project: resolve(mockProject),
       fromUser: EmberObject.create({id: mockUserId})
     });
-    let controller = makeController(this.owner.factoryFor('controller:deliveries/new/select-project').create, assert);
+    let controller = this.owner.factoryFor('controller:deliveries/new/select-project').create(makeControllerDict(assert));
+    await controller.set('delivery', mockDelivery);
     run(() => {
-      controller.set('delivery', mockDelivery);
       controller.checkProjectPermissions();
     });
     assert.verifySteps(['willPerform', 'get-permissions', 'didPerform']);
   });
 
-  test('it sets error if permissions are not sufficient', function(assert) {
+  test('it sets error if permissions are not sufficient', async function(assert) {
     const mockUserId = '123';
     const mockProject = EmberObject.create({
       getUserProjectAuthRole(userId) {
@@ -117,9 +117,9 @@ module('Unit | Controller | deliveries/new/select project', function(hooks) {
       project: resolve(mockProject),
       fromUser: EmberObject.create({id: mockUserId})
     });
-    let controller = makeController(this.owner.factoryFor('controller:deliveries/new/select-project').create, assert);
+    let controller = this.owner.factoryFor('controller:deliveries/new/select-project').create(makeControllerDict(assert));
+    await controller.set('delivery', mockDelivery);
     run(() => {
-      controller.set('delivery', mockDelivery);
       controller.checkProjectPermissions();
     });
     assert.verifySteps(['willPerform', 'get-permissions', 'didFail']);
