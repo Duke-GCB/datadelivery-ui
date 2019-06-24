@@ -22,7 +22,7 @@ module('Integration | Component | duke ds project size', function(hooks) {
     });
     this.set('ddsProject', ddsProject);
     await render(hbs`{{duke-ds-project-size ddsProject}}`);
-    assert.equal(find('.duke-ds-project-size').textContent.trim(), 'TODO_total_size - 345 files, 47 folders');
+    assert.equal(find('.duke-ds-project-size').textContent.trim(), '5 GiB - 345 files, 47 folders');
   });
 
   test('it renders loading state while summary is null', async function(assert) {
