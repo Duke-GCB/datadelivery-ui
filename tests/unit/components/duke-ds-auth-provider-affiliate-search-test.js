@@ -17,6 +17,7 @@ module('Unit | Component | duke ds auth provider affiliate search', function(hoo
       }
     });
     let component = this.owner.factoryFor('component:duke-ds-auth-provider-affiliate-search').create({store: mockStore});
+    component.didReceiveAttrs();
     // Initially users should be empty
     assert.deepEqual(component.get('affiliates'), []);
 
