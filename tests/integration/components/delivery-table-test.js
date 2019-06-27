@@ -53,13 +53,13 @@ module('Integration | Component | delivery table', function(hooks) {
 
     // displays expected column names for outgoing
     const outgoingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(0) tr:eq(0) th').text().trim());
-    assert.equal(outgoingColumnNames , 'Project Name  To  State');
+    assert.equal(outgoingColumnNames , 'Project Name   To   State');
     // Displays filter options
     assert.equal(this.$('thead:eq(0) select option').length, 5);
 
     // displays expected column names for incoming
     const incomingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(1) tr:eq(0) th').text().trim());
-    assert.equal(incomingColumnNames, 'Project Name  From  State');
+    assert.equal(incomingColumnNames, 'Project Name   From   State');
     // Displays filter options
     assert.equal(this.$('thead:eq(1) select option').length, 5);
 
