@@ -1,7 +1,14 @@
 {{delivery-breadcrumbs}}
 <h2>Data Delivery</h2>
 <p>Welcome to Data Delivery. This application is a project of <a href="https://genome.duke.edu">Duke GCB</a>.
-  Data Delivery and is designed to facilitate transactional delivery of data sets stored in <a href="https://dataservice.duke.edu">Duke Data Service</a>.</p>
-<p>You can use this application to list and download your {{#link-to 'duke-ds-projects'}}DukeDS Projects{{/link-to}}, or Create, Send, and Manage {{#link-to 'deliveries'}}Deliveries{{/link-to}}
-</p>
+  Data Delivery and is designed to facilitate transactional delivery of data sets stored
+  in <a href="https://dataservice.duke.edu">Duke Data Service</a>.</p>
+<p>You can use this application to list and download your projects in Duke Data Service, and also
+  to deliver those projects to other Duke DS users. Please use the buttons below to browse your
+  projects or deliveries.</p>
+<div>
+  {{#link-to 'duke-ds-projects' class='btn btn-primary btn-lg'}}DukeDS Projects{{/link-to}}
+  {{#link-to 'deliveries' class='btn btn-primary btn-lg'}}Deliveries{{/link-to}}
+</div>
+
 {{outlet}}
