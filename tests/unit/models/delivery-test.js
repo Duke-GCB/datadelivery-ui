@@ -7,22 +7,26 @@ import { testRelationships } from '../../helpers/test-relationships';
 
 module('Unit | Model | delivery', function(hooks) {
   setupTest(hooks);
+  let store, deliveryAdapter;
+  hooks.beforeEach(function() {
+    let { owner } = this;
+    store = owner.lookup('service:store');
+    deliveryAdapter = store.adapterFor('delivery');
+  });
 
-  test('it exists', function(assert) {
-    let model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
-    // let store = this.store();
+  test('it exists', async function(assert) {
+    let model = store.createRecord('delivery');
     assert.ok(!!model);
   });
 
-
-  test('it defaults state to new', function(assert) {
-    let model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
+  test('it defaults state to new', async function(assert) {
+    let model = store.createRecord('delivery');
     const STATE_NEW = 0;
     assert.equal(model.get('state'), STATE_NEW);
   });
 
-  test('it defaults userMessage to empty string', function(assert) {
-    let model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
+  test('it defaults userMessage to empty string', async function(assert) {
+    let model = store.createRecord('delivery');
     assert.equal(model.get('state'), '');
   });
 
@@ -34,43 +38,36 @@ module('Unit | Model | delivery', function(hooks) {
 
   testRelationships('delivery', relationships);
 
-  test('delivery.preview() calls adapter.preview()', function (assert) {
-    assert.expect(3);
+  test('delivery.preview() calls adapter.preview()', async function (assert) {
+    assert.expect(2);
     const response = EmberObject.create();
-    this.owner.lookup('service:store').set('adapterFor', (modelName) => {
-      return {
-        preview() {
-          assert.equal(modelName, 'delivery');
+    deliveryAdapter.preview = () => {
           assert.ok(true);
           return resolve(response);
-        }
-      };
-    });
-    let model = run(() => this.owner.lookup('service:store').createRecord('delivery'));
-    model.preview().then(preview => {
+    };
+    let model = store.createRecord('delivery');
+    return model.preview().then(preview => {
       assert.equal(preview, response);
     });
   });
 
-  test('delivery.preview() calls adapter.preview() with properties from delivery', function (assert) {
+  test('delivery.preview() calls adapter.preview() with properties from delivery', async function (assert) {
     assert.expect(2);
-    const store = this.owner.lookup('service:store');
-    const fromUser = run(() => store.createRecord('duke-ds-user', {id: 'from-123X'}));
-    const toUser = run(() => store.createRecord('duke-ds-user', {id: 'to-456'}));
-    const project = run(() => store.createRecord('duke-ds-project', {id: 'project-000'}));
-    const transfer = run(() => store.createRecord('duke-ds-project-transfer', {id: 'transfer-789'}));
+    const fromUser = store.push({data: {type: 'duke-ds-user', id: 'from-123'}});
+    const toUser = store.push({data: {type: 'duke-ds-user', id: 'to-456'}});
+    const project = store.push({data: {type: 'duke-ds-project', id: 'project-000'}});
+    const transfer = store.push({data: {type: 'duke-ds-project-transfer', id: 'transfer-789'}});
     const userMessage = 'Hello World';
-    const model = run(() => store.createRecord('delivery', {
+    const model = store.createRecord('delivery', {
       fromUser: fromUser,
       toUser: toUser,
       project: project,
       transfer: transfer,
       userMessage: userMessage
-    }));
-    const deliveryAdaptor = store.adapterFor('delivery');
-    deliveryAdaptor.preview = function(details) {
+    });
+    deliveryAdapter.preview = function(details) {
       assert.deepEqual(details, {
-        from_user_id: 'from-123X',
+        from_user_id: 'from-123',
         to_user_id: 'to-456',
         transfer_id: 'transfer-789',
         project_id: 'project-000',
@@ -82,12 +79,11 @@ module('Unit | Model | delivery', function(hooks) {
     assert.ok(preview);
   });
 
-  test('delivery.preview() calls adapter.preview() with empty transfer id if not yet set', function (assert) {
-    assert.expect(3);
-    const store = this.owner.lookup('service:store');
-    const fromUser = store.createRecord('duke-ds-user', {id: 'from-123'});
-    const toUser = store.createRecord('duke-ds-user', {id: 'to-456'});
-    const project = store.createRecord('duke-ds-project', {id: 'project-000'});
+  test('delivery.preview() calls adapter.preview() with empty transfer id if not yet set', async function (assert) {
+    assert.expect(2);
+    const fromUser = store.push({data: {type: 'duke-ds-user', id: 'from-123'}});
+    const toUser = store.push({data: {type: 'duke-ds-user', id: 'to-456'}});
+    const project = store.push({data: {type: 'duke-ds-project', id: 'project-000'}});
     const userMessage = 'Hello World';
     const model = this.owner.lookup('service:store').createRecord('delivery', {
       fromUser: fromUser,
@@ -95,23 +91,16 @@ module('Unit | Model | delivery', function(hooks) {
       project: project,
       userMessage: userMessage
     });
-    model.set('store', {
-      adapterFor: function(modelName) {
-        return {
-          preview(details) {
-            assert.equal(modelName, 'delivery');
-            assert.deepEqual(details, {
-              from_user_id: 'from-123',
-              to_user_id: 'to-456',
-              transfer_id: '',
-              project_id: 'project-000',
-              user_message: 'Hello World'
-            });
-            return resolve({});
-          }
-        };
-      }
-    });
+    deliveryAdapter.preview = (details) => {
+      assert.deepEqual(details, {
+        from_user_id: 'from-123',
+        to_user_id: 'to-456',
+        transfer_id: '',
+        project_id: 'project-000',
+        user_message: 'Hello World'
+      });
+      return resolve({});
+    };
     model.preview().then(preview => {
       assert.ok(preview);
     });
@@ -125,7 +114,7 @@ module('Unit | Model | delivery', function(hooks) {
         return resolve({});
       },
     };
-    const model = await this.owner.lookup('service:store').createRecord('delivery');
+    const model = store.createRecord('delivery');
     model.set('store', {
       adapterFor: function (modelName) {
         assert.step(`Fetch adapter for ${modelName}`);
