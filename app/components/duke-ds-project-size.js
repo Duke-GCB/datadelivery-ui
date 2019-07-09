@@ -7,6 +7,10 @@ const DukeDsProjectSize = Ember.Component.extend({
   total_size: Ember.computed.alias('ddsProjectSummary.total_size'),
   file_count: Ember.computed.alias('ddsProjectSummary.file_count'),
   folder_count: Ember.computed.alias('ddsProjectSummary.folder_count'),
+  root_folder_count: Ember.computed.alias('ddsProjectSummary.root_folder_count'),
+  sub_folder_count: Ember.computed('folder_count','root_folder_count',function () {
+    return this.get('folder_count') - this.get('root_folder_count');
+  }),
 
   fetchSummary() {
     let ddsProject = this.get('ddsProject');
