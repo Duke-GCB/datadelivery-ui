@@ -1,9 +1,21 @@
 import Ember from 'ember';
 
 const ProjectColumns = [
-  { propertyName: "name", title: "Project Name", routeName: "duke-ds-projects.show"},
-  { propertyName: "createdOn", title: "Created"},
-  { propertyName: "lastUpdatedOn", title: "Last Updated"}
+  { propertyName: "name",
+    title: "Project Name",
+    filterPlaceholder: 'Filter by project name',
+    routeName: "duke-ds-projects.show",
+    sortPrecedence: 3},
+  { propertyName: "createdOn",
+    title: "Created",
+    filterPlaceholder: "Filter by date created",
+    component: "project-created-date",
+    sortPrecedence: 2},
+  { propertyName: "lastUpdatedOn",
+    title: "Last Updated",
+    filterPlaceholder: "Filter by date updated",
+    component: "project-updated-date",
+    sortPrecedence: 1}
 ];
 
 export default Ember.Component.extend({
