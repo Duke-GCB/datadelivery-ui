@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
@@ -46,9 +45,9 @@ module('Unit | Model | delivery', function(hooks) {
           return resolve(response);
     };
     let model = store.createRecord('delivery');
-    return model.preview().then(preview => {
-      assert.equal(preview, response);
-    });
+
+    const preview = await model.preview();
+    assert.equal(preview, response);
   });
 
   test('delivery.preview() calls adapter.preview() with properties from delivery', async function (assert) {
@@ -75,7 +74,7 @@ module('Unit | Model | delivery', function(hooks) {
       });
       return resolve({});
     };
-    const preview = run(() => model.preview());
+    const preview = await model.preview();
     assert.ok(preview);
   });
 
@@ -85,7 +84,7 @@ module('Unit | Model | delivery', function(hooks) {
     const toUser = store.push({data: {type: 'duke-ds-user', id: 'to-456'}});
     const project = store.push({data: {type: 'duke-ds-project', id: 'project-000'}});
     const userMessage = 'Hello World';
-    const model = this.owner.lookup('service:store').createRecord('delivery', {
+    const model = store.createRecord('delivery', {
       fromUser: fromUser,
       toUser: toUser,
       project: project,
@@ -101,9 +100,8 @@ module('Unit | Model | delivery', function(hooks) {
       });
       return resolve({});
     };
-    model.preview().then(preview => {
-      assert.ok(preview);
-    });
+    const preview = await model.preview();
+    assert.ok(preview);
   });
 
   test('delivery.cancel() calls adapter.cancel() then updates delivery and transfer', async function (assert) {
