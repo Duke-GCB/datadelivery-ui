@@ -3,7 +3,8 @@ import Ember from 'ember';
 const ProjectDetail = Ember.Component.extend({
   tagName: 'dl',
   project: null,
-  classNames: ['project-detail']
+  classNames: ['project-detail'],
+  showWarning: true,
 });
 
 ProjectDetail.reopenClass({
