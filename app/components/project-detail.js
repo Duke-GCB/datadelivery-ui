@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const ProjectDetail = Ember.Component.extend({
-  tagName: 'dl',
+  tagName: 'div',
   project: null,
   classNames: ['project-detail'],
 });

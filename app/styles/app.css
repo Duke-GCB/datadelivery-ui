@@ -23,7 +23,7 @@
   to { -webkit-transform: rotate(360deg); }
 }
 
-dl.project-detail dd {
+.project-detail dd {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
