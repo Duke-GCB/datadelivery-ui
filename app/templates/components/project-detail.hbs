@@ -1,11 +1,9 @@
-<dl class="dl-horizontal">
-  {{#detail-label-value label="Project Size"}}
-    {{duke-ds-project-size project}}
-  {{/detail-label-value}}
-  {{#detail-label-value label="View Project"}}
-    {{duke-ds-project-link project}}
-  {{/detail-label-value}}
-  {{#detail-label-value label="Download Project"}}
-    {{duke-ds-project-zip-download-link project}}
-  {{/detail-label-value}}
-</dl>
+{{#detail-label-value label="Size"}}
+  {{duke-ds-project-size project}}
+{{/detail-label-value}}
+{{#detail-label-value label="View at Duke Data Service"}}
+  {{duke-ds-project-link project}}
+{{/detail-label-value}}
+{{#detail-label-value label="Download as Zip File"}}
+  {{duke-ds-project-zip-download-link project}}
+{{/detail-label-value}}

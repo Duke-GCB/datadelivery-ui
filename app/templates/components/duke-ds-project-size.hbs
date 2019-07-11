@@ -1,9 +1,11 @@
 {{#if ddsProjectSummary}}
-  {{number-to-human-size total_size true 0}} -
   {{#if folder_count}}
     {{pluralize root_folder_count 'top-level folder'}}, {{pluralize sub_folder_count 'subfolder'}},
+  {{else}}
+    {{pluralize folder_count 'folder'}},
   {{/if}}
-  {{pluralize file_count 'total file'}}
+  {{pluralize file_count 'file'}}
+  ({{number-to-human-size total_size true 0}})
 {{else}}
   {{#loading-indicator}}Calculating{{/loading-indicator}}
 {{/if}}

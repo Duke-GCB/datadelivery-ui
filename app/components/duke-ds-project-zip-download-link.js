@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ENV from 'datadelivery-ui/config/environment';
 
 const DukeDsProjectZipDownloadLink = Ember.Component.extend({
-  classNames: ['duke-ds-project-zip-download-link'],
+  classNames: ['duke-ds-project-zip-download-link', 'btn', 'btn-primary'],
   tagName: 'a',
   attributeBindings: ['href'],
   ddsProject: null,
