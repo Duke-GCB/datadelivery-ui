@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import ENV from 'datadelivery-ui/config/environment';
 import { assert } from '@ember/debug';
 
+const SupportEmail = ENV.APP.CONTACT_EMAIL;
+
 export default Ember.Component.extend({
-  contactEmail: null,
+  contactEmail: SupportEmail,
   emailSubject: null,
   mailToContactEmail: Ember.computed('contactEmail', 'emailSubject', function () {
     const contactEmail = this.get('contactEmail');
@@ -11,7 +14,6 @@ export default Ember.Component.extend({
   }),
   didReceiveAttrs() {
     this._super(...arguments);
-    assert('EmailSetupMessage component requires contactEmail property', this.get('contactEmail'));
     assert('EmailSetupMessage component requires emailSubject property', this.get('emailSubject'));
   }
 });

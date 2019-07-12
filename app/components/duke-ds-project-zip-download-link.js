@@ -6,6 +6,7 @@ const DukeDsProjectZipDownloadLink = Ember.Component.extend({
   tagName: 'a',
   attributeBindings: ['href'],
   ddsProject: null,
+  ddsProjectSummary: null,
   href: Ember.computed('ddsProject.{id,name}', function () {
     const projectId = this.get('ddsProject.id');
     const projectName = this.get('ddsProject.name');
@@ -18,7 +19,7 @@ const DukeDsProjectZipDownloadLink = Ember.Component.extend({
 });
 
 DukeDsProjectZipDownloadLink.reopenClass({
-  positionalParams: ['ddsProject']
+  positionalParams: ['ddsProject', 'ddsProjectSummary']
 });
 
 export default DukeDsProjectZipDownloadLink;

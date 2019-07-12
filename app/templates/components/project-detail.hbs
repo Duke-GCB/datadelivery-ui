@@ -1,13 +1,13 @@
 <div class="row">
   <dl class="col-md-6">
     {{#detail-label-value label="Size"}}
-      {{duke-ds-project-size project}}
+      {{duke-ds-project-size ddsProjectSummary}}
     {{/detail-label-value}}
     {{#detail-label-value label="External Links"}}
-      {{duke-ds-project-link project}}
+      {{duke-ds-project-link ddsProject}}
     {{/detail-label-value}}
     {{#detail-label-value label="Download Links"}}
-      {{duke-ds-project-zip-download-link project}}
+      {{duke-ds-project-zip-download-link ddsProject ddsProjectSummary}}
     {{/detail-label-value}}
   </dl>
   <div class="col-md-6">

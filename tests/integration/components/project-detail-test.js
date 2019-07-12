@@ -6,17 +6,22 @@ moduleForComponent('project-detail', 'Integration | Component | project detail',
   integration: true
 });
 
-test('it renders', function(assert) {
-  const project = Ember.Object.create({
+test('it renders and fetches project summary', function(assert) {
+  const ddsProject = Ember.Object.create({
     id: 123,
     name: 'Project ABC',
     isLoaded: true,
-    getSummary() {}
+    getSummary() {
+      assert.step('getSummary');
+      return Ember.RSVP.resolve({});
+    }
   });
-
-  this.set('project', project);
-  this.render(hbs`{{project-detail project}}`);
+  this.set('ddsProject', ddsProject);
+  assert.step('before-render');
+  this.render(hbs`{{project-detail ddsProject}}`);
+  assert.step('after-render');
   assert.equal(this.$('.duke-ds-project-size').length, 1);
   assert.equal(this.$('.duke-ds-project-link').length, 1);
   assert.equal(this.$('.duke-ds-project-zip-download-link').length, 1);
+  assert.verifySteps(['before-render','getSummary', 'after-render']);
 });
