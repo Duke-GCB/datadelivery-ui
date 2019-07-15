@@ -5,7 +5,7 @@ moduleForComponent('duke-ds-project-size', 'Integration | Component | duke ds pr
   integration: true
 });
 
-test('it fetches and renders summary', function (assert) {
+test('it renders summary', function (assert) {
   const ddsProjectSummary = {
     total_size: 5 * 1024 * 1024 * 1024,
     file_count: 345,
