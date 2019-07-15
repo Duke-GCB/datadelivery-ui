@@ -11,9 +11,26 @@ test('it renders link to download project with filename text', function(assert) 
     id: 'abc-123',
     name: 'ProjectName'
   });
+  const ddsProjectSummary = Ember.Object.create({
+    total_size: 24 * 1024 * 1024
+  });
   this.set('ddsProject', ddsProject);
-  this.render(hbs`{{duke-ds-project-zip-download-link ddsProject}}`);
-  assert.equal(this.$('a.duke-ds-project-zip-download-link').text().trim(), 'ProjectName.zip');
+  this.set('ddsProjectSummary', ddsProjectSummary);
+
+  this.render(hbs`{{duke-ds-project-zip-download-link ddsProject ddsProjectSummary}}`);
+  assert.equal(this.$('a.duke-ds-project-zip-download-link').text().trim(), 'Download as Zip file (approx. 24 MiB)');
   assert.equal(this.$('a.duke-ds-project-zip-download-link').attr('href'), 'http://testhost/download/dds-projects/abc-123/ProjectName.zip');
 });
 
+test('it renders size as calculating while summary is empty', function(assert) {
+  const ddsProject = Ember.Object.create({
+    id: 'abc-123',
+    name: 'ProjectName'
+  });
+  this.set('ddsProject', ddsProject);
+  this.set('ddsProjectSummary', null);
+
+  this.render(hbs`{{duke-ds-project-zip-download-link ddsProject ddsProjectSummary}}`);
+  assert.equal(this.$('a.duke-ds-project-zip-download-link').text().trim(), 'Download as Zip file (Calculating Size...)');
+  assert.equal(this.$('a.duke-ds-project-zip-download-link').attr('href'), 'http://testhost/download/dds-projects/abc-123/ProjectName.zip');
+});
