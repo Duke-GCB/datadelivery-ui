@@ -6,7 +6,6 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Helper | number-to-human-size', function(hooks) {
   setupRenderingTest(hooks);
 
-  // Replace this with your real tests.
   test('it renders 1 Kib', async function(assert) {
     this.set('inputValue', 1024);
 

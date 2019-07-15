@@ -39,5 +39,4 @@ module('Integration | Component | duke ds user search fields', function(hooks) {
       this.$('button').click();
     }
   });
-  ///});
 });
