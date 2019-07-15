@@ -32,7 +32,6 @@ module('Integration | Component | duke ds user search fields', function(hooks) {
       await this.$('input.query-field').val(testParam.query);
       await this.$('input.query-field').change(); // change() is required to trigger the update
       // Click the mode's radio button
-      //await this.$('input[type=radio].' + testParam.mode).click();
       await click('input[type=radio].' + testParam.mode);
       // Verify the placeholder is updated
       assert.equal(this.$('input.query-field').attr('placeholder'), testParam.placeholder);
