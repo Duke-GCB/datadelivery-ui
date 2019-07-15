@@ -17,7 +17,7 @@ const DukeDSProjectList = Component.extend({
   }),
   init() {
     this._super(...arguments);
-    this.set('selectedItems', []);
+    this.selectedItems = [];
     this.columns = [
       {
         component: "select-row-checkbox",
