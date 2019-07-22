@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
 import { module, test } from 'qunit';
@@ -13,7 +12,7 @@ module('Unit | Route | duke ds projects/show', function(hooks) {
   });
 
 
-  test('it finds a project based on project_id', function(assert) {
+  test('it finds a project based on project_id', async function(assert) {
     let route = this.owner.factoryFor('route:duke-ds-projects/show').create({
       store: {
         findRecord(recordModel, id) {
@@ -22,11 +21,8 @@ module('Unit | Route | duke ds projects/show', function(hooks) {
       }
     });
 
-    run(() => {
-      route.model({project_id: 1}).then(model => {
-        assert.equal(model.get('kind'), 'find_duke-ds-project');
-        assert.equal(model.get('id'), 1);
-      });
-    });
+    let model = await route.model({project_id: 1});
+    assert.equal(model.get('kind'), 'find_duke-ds-project');
+    assert.equal(model.get('id'), 1);
   });
 });

@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
 import { module, test } from 'qunit';
@@ -7,7 +6,7 @@ import { setupTest } from 'ember-qunit';
 module('Unit | Route | deliveries/show', function(hooks) {
   setupTest(hooks);
 
-  test('it finds a delivery based on delivery_id', function(assert) {
+  test('it finds a delivery based on delivery_id', async function(assert) {
     let route = this.owner.factoryFor('route:deliveries/show').create({
       store: {
         findRecord(recordModel, id) {
@@ -16,11 +15,8 @@ module('Unit | Route | deliveries/show', function(hooks) {
       }
     });
 
-    run(() => {
-      route.model({transfer_id: 1}).then(model => {
-        assert.equal(model.get('kind'), 'find_duke-ds-project-transfer');
-        assert.equal(model.get('id'), 1);
-      });
-    });
+    let model = await route.model({transfer_id: 1});
+    assert.equal(model.get('kind'), 'find_duke-ds-project-transfer');
+    assert.equal(model.get('id'), 1);
   });
 });

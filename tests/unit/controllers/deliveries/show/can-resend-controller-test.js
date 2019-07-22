@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
@@ -13,7 +12,7 @@ module('Unit | Controller | deliveries/show/can resend controller', function(hoo
     assert.equal(controller.get('canResend'), false);
   });
 
-  test('canResend is true when model.canResend and currentDukeDsUser is fromUser', function(assert) {
+  test('canResend is true when model.canResend and currentDukeDsUser is fromUser', async function(assert) {
     let controller = this.owner.factoryFor('controller:deliveries/show/can-resend-controller').create({
       model: EmberObject.create({
         canResend: true,
@@ -22,41 +21,29 @@ module('Unit | Controller | deliveries/show/can resend controller', function(hoo
         })
       }),
     });
-    run(() => {
-      controller.set('currentDukeDsUser', EmberObject.create({id: '123'}));
-    });
-    run(() => {
-      assert.equal(controller.get('canResend'), true);
-    });
+    await controller.set('currentDukeDsUser', EmberObject.create({id: '123'}));
+    assert.equal(controller.get('canResend'), true);
   });
 
-  test('canResend is false when not model.canResend and currentDukeDsUser is fromUser', function(assert) {
+  test('canResend is false when not model.canResend and currentDukeDsUser is fromUser', async function(assert) {
     let controller = this.owner.factoryFor('controller:deliveries/show/can-resend-controller').create({
       model: EmberObject.create({
         canResend: false,
         fromUser: EmberObject.create({id: '123'})
       }),
     });
-    run(() => {
-      controller.set('currentDukeDsUser', EmberObject.create({id: '123'}));
-    });
-    run(() => {
-      assert.equal(controller.get('canResend'), false);
-    });
+    await controller.set('currentDukeDsUser', EmberObject.create({id: '123'}));
+    assert.equal(controller.get('canResend'), false);
   });
 
-  test('canResend is false when model.canResend and currentDukeDsUser is not fromUser', function(assert) {
+  test('canResend is false when model.canResend and currentDukeDsUser is not fromUser', async function(assert) {
     let controller = this.owner.factoryFor('controller:deliveries/show/can-resend-controller').create({
       model: EmberObject.create({
         canResend: false,
         fromUser: EmberObject.create({id: '123'})
       }),
     });
-    run(() => {
-      controller.set('currentDukeDsUser', EmberObject.create({id: '124'}));
-    });
-    run(() => {
-      assert.equal(controller.get('canResend'), false);
-    });
+    await controller.set('currentDukeDsUser', EmberObject.create({id: '124'}));
+    assert.equal(controller.get('canResend'), false);
   });
 });

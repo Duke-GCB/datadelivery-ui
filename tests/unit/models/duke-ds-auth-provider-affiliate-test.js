@@ -1,4 +1,3 @@
-import { run } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
@@ -6,12 +5,12 @@ import { setupTest } from 'ember-qunit';
 module('Unit | Model | duke ds auth provider affiliate', function(hooks) {
   setupTest(hooks);
 
-  test('it exists', function(assert) {
-    let model = run(() => this.owner.lookup('service:store').createRecord('duke-ds-auth-provider-affiliate'));
+  test('it exists', async function(assert) {
+    let model = await this.owner.lookup('service:store').createRecord('duke-ds-auth-provider-affiliate');
     assert.ok(!!model);
   });
 
-  test('getOrRegisterUser uses the adapter method, loading and returning a duke-ds-user', function (assert) {
+  test('getOrRegisterUser uses the adapter method, loading and returning a duke-ds-user', async function (assert) {
     const mockAdapter = {
       getOrRegisterUser: function(uid) {
         assert.step(`adapter.getOrRegisterUser(${uid})`);
@@ -23,7 +22,7 @@ module('Unit | Model | duke ds auth provider affiliate', function(hooks) {
       }
     };
 
-    const model = run(() => this.owner.lookup('service:store').createRecord('duke-ds-auth-provider-affiliate', {
+    const model = await this.owner.lookup('service:store').createRecord('duke-ds-auth-provider-affiliate', {
       uid: 'abc123',
       store: {
         adapterFor: function(modelName) {
@@ -37,11 +36,10 @@ module('Unit | Model | duke ds auth provider affiliate', function(hooks) {
           assert.step(`store.peekRecord(${modelName}, ${modelId})`);
         }
       }
-    }));
-
-    run(() => {
-      model.getOrRegisterUser();
     });
+
+    await model.getOrRegisterUser();
+
     assert.verifySteps([
       'store.adapterFor(duke-ds-auth-provider-affiliate)',
       'adapter.getOrRegisterUser(abc123)',
