@@ -12,6 +12,6 @@ export default Component.extend({
   columns: null,
   init() {
     this._super(...arguments);
-    this.set('columns', ProjectColumns);
+    this.columns = ProjectColumns;
   }
 });

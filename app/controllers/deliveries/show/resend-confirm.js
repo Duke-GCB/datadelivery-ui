@@ -7,7 +7,7 @@ export default CanResendController.extend({
   errors: null,
   init() {
     this._super(...arguments);
-    this.set('errors', []);
+    this.errors = [];
   },
   errorMessages: mapBy('errors', 'detail'),
   actions: {
