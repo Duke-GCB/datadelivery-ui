@@ -13,18 +13,18 @@ module('Unit | Model | delivery', function(hooks) {
     deliveryAdapter = store.adapterFor('delivery');
   });
 
-  test('it exists', async function(assert) {
+  test('it exists', function(assert) {
     let model = store.createRecord('delivery');
     assert.ok(!!model);
   });
 
-  test('it defaults state to new', async function(assert) {
+  test('it defaults state to new', function(assert) {
     let model = store.createRecord('delivery');
     const STATE_NEW = 0;
     assert.equal(model.get('state'), STATE_NEW);
   });
 
-  test('it defaults userMessage to empty string', async function(assert) {
+  test('it defaults userMessage to empty string', function(assert) {
     let model = store.createRecord('delivery');
     assert.equal(model.get('state'), '');
   });
