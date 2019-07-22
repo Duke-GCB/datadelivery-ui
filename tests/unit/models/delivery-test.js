@@ -41,8 +41,8 @@ module('Unit | Model | delivery', function(hooks) {
     assert.expect(2);
     const response = EmberObject.create();
     deliveryAdapter.preview = () => {
-          assert.ok(true);
-          return resolve(response);
+      assert.ok(true);
+      return resolve(response);
     };
     let model = store.createRecord('delivery');
 
