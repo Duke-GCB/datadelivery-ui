@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 
 /*
   This mixin should be used by sub-routes of deliveries.new to set the newly created
@@ -9,7 +9,7 @@ import Ember from 'ember';
   so we'd be binding to a bunch of non-existent properties.
  */
 
-export default Ember.Mixin.create({
+export default Mixin.create({
   setupController(controller, model) {
     this._super(controller, model);
     const delivery = this.modelFor('deliveries.new');

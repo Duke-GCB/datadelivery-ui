@@ -1,13 +1,15 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import Component from '@ember/component';
 
-const DukeDsProjectSize = Ember.Component.extend({
+const DukeDsProjectSize = Component.extend({
   classNames: ['duke-ds-project-size'],
   ddsProjectSummary: null,
-  total_size: Ember.computed.alias('ddsProjectSummary.total_size'),
-  file_count: Ember.computed.alias('ddsProjectSummary.file_count'),
-  folder_count: Ember.computed.alias('ddsProjectSummary.folder_count'),
-  root_folder_count: Ember.computed.alias('ddsProjectSummary.root_folder_count'),
-  sub_folder_count: Ember.computed('folder_count','root_folder_count',function () {
+  total_size: alias('ddsProjectSummary.total_size'),
+  file_count: alias('ddsProjectSummary.file_count'),
+  folder_count: alias('ddsProjectSummary.folder_count'),
+  root_folder_count: alias('ddsProjectSummary.root_folder_count'),
+  sub_folder_count: computed('folder_count','root_folder_count',function () {
     return this.get('folder_count') - this.get('root_folder_count');
   })
 });

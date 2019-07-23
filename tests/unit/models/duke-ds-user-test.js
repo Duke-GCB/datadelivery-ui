@@ -1,12 +1,11 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('duke-ds-user', 'Unit | Model | duke ds user', {
-  // Specify the other units that are required for this test.
-  needs: []
-});
+module('Unit | Model | duke ds user', function(hooks) {
+  setupTest(hooks);
 
-test('it exists', function(assert) {
-  let model = this.subject();
-  // let store = this.store();
-  assert.ok(!!model);
+  test('it exists', async function(assert) {
+    let model = await this.owner.lookup('service:store').createRecord('duke-ds-user');
+    assert.ok(!!model);
+  });
 });

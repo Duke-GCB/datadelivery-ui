@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { set } from '@ember/object';
+import Component from '@ember/component';
 
 const KINDS = [
   {mode: 'full_name_contains', name: 'Name', placeholder: 'Full or Partial Name'},
@@ -8,7 +9,7 @@ const KINDS = [
 
 const DEFAULT_KIND = KINDS[0];
 
-export default Ember.Component.extend({
+export default Component.extend({
   labelText: 'Search for a User',
   classNames: ['duke-ds-user-search-fields'],
   query: null,
@@ -20,7 +21,7 @@ export default Ember.Component.extend({
       let params = {};
       const query = this.get('query');
       const mode = this.get('kind.mode');
-      Ember.set(params, mode, query);
+      set(params, mode, query);
       this.get('onSearch')(params);
     }
   },

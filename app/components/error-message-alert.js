@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const ErrorMessageAlert = Ember.Component.extend({
+const ErrorMessageAlert = Component.extend({
 });
 
 ErrorMessageAlert.reopenClass({

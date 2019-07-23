@@ -1,30 +1,26 @@
-import { moduleFor, test } from 'ember-qunit';
-import Ember from "ember";
+import { resolve } from 'rsvp';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-const DukeDSUserStoreStub = Ember.Object.extend({
+const DukeDSUserStoreStub = {
   queryRecord(modelName) {
-    return Ember.RSVP.resolve({
+    return resolve({
       modelName: modelName,
       username: 'dds111'
     });
   }
-});
+};
 
+module('Unit | Service | duke ds user', function(hooks) {
+  setupTest(hooks);
 
-moduleFor('service:duke-ds-user', 'Unit | Service | duke ds user', {
-  needs: ['model:duke-ds-user'],
-  beforeEach() {
-    this.register('service:store', DukeDSUserStoreStub);
-    this.inject.service('store', {as: 'store'});
-  }
-});
-
-test('it queries duke-ds-users/current-duke-ds-user from the store', function(assert) {
-  assert.expect(3);
-  let service = this.subject();
-  assert.ok(service);
-  service.currentDukeDsUser().then(function(user) {
-    assert.equal(user.modelName, 'duke-ds-user');
-    assert.equal(user.username, 'dds111');
+  test('it queries duke-ds-users/current-duke-ds-user from the store', function(assert) {
+    assert.expect(3);
+    let service = this.owner.factoryFor('service:duke-ds-user').create({store: DukeDSUserStoreStub});
+    assert.ok(service);
+    service.currentDukeDsUser().then(function(user) {
+      assert.equal(user.modelName, 'duke-ds-user');
+      assert.equal(user.username, 'dds111');
+    });
   });
 });

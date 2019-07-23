@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Service, { inject as service } from '@ember/service';
 
-export default Ember.Service.extend({
-  store: Ember.inject.service(),
+export default Service.extend({
+  store: service(),
   currentUser() {
     // Use queryRecord since Ember complains that 'current-user' doesn't match the returned ID.
     return this.get('store').queryRecord('user', {});

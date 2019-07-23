@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper as buildHelper } from '@ember/component/helper';
 
 export function formatDeliveryState(params) {
   if(params.length > 0) {
@@ -8,4 +8,4 @@ export function formatDeliveryState(params) {
   }
 }
 
-export default Ember.Helper.helper(formatDeliveryState);
+export default buildHelper(formatDeliveryState);

@@ -1,15 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('duke-ds-project-transfer', 'Unit | Serializer | duke ds project transfer', {
-  // Specify the other units that are required for this test.
-  needs: ['serializer:duke-ds-project-transfer', 'model:duke-ds-user', 'model:duke-ds-project', 'model:delivery']
-});
+module('Unit | Serializer | duke ds project transfer', function(hooks) {
+  setupTest(hooks);
 
-// Replace this with your real tests.
-test('it serializes records', function(assert) {
-  let record = this.subject();
-
-  let serializedRecord = record.serialize();
-
-  assert.ok(serializedRecord);
+  // Replace this with your real tests.
+  test('it serializes records', async function(assert) {
+    let record = await this.owner.lookup('service:store').createRecord('duke-ds-project-transfer');
+    let serializedRecord = record.serialize();
+    assert.ok(serializedRecord);
+  });
 });

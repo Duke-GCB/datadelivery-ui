@@ -1,147 +1,149 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from "ember";
 
-moduleForComponent('delivery-detail', 'Integration | Component | delivery detail', {
-  integration: true
-});
+module('Integration | Component | delivery detail', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders brief mode', function(assert) {
-  const transfer = Ember.Object.create({
-    id: 5,
-    project: {name: 'Taco'},
-    fromUser: {fullName: 'Arthur Adamson'},
-    toUsersNames: [ 'Zelda Zellington' ],
-    status: 'Done',
-    delivery: Ember.Object.create({
-      shareUsers: [
-        {fullName: 'Bob Robertson'}
-      ],
-    })
-  });
-
-  this.set('transfer', transfer);
-  this.render(hbs`{{delivery-detail transfer brief=true}}`);
-  assert.equal(this.$('.detail-label').eq(0).text(), 'From');
-  assert.equal(this.$('.detail-label').eq(1).text(), 'To');
-  assert.equal(this.$('.detail-label').length, 2);
-});
-
-test('it renders full mode', function(assert) {
-  const transfer = Ember.Object.create({
-    id: 5,
-    canResend: true,
-    project: {name: 'Taco'},
-    fromUser: {fullName: 'Arthur Adamson'},
-    toUsersNames: ['Zelda Zellington'],
-    status: 'Done',
-    delivery: Ember.Object.create({
-      id: 3,
-      shareUsers: [
-        {fullName: 'Bob Robertson'}
-      ],
-      userMessage: 'Here is your data',
-      deliveryEmailText: 'Subject: New Data\n\nEmail Body'
-    })
-  });
-
-  this.set('transfer', transfer);
-  this.render(hbs`{{delivery-detail transfer}}`);
-  assert.equal(this.$('.detail-label').length, 4);
-  var idx = 0;
-  assert.equal(this.$('.detail-label').eq(idx).text().trim(), 'From');
-  assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Arthur Adamson');
-  idx += 1;
-  assert.equal(this.$('.detail-label').eq(idx).text(), 'To');
-  assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
-  idx += 1;
-  assert.equal(this.$('.detail-label').eq(idx).text(), 'Status');
-  assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done');
-  idx += 1;
-  assert.equal(this.$('.detail-label').eq(idx).text(), 'Delivery Email');
-  assert.equal(this.$('.delivery-email').text().trim(), 'Subject: New DataEmail Body');
-});
-
-test('it renders full mode declineReason and performedBy', function(assert) {
-  const transfer = Ember.Object.create({
+  test('it renders brief mode', async function(assert) {
+    const transfer = EmberObject.create({
       id: 5,
+      project: {name: 'Taco'},
+      fromUser: {fullName: 'Arthur Adamson'},
+      toUsersNames: [ 'Zelda Zellington' ],
+      status: 'Done',
+      delivery: EmberObject.create({
+        shareUsers: [
+          {fullName: 'Bob Robertson'}
+        ],
+      })
+    });
+
+    this.set('transfer', transfer);
+    await render(hbs`{{delivery-detail transfer brief=true}}`);
+    assert.equal(this.$('.detail-label').eq(0).text(), 'From');
+    assert.equal(this.$('.detail-label').eq(1).text(), 'To');
+    assert.equal(findAll('.detail-label').length, 2);
+  });
+
+  test('it renders full mode', async function(assert) {
+    const transfer = EmberObject.create({
+      id: 5,
+      canResend: true,
       project: {name: 'Taco'},
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: ['Zelda Zellington'],
       status: 'Done',
-    delivery:  Ember.Object.create({
-      shareUsers: [
-        {fullName: 'Bob Robertson'}
-      ],
-      userMessage: 'Here is your data',
-      deliveryEmailText: 'Subject: Hello\n\nEmail Body',
-      declineReason: 'Was not needed.',
-      performedBy: 'John Doe'
-    }),
-  });
-  this.set('transfer', transfer);
-  this.render(hbs`{{delivery-detail transfer}}`);
-  assert.equal(this.$('.detail-label').eq(3).text(), 'Decline Reason');
-  assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
-  assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
-  assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
-});
+      delivery: EmberObject.create({
+        id: 3,
+        shareUsers: [
+          {fullName: 'Bob Robertson'}
+        ],
+        userMessage: 'Here is your data',
+        deliveryEmailText: 'Subject: New Data\n\nEmail Body'
+      })
+    });
 
-test('it renders email when transfer is pending', function(assert) {
-  const transfer = Ember.Object.create({
-    id: 5,
-    canResend: true,
-    project: {name: 'Taco'},
-    fromUser: {fullName: 'Arthur Adamson'},
-    toUsersNames: [ 'Zelda Zellington' ],
-    status: 'pending',
-    delivery: Ember.Object.create({
-      deliveryEmailText: 'Subject: Hello\n\nEmail Body',
-      shareUsers: [
-        {fullName: 'Bob Robertson'}
-      ],
-    })
+    this.set('transfer', transfer);
+    await render(hbs`{{delivery-detail transfer}}`);
+    assert.equal(findAll('.detail-label').length, 4);
+    var idx = 0;
+    assert.equal(this.$('.detail-label').eq(idx).text().trim(), 'From');
+    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Arthur Adamson');
+    idx += 1;
+    assert.equal(this.$('.detail-label').eq(idx).text(), 'To');
+    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
+    idx += 1;
+    assert.equal(this.$('.detail-label').eq(idx).text(), 'Status');
+    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done');
+    idx += 1;
+    assert.equal(this.$('.detail-label').eq(idx).text(), 'Delivery Email');
+    assert.equal(find('.delivery-email').textContent.trim(), 'Subject: New DataEmail Body');
   });
-  this.set('transfer', transfer);
-  this.render(hbs`{{delivery-detail transfer}}`);
-  assert.equal(this.$('.delivery-email').html().trim(), 'Subject: Hello<br><br>Email Body<br>');
-});
 
-test('it does not render email when transfer is not pending', function(assert) {
-  const transfer = Ember.Object.create({
-    id: 5,
-    canResend: false,
-    project: {name: 'Taco'},
-    fromUser: {fullName: 'Arthur Adamson'},
-    toUsersNames: [ 'Zelda Zellington' ],
-    status: 'pending',
-    delivery: Ember.Object.create({
-      deliveryEmailText: 'Subject: Hello\n\nEmail Body',
-      shareUsers: [
-        {fullName: 'Bob Robertson'}
-      ],
-    })
+  test('it renders full mode declineReason and performedBy', async function(assert) {
+    const transfer = EmberObject.create({
+        id: 5,
+        project: {name: 'Taco'},
+        fromUser: {fullName: 'Arthur Adamson'},
+        toUsersNames: ['Zelda Zellington'],
+        status: 'Done',
+      delivery:  EmberObject.create({
+        shareUsers: [
+          {fullName: 'Bob Robertson'}
+        ],
+        userMessage: 'Here is your data',
+        deliveryEmailText: 'Subject: Hello\n\nEmail Body',
+        declineReason: 'Was not needed.',
+        performedBy: 'John Doe'
+      }),
+    });
+    this.set('transfer', transfer);
+    await render(hbs`{{delivery-detail transfer}}`);
+    assert.equal(this.$('.detail-label').eq(3).text(), 'Decline Reason');
+    assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
+    assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
+    assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
   });
-  this.set('transfer', transfer);
-  this.render(hbs`{{delivery-detail transfer}}`);
-  assert.equal(this.$('.delivery-email').html(), null);
-});
 
-test('it renders project details when showProjectDetails=true', function(assert) {
-  const transfer = Ember.Object.create({
-    project: Ember.Object.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
-    status: 'accepted',
+  test('it renders email when transfer is pending', async function(assert) {
+    const transfer = EmberObject.create({
+      id: 5,
+      canResend: true,
+      project: {name: 'Taco'},
+      fromUser: {fullName: 'Arthur Adamson'},
+      toUsersNames: [ 'Zelda Zellington' ],
+      status: 'pending',
+      delivery: EmberObject.create({
+        deliveryEmailText: 'Subject: Hello\n\nEmail Body',
+        shareUsers: [
+          {fullName: 'Bob Robertson'}
+        ],
+      })
+    });
+    this.set('transfer', transfer);
+    await render(hbs`{{delivery-detail transfer}}`);
+    assert.equal(find('.delivery-email').innerHTML.trim(), 'Subject: Hello<br><br>Email Body<br>');
   });
-  this.set('transfer', transfer);
-  this.set('showProjectDetails', true);
-  this.render(hbs`{{delivery-detail transfer showProjectDetails}}`);
-  assert.equal(this.$('.project-details').length, 1);
-});
 
-test('it hides project details when showProjectDetails=false', function(assert) {
-  const transfer = Ember.Object.create({ status: 'accepted' });
-  this.set('transfer', transfer);
-  this.set('showProjectDetails', false);
-  this.render(hbs`{{delivery-detail transfer showProjectDetails}}`);
-  assert.equal(this.$('.project-details').length, 0);
+  test('it does not render email when transfer is not pending', async function(assert) {
+    const transfer = EmberObject.create({
+      id: 5,
+      canResend: false,
+      project: {name: 'Taco'},
+      fromUser: {fullName: 'Arthur Adamson'},
+      toUsersNames: [ 'Zelda Zellington' ],
+      status: 'pending',
+      delivery: EmberObject.create({
+        deliveryEmailText: 'Subject: Hello\n\nEmail Body',
+        shareUsers: [
+          {fullName: 'Bob Robertson'}
+        ],
+      })
+    });
+    this.set('transfer', transfer);
+    await render(hbs`{{delivery-detail transfer}}`);
+    assert.equal(find('.delivery-email'), null);
+  });
+
+  test('it renders project details when showProjectDetails=true', async function(assert) {
+    const transfer = EmberObject.create({
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
+      status: 'accepted',
+    });
+    this.set('transfer', transfer);
+    this.set('showProjectDetails', true);
+    await render(hbs`{{delivery-detail transfer showProjectDetails}}`);
+    assert.equal(findAll('.project-details').length, 1);
+  });
+
+  test('it hides project details when showProjectDetails=false', async function(assert) {
+    const transfer = EmberObject.create({ status: 'accepted' });
+    this.set('transfer', transfer);
+    this.set('showProjectDetails', false);
+    await render(hbs`{{delivery-detail transfer showProjectDetails}}`);
+    assert.equal(findAll('.project-details').length, 0);
+  });
 });

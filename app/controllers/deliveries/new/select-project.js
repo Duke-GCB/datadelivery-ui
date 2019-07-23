@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { once } from '@ember/runloop';
+import { observer } from '@ember/object';
 import BaseController from './base';
 
 const CAN_DELIVER_AUTH_ROLE = 'project_admin';
@@ -7,9 +8,9 @@ export default BaseController.extend({
   backRoute: 'deliveries.index',
   nextRoute: 'deliveries.new.select-recipient',
 
-  projectChanged: Ember.observer('project', 'fromUser', function() {
+  projectChanged: observer('project', 'fromUser', function() {
     // Wrap the processing in Ember.run.once so that it does not kick off stale requests
-    Ember.run.once(this, 'handleProjectChanged');
+    once(this, 'handleProjectChanged');
   }),
   handleProjectChanged() {
     this.willPerformAction(); // Ensures that next button is disabled and errors are cleared

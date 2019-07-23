@@ -1,16 +1,18 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 
-moduleForComponent('duke-ds-project-link', 'Integration | Component | duke ds project link', {
-  integration: true
-});
+module('Integration | Component | duke ds project link', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders link to project with link text', function(assert) {
-  const url = 'http://example.org/projects/123';
-  const ddsProject = Ember.Object.create({ url: url });
-  this.set('ddsProject', ddsProject);
-  this.render(hbs`{{duke-ds-project-link ddsProject}}`);
-  assert.equal(this.$('a.duke-ds-project-link').text().trim(), 'Browse at Duke Data Service');
-  assert.equal(this.$('a.duke-ds-project-link').attr('href'), url);
+  test('it renders link to project with link text', async function(assert) {
+    const url = 'http://example.org/projects/123';
+    const ddsProject = EmberObject.create({ url: url });
+    this.set('ddsProject', ddsProject);
+    await render(hbs`{{duke-ds-project-link ddsProject}}`);
+    assert.equal(find('a.duke-ds-project-link').textContent.trim(), 'Browse at Duke Data Service');
+    assert.equal(find('a.duke-ds-project-link').getAttribute('href'), url);
+  });
 });

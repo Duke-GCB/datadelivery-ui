@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { typeOf } from '@ember/utils';
+import { get } from '@ember/object';
 
 const RouteLabels = {
   /*
@@ -7,18 +8,18 @@ const RouteLabels = {
    */
   'index': 'Home',
   'deliveries': 'Deliveries',
-  'deliveries.show': context => Ember.get(context, 'project.name'),
+  'deliveries.show': context => get(context, 'project.name'),
   'deliveries.show.resend': 'Resend',
   'deliveries.show.resend-confirm': 'Confirm Resend',
   'deliveries.new': 'New',
   'deliveries.show.recall': 'Recall',
   'duke-ds-projects': 'Duke DS Projects',
-  'duke-ds-projects.show': context => Ember.get(context, 'name')
+  'duke-ds-projects.show': context => get(context, 'name')
 };
 
 function getLabel(routeLabels, routeName, context) {
   const label = routeLabels[routeName];
-  const labelType = Ember.typeOf(label);
+  const labelType = typeOf(label);
   if (labelType  === 'function') {
     return label(context);
   } else if (labelType === 'undefined') {

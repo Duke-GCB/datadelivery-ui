@@ -1,18 +1,20 @@
 
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('format-delivery-state', 'helper:format-delivery-state', {
-  integration: true
-});
+module('helper:format-delivery-state', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  this.set('inputValue', 'accepted');
-  this.render(hbs`{{format-delivery-state inputValue}}`);
+  test('it renders', async function(assert) {
+    this.set('inputValue', 'accepted');
+    await render(hbs`{{format-delivery-state inputValue}}`);
 
-  assert.equal(this.$().text().trim(), 'Accepted');
+    assert.equal(find('*').textContent.trim(), 'Accepted');
 
-  this.render(hbs`{{format-delivery-state}}`);
-  assert.equal(this.$().text().trim(), '');
+    await render(hbs`{{format-delivery-state}}`);
+    assert.equal(find('*').textContent.trim(), '');
+  });
 });
 

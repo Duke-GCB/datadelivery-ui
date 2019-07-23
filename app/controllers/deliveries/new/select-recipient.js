@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import { not } from '@ember/object/computed';
 import BaseController from './base';
 
 export default BaseController.extend({
-  disableNext: Ember.computed.not('toUser.id'),
+  disableNext: not('toUser.id'),
   backRoute: 'deliveries.new.select-project',
   nextRoute: 'deliveries.new.enter-user-message',
   actions: {

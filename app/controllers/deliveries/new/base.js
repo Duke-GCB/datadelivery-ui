@@ -1,18 +1,19 @@
-import Ember from 'ember';
+import { mapBy, alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import { assert } from '@ember/debug';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   delivery: null, // should be set in setupController
   /* Error Handling */
   errors: null,
-  errorMessages: Ember.computed.mapBy('errors', 'detail'),
+  errorMessages: mapBy('errors', 'detail'),
   handleError(errorResponse) { this.set('errors', errorResponse.errors)},
   clearError() { this.set('errors', null); },
   wrapError(errorText) { return {errors: [{detail: errorText}]}; },
-  project: Ember.computed.alias('delivery.project'),
-  toUser: Ember.computed.alias('delivery.toUser'),
-  fromUser: Ember.computed.alias('delivery.fromUser'),
-  userMessage: Ember.computed.alias('delivery.userMessage'),
+  project: alias('delivery.project'),
+  toUser: alias('delivery.toUser'),
+  fromUser: alias('delivery.fromUser'),
+  userMessage: alias('delivery.userMessage'),
 
   willPerformAction() {
     this.set('disableNext', true);

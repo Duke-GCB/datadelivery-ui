@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { resolve } from 'rsvp';
 
-const ProjectDetail = Ember.Component.extend({
+const ProjectDetail = Component.extend({
   tagName: 'div',
   ddsProject: null,
   ddsProjectSummary: null,
@@ -9,7 +10,7 @@ const ProjectDetail = Ember.Component.extend({
     let ddsProject = this.get('ddsProject');
     // If ddsProject is already fulfilled, make it into a simple promise
     if(ddsProject.get('isLoaded')) {
-      ddsProject = Ember.RSVP.resolve(ddsProject);
+      ddsProject = resolve(ddsProject);
     }
     ddsProject.then((loadedProject) => {
       return loadedProject.getSummary();

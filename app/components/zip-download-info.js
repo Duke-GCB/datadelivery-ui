@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import ENV from 'datadelivery-ui/config/environment'
 
 const SupportEmail = ENV.APP.CONTACT_EMAIL;
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['zip-download-info'],
   supportEmail: SupportEmail,
-  mailToSupportEmail: Ember.computed('supportEmail', function() {
+  mailToSupportEmail: computed('supportEmail', function() {
     const supportEmail = this.get('supportEmail');
     return `mailto:${supportEmail}`;
   })

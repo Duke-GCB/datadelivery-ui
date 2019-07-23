@@ -1,22 +1,11 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import Component from '@ember/component';
 
-const DukeDSProjectList = Ember.Component.extend({
+const DukeDSProjectList = Component.extend({
   projects: null,
   selectionChanged: null, /** action */
   selectedItems: null,
-  columns: [
-    {
-      component: "select-row-checkbox",
-      useFilter: false,
-      mayBeHidden: false,
-      className: "select-row-checkbox-column",
-    },
-    {
-      propertyName: "name", title: "Project Name",
-      className: "duke-ds-project-name"
-    }
-  ],
-  selectionDidChange: Ember.observer('selectedItems.[]', function() {
+  selectionDidChange: observer('selectedItems.[]', function() {
     // When unchecking the single item, selectedItems.length drops to 0,
     // but selectedItems.firstObject still references the old project
     const selectedItems = this.get('selectedItems');
@@ -28,7 +17,19 @@ const DukeDSProjectList = Ember.Component.extend({
   }),
   init() {
     this._super(...arguments);
-    this.set('selectedItems', []);
+    this.selectedItems = [];
+    this.columns = [
+      {
+        component: "select-row-checkbox",
+        useFilter: false,
+        mayBeHidden: false,
+        className: "select-row-checkbox-column",
+      },
+      {
+        propertyName: "name", title: "Project Name",
+        className: "duke-ds-project-name"
+      }
+    ];
   }
 });
 

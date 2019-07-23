@@ -22,14 +22,14 @@
           {{#detail-label-value label="Shared With"}}{{shareUser.fullName}}{{/detail-label-value}}
         {{/if}}
       {{/each}}
-        <dt>User Message<br />(optional)</dt><dd>{{user-message-textarea value=userMessage readonly=false}}</dd>
+      <dt>User Message<br>(optional)</dt><dd>{{user-message-textarea value=userMessage readonly=false}}</dd>
     </dl>
   </div>
 </div>
 
 {{error-message-alert errorMessages}}
 
-{{#link-to backRoute class='btn btn-default'}}Back{{/link-to}}
-{{#link-to nextRoute class='btn btn-primary pull-right' disabled=disableNext}}Next{{/link-to}}
+{{#link-to backRoute class="btn btn-default"}}Back{{/link-to}}
+{{#link-to nextRoute class="btn btn-primary pull-right" disabled=disableNext}}Next{{/link-to}}
 
 {{outlet}}

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
 const ProjectColumns = [
   { propertyName: "name",
@@ -18,12 +18,12 @@ const ProjectColumns = [
     sortPrecedence: 1}
 ];
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['projects-table'],
   projects: null,
   columns: null,
   init() {
     this._super(...arguments);
-    this.set('columns', ProjectColumns);
+    this.columns = ProjectColumns;
   }
 });

@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 import { assert } from '@ember/debug';
 
 // Transfer status filter options from
@@ -9,43 +10,47 @@ const statusFilterFunction = function(status, selected) {
   return status.capitalize() == selected;
 };
 
-export default Ember.Component.extend({
+export default Component.extend({
   transfers: null, // required property duke-ds-project-transfers models
   currentDukeDsUser: null, // required property current user's duke-ds-user model
   currentUser: null, // required property current user model
   tagName: 'div',
-  outgoingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
+  outgoingTransfers: computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     return this.get('transfers').filterBy('fromUser.id', currentDukeDsUserId);
   }),
-  incomingTransfers: Ember.computed('transfers.[]', 'currentDukeDsUser', function() {
+  incomingTransfers: computed('transfers.[]', 'currentDukeDsUser', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
     return this.get('transfers').filter(function(transfer) {
       return transfer.get('toUsers').mapBy('id').includes(currentDukeDsUserId);
     });
   }),
-  outgoingColumns: [
-    { propertyName: "project.name", title: "Project Name", routeName: "deliveries.show"},
-    { propertyName: "toUsersNames", title: "To"},
-    { propertyName: "status",
-      title: "State",
-      component: 'delivery-state',
-      filterWithSelect: true,
-      predefinedFilterOptions: statusOptions,
-      filterFunction: statusFilterFunction
-    }
-  ],
-  incomingColumns: [
-    { propertyName: "project.name", title: "Project Name", routeName: "deliveries.show"},
-    { propertyName: "fromUser.fullName", title: "From"},
-    { propertyName: "status",
-      title: "State",
-      component: 'delivery-state',
-      filterWithSelect: true,
-      predefinedFilterOptions: statusOptions,
-      filterFunction: statusFilterFunction
-    }
-  ],
+  init() {
+    this._super(...arguments);
+
+    this.outgoingColumns = [
+      { propertyName: "project.name", title: "Project Name", routeName: "deliveries.show"},
+      { propertyName: "toUsersNames", title: "To"},
+      { propertyName: "status",
+        title: "State",
+        component: 'delivery-state',
+        filterWithSelect: true,
+        predefinedFilterOptions: statusOptions,
+        filterFunction: statusFilterFunction
+      }
+    ];
+    this.incomingColumns = [
+      { propertyName: "project.name", title: "Project Name", routeName: "deliveries.show"},
+      { propertyName: "fromUser.fullName", title: "From"},
+      { propertyName: "status",
+        title: "State",
+        component: 'delivery-state',
+        filterWithSelect: true,
+        predefinedFilterOptions: statusOptions,
+        filterFunction: statusFilterFunction
+      }
+    ]
+  },
   didReceiveAttrs() {
     this._super(...arguments);
     assert('DeliveryTable component requires transfers property', this.get('transfers'));

@@ -1,29 +1,31 @@
-import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('controller:deliveries/index', 'Unit | Controller | deliveries/index', {
-  needs: ['controller:application'],
-  beforeEach() {
-    this.register('controller:application', Ember.Object.extend({
-      currentDukeDsUser: Ember.Object.create({id: 23, fullName: 'Michael Jordan'}),
-      currentUser: Ember.Object.create({id: 24})
+module('Unit | Controller | deliveries/index', function(hooks) {
+  setupTest(hooks);
+
+  hooks.beforeEach(function() {
+    this.owner.register('controller:application', EmberObject.extend({
+      currentDukeDsUser: EmberObject.create({id: 23, fullName: 'Michael Jordan'}),
+      currentUser: EmberObject.create({id: 24})
     }));
-    this.inject.controller('application', {as: 'application'});
-  }
-});
+    this.application = this.owner.lookup('controller:application');
+  });
 
-test('it exists', function(assert) {
-  let controller = this.subject();
-  assert.ok(controller);
-});
+  test('it exists', function(assert) {
+    let controller = this.owner.lookup('controller:deliveries/index');
+    assert.ok(controller);
+  });
 
-test('it computes currentDukeDsUser from application', function (assert) {
-  let controller = this.subject();
-  assert.equal(controller.get('currentDukeDsUser.fullName'), 'Michael Jordan');
-  assert.equal(controller.get('currentDukeDsUser.id'), 23);
-});
+  test('it computes currentDukeDsUser from application', function (assert) {
+    let controller = this.owner.lookup('controller:deliveries/index');
+    assert.equal(controller.get('currentDukeDsUser.fullName'), 'Michael Jordan');
+    assert.equal(controller.get('currentDukeDsUser.id'), 23);
+  });
 
-test('it computes currentUser from application', function (assert) {
-  let controller = this.subject();
-  assert.equal(controller.get('currentUser.id'), 24);
+  test('it computes currentUser from application', function (assert) {
+    let controller = this.owner.lookup('controller:deliveries/index');
+    assert.equal(controller.get('currentUser.id'), 24);
+  });
 });

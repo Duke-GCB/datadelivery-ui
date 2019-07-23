@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   delivery: null,
   emailMessage: null,
   errors: null, // Default value
@@ -19,7 +20,7 @@ export default Ember.Component.extend({
     // loaded delivery. So if delivery is already loaded, we wrap it in a promise,
     // so that delivery.then() resolves to a loaded delivery in both cases.
     if(delivery.get('isLoaded')) {
-      delivery = Ember.RSVP.resolve(delivery);
+      delivery = resolve(delivery);
     }
     delivery.then((loadedDelivery) => {
       return loadedDelivery.preview();
