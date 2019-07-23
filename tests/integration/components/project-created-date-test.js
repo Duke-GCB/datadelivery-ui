@@ -1,13 +1,13 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 
 moduleForComponent('project-created-date', 'Integration | Component | project created date', {
   integration: true
 });
 
 test('it renders', function(assert) {
-  const record = Ember.Object.create({
+  const record = EmberObject.create({
     createdOn: '2020-01-01'
   });
   this.set('record', record);

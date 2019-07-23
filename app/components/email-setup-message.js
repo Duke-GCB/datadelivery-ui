@@ -1,6 +1,7 @@
 import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { assert } from '@ember/debug';
+import ENV from 'datadelivery-ui/config/environment';
 
 const SupportEmail = ENV.APP.CONTACT_EMAIL;
 
