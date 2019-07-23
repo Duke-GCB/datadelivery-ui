@@ -3,7 +3,7 @@ import Component from '@ember/component';
 
 const DukeDsProjectLink = Component.extend({
   tagName: 'a',
-  classNames: ['duke-ds-project-link'],
+  classNames: ['duke-ds-project-link', 'btn', 'btn-default'],
   attributeBindings: ['href'],
   href: readOnly('ddsProject.url'),
   ddsProject: null,

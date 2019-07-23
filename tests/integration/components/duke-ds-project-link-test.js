@@ -12,7 +12,7 @@ module('Integration | Component | duke ds project link', function(hooks) {
     const ddsProject = EmberObject.create({ url: url });
     this.set('ddsProject', ddsProject);
     await render(hbs`{{duke-ds-project-link ddsProject}}`);
-    assert.equal(find('a.duke-ds-project-link').textContent.trim(), url);
+    assert.equal(find('a.duke-ds-project-link').textContent.trim(), 'Browse at Duke Data Service');
     assert.equal(find('a.duke-ds-project-link').getAttribute('href'), url);
   });
 });

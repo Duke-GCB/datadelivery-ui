@@ -1,6 +1,6 @@
 {
   "name": "datadelivery-ui",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Small description for datadelivery-ui goes here",
   "repository": "",
@@ -37,6 +37,8 @@
     "ember-cli-template-lint": "^1.0.0-beta.1",
     "ember-cli-uglify": "^2.1.0",
     "ember-data": "~3.8.0",
+    "ember-cli-moment-shim": "^3.7.1",
+    "ember-moment": "^7.8.1",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",

@@ -22,3 +22,8 @@
   from { -webkit-transform: rotate(0deg); }
   to { -webkit-transform: rotate(360deg); }
 }
+
+.project-detail dd {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}

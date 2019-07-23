@@ -8,32 +8,21 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | duke ds project size', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it fetches and renders summary', async function(assert) {
-    const summary = {
+  test('it renders summary', async function (assert) {
+    const ddsProjectSummary = {
       total_size: 5 * 1024 * 1024 * 1024,
       file_count: 345,
-      folder_count: 47
+      folder_count: 47,
+      root_folder_count: 1
     };
-    const ddsProject = EmberObject.create({
-      isLoaded: true,
-      getSummary() {
-        return resolve(summary);
-      }
-    });
-    this.set('ddsProject', ddsProject);
-    await render(hbs`{{duke-ds-project-size ddsProject}}`);
-    assert.equal(find('.duke-ds-project-size').textContent.trim(), '5 GiB - 345 files, 47 folders');
+    this.set('ddsProjectSummary', ddsProjectSummary);
+    await render(hbs`{{duke-ds-project-size ddsProjectSummary}}`);
+    assert.equal(this.$('.duke-ds-project-size').text().trim(), '1 top-level folder, 46 subfolders,\n  345 files\n  (5 GiB)');
   });
 
   test('it renders loading state while summary is null', async function(assert) {
-    const ddsProject = EmberObject.create({
-      isLoaded: true,
-      getSummary() {
-        return resolve(null);
-      }
-    });
-    this.set('ddsProject', ddsProject);
-    await render(hbs`{{duke-ds-project-size ddsProject}}`);
-    assert.equal(find('.duke-ds-project-size').textContent.trim(), 'Calculating');
+    this.set('ddsProjectSummary', null);
+    await render(hbs`{{duke-ds-project-size ddsProjectSummary}}`);
+    assert.equal(this.$('.duke-ds-project-size').text().trim(), 'Calculating');
   });
 });

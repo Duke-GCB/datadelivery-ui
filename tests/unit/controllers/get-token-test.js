@@ -17,7 +17,7 @@ module('Unit | Controller | get token', function(hooks) {
       transitionToRoute() {}
     });
     assert.ok(controller);
-    assert.equal(controller.get('successRoute'), '/deliveries');
+    assert.equal(controller.get('successRoute'), '/');
     assert.equal(controller.get('failureRoute'), '/login');
   });
 });

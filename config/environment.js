@@ -22,7 +22,8 @@ module.exports = function(environment) {
       // when it is created
       API_URL: '',
       API_NAMESPACE: '',
-      AUTHORIZE_URL: ''
+      AUTHORIZE_URL: '',
+      CONTACT_EMAIL: 'gcb-help@duke.edu'
     }
   };
 

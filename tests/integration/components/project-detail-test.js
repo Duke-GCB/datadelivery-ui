@@ -7,18 +7,23 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | project detail', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    const project = EmberObject.create({
+  test('it renders and fetches project summary', async function(assert) {
+    const ddsProject = Ember.Object.create({
       id: 123,
       name: 'Project ABC',
       isLoaded: true,
-      getSummary() {}
+      getSummary() {
+        assert.step('getSummary');
+        return Ember.RSVP.resolve({});
+      }
     });
-
-    this.set('project', project);
-    await render(hbs`{{project-detail project}}`);
-    assert.equal(findAll('.duke-ds-project-size').length, 1);
-    assert.equal(findAll('.duke-ds-project-link').length, 1);
-    assert.equal(findAll('.duke-ds-project-zip-download-link').length, 1);
+    this.set('ddsProject', ddsProject);
+    assert.step('before-render');
+    await  render(hbs`{{project-detail ddsProject}}`);
+    assert.step('after-render');
+    assert.equal(this.$('.duke-ds-project-size').length, 1);
+    assert.equal(this.$('.duke-ds-project-link').length, 1);
+    assert.equal(this.$('.duke-ds-project-zip-download-link').length, 1);
+    assert.verifySteps(['before-render','getSummary', 'after-render']);
   });
 });
