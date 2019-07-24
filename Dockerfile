@@ -7,7 +7,6 @@ ADD package.json /src/package.json
 ADD package-lock.json /src/package-lock.json
 RUN npm install
 ADD . /src/
-
 # add CI flag so chrome --no-sandbox flag will be used
 RUN CI=true npm test
 RUN npm run build -- --environment production
