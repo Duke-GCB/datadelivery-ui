@@ -1,11 +1,14 @@
-FROM node:8 as builder
+FROM circleci/node:8.9-browsers as builder
+# The base image sets USER to circleci.
+# Reset user back to root so we have permissions for the ADDed files.
+USER root
 WORKDIR /src
 ADD package.json /src/package.json
 ADD package-lock.json /src/package-lock.json
 RUN npm install
-RUN npm install phantomjs-prebuilt
 ADD . /src/
-RUN npm test
+# add CI flag so chrome --no-sandbox flag will be used
+RUN CI=true npm test
 RUN npm run build -- --environment production
 
 FROM nginx:1.13
