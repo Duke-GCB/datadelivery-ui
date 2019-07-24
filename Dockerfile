@@ -1,16 +1,11 @@
-FROM node:8 as builder
+FROM circleci/node:8.9-browsers as builder
+# The base image sets USER to circleci.
+# Reset user back to root so we have permissions for the ADDed files.
+USER root
 WORKDIR /src
 ADD package.json /src/package.json
 ADD package-lock.json /src/package-lock.json
 RUN npm install
-# Install latest chrome package so we can run tests
-# Copied from https://github.com/GoogleChromeLabs/lighthousebot/blob/master/builder/Dockerfile
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-unstable --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /src/*.deb
 ADD . /src/
 
 # add CI flag so chrome --no-sandbox flag will be used
