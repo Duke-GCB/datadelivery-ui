@@ -9,7 +9,7 @@ import {
 } from 'datadelivery-ui/utils/breadcrumbs';
 
 export default Component.extend({
-  router: service('-routing'),
+  router: service(),
   strippedRouteName: computed('router.currentRouteName', function() {
     // a trailing .index or index by itself is not meaningful for our route lookups
     return stripIndex(this.get('router.currentRouteName'));
