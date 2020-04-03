@@ -13,6 +13,7 @@ export default Controller.extend({
   project: alias('delivery.project'),
   toUser: alias('delivery.toUser'),
   fromUser: alias('delivery.fromUser'),
+  shareUsers: alias('delivery.shareUsers'),
   userMessage: alias('delivery.userMessage'),
 
   willPerformAction() {

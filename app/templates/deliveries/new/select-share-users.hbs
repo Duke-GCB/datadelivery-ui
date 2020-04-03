@@ -1,0 +1,16 @@
+<h4>
+  Select a user to share project <b>{{project.name}}</b> with after the delivery is accepted.
+</h4>
+<p class="body">
+  Choose a user you would like to receive download permissions after the delivery is accepted by {{toUser.fullName}}.
+</p>
+
+{{duke-ds-auth-provider-affiliate-search
+  excludeUser=fromUser
+  onAffiliateSelected=(action "affiliateSelected")
+}}
+
+{{#link-to backRoute class="btn btn-default"}}Back{{/link-to}}
+{{#link-to nextRoute class="btn btn-primary pull-right"}}Next{{/link-to}}
+
+{{outlet}}
