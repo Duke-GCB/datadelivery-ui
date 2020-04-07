@@ -5,20 +5,9 @@ export default Controller.extend({
   shareUser: null,
   disableSave: true,
   actions: {
-    affiliateSelected(selectedAffiliates) {
-      // When unchecking the single item, selectedItems.length drops to 0,
-      // but selectedItems.firstObject still references a stale object, so check for that.
-      if(selectedAffiliates.get('length') == 0) {
-        this.set('shareUser', null);
-        this.set('disableSave', true);
-      } else {
-        // Obtain the duke-ds-user from this affiliate
-        const affiliate = selectedAffiliates.get('firstObject');
-        affiliate.getOrRegisterUser().then(dukeDsUser => {
-          this.set('shareUser', dukeDsUser);
-          this.set('disableSave', false);
-        });
-      }
+    affiliateSelected(dukeDsUser) {
+      this.set('shareUser', dukeDsUser);
+      this.set('disableSave', dukeDsUser == null);
     },
     save() {
       const shareUsers = this.get('delivery.shareUsers').toArray();

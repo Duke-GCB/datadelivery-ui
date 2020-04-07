@@ -25,8 +25,17 @@ export default Component.extend({
         this.set('affiliates', affiliates);
       });
     },
-    selectionChanged(selectedAffiliate) {
-      this.get('onAffiliateSelected')(selectedAffiliate);
+    selectionChanged(selectedAffiliates) {
+      if(selectedAffiliates.get('length') == 0) {
+        this.get('onAffiliateSelected')(null);
+      } else {
+        // Obtain the duke-ds-user from this affiliate
+        const affiliate = selectedAffiliates.get('firstObject');
+        affiliate.getOrRegisterUser().then(dukeDsUser => {
+          this.get('onAffiliateSelected')(dukeDsUser);
+        });
+      }
+      // this.get('onAffiliateSelected')(selectedAffiliate);
     }
   },
   clearSelectedAffiliates() {

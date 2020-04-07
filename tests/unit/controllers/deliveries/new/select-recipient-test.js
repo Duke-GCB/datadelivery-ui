@@ -1,5 +1,4 @@
 import { run } from '@ember/runloop';
-import { resolve } from 'rsvp';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
@@ -28,16 +27,10 @@ module('Unit | Controller | deliveries/new/select recipient', function(hooks) {
 
   test('it handles affiliateSelected', function(assert) {
     let toUser = EmberObject.create({ id: 'user-123'});
-    let affiliate = EmberObject.create({
-      uid: 'affiliate-123',
-      getOrRegisterUser() {
-        return resolve(toUser);
-      }
-    });
     let delivery = EmberObject.create();
     let controller = this.owner.factoryFor('controller:deliveries/new/select-recipient').create({ delivery: delivery });
     run(() => {
-      controller.send('affiliateSelected', [affiliate]);
+      controller.send('affiliateSelected', toUser);
     });
     run(() => {
       assert.equal(controller.get('toUser'), toUser);

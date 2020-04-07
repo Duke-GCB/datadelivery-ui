@@ -42,12 +42,16 @@ module('Unit | Component | duke ds auth provider affiliate search', function(hoo
   test('it sends onAffiliateSelected when receiving selectionChanged', function(assert) {
     assert.expect(1);
     const mockAffiliate = EmberObject.create({name: 'Chris'});
+    const mockUser = EmberObject.create({name: 'chris'});
+    mockAffiliate.getOrRegisterUser = function() {
+      return resolve(mockUser);
+    };
     const onAffiliateSelected = function(affiliate) {
-      assert.equal(affiliate, mockAffiliate);
+      assert.equal(affiliate, mockUser);
     };
     let component = this.owner.factoryFor('component:duke-ds-auth-provider-affiliate-search').create({onAffiliateSelected: onAffiliateSelected});
     run(() => {
-      component.send('selectionChanged', mockAffiliate);
+      component.send('selectionChanged', [mockAffiliate]);
     });
   });
 
