@@ -15,7 +15,7 @@ module('Unit | Controller | deliveries/new/select recipient', function(hooks) {
   test('it sets expected routes', function(assert) {
     let controller = this.owner.factoryFor('controller:deliveries/new/select-recipient').create({});
     assert.equal(controller.get('backRoute'), 'deliveries.new.select-project');
-    assert.equal(controller.get('nextRoute'), 'deliveries.new.enter-user-message');
+    assert.equal(controller.get('nextRoute'), 'deliveries.new.select-share-users');
   });
 
   test('it disables next when a toUser is not present', function(assert) {

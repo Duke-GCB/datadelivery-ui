@@ -6,7 +6,7 @@
     <th>Delete</th>
   </tr>
 </thead>
-<tbody>
+<tbody class="share-users-table-tbody">
   {{#each shareUsers as |shareUser|}}
     <tr>
       <td>
@@ -25,18 +25,20 @@
   {{/each}}
   {{#unless shareUsers}}
     <tr>
-      <td colspan="4">
+      <td colspan="4" class="share-users-table-no-users-message">
         No share users selected
       </td>
     </tr>
   {{/unless}}
 </tbody>
 <tfoot>
-<tr>
-  <td colspan="4">
-    {{#bs-button type="primary" onClick=(action "addUser") class="pull-right btn-sm"}}Add Share User{{/bs-button}}
-  </td>
-</tr>
+  <tr>
+    <td colspan="4">
+      {{#bs-button type="primary" onClick=(action "addUser") class="share-users-table-add-user pull-right btn-sm"}}
+        Add Share User
+      {{/bs-button}}
+    </td>
+  </tr>
 </tfoot>
 
 {{yield}}
