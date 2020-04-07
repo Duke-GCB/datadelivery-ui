@@ -35,7 +35,6 @@ export default Component.extend({
           this.get('onAffiliateSelected')(dukeDsUser);
         });
       }
-      // this.get('onAffiliateSelected')(selectedAffiliate);
     }
   },
   clearSelectedAffiliates() {
