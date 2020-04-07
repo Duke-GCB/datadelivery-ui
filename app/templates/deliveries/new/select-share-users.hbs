@@ -1,16 +1,57 @@
 <h4>
-  Select a user to share project <b>{{project.name}}</b> with after the delivery is accepted.
+  Select additional users to share project <b>{{project.name}}</b> with after the delivery is accepted.
 </h4>
 <p class="body">
-  Choose a user you would like to receive download permissions after the delivery is accepted by {{toUser.fullName}}.
+  Optionally add a users you would like to receive download permissions after the delivery is accepted
+  by {{toUser.fullName}}.
 </p>
 
-{{duke-ds-auth-provider-affiliate-search
-  excludeUser=fromUser
-  onAffiliateSelected=(action "affiliateSelected")
-}}
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>NetID</th>
+    <th>Email</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each shareUsers as |shareUser|}}
+    <tr>
+      <td>
+        {{ shareUser.fullName }}
+      </td>
+      <td>
+        {{ shareUser.username }}
+      </td>
+      <td>
+        {{ shareUser.email }}
+      </td>
+      <td>
+        {{#bs-button type="default" onClick=(action "removeUser" shareUser) class="back-button"}}Delete{{/bs-button}}
+      </td>
+    </tr>
+  {{/each}}
+  {{#unless shareUsers}}
+    <tr>
+      <td colspan="4">
+        No share users selected
+      </td>
+    </tr>
+  {{/unless}}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        {{#bs-button type="primary" onClick=(action "addUser") class="pull-right btn-sm"}}Add Share User{{/bs-button}}
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+
 
 {{#link-to backRoute class="btn btn-default"}}Back{{/link-to}}
-{{#link-to nextRoute class="btn btn-primary pull-right"}}Next{{/link-to}}
+{{#link-to nextRoute class="btn btn-primary pull-right" disabled=disableNext}}Next{{/link-to}}
 
 {{outlet}}

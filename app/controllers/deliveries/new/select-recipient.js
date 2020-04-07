@@ -4,7 +4,7 @@ import BaseController from './base';
 export default BaseController.extend({
   disableNext: not('toUser.id'),
   backRoute: 'deliveries.new.select-project',
-  nextRoute: 'deliveries.new.enter-user-message',
+  nextRoute: 'deliveries.new.select-share-users',
   actions: {
     affiliateSelected(selectedAffiliates) {
       // When unchecking the single item, selectedItems.length drops to 0,

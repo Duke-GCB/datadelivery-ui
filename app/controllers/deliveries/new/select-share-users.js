@@ -1,19 +1,19 @@
-import { all } from 'rsvp';
 import BaseController from './base';
 
 export default BaseController.extend({
-  backRoute: 'deliveries.new.enter-user-message',
+  backRoute: 'deliveries.new.select-recipient',
   nextRoute: 'deliveries.new.enter-user-message',
   actions: {
-    affiliateSelected(selectedAffiliates) {
-      if(selectedAffiliates.get('length') == 0) {
-        this.set('shareUsers', []);
-      } else {
-        // Obtain the duke-ds-user for the selected affiliates
-        all(selectedAffiliates
-          .map(item => item.getOrRegisterUser()))
-          .then((dukeDSUsers) => this.set('shareUsers', dukeDSUsers));
-      }
+    addUser() {
+      this.transitionToRoute('deliveries.new.select-share-user')
     },
+    removeUser(dukeDsUser) {
+      const shareUsers = this.get('shareUsers').toArray();
+      const index = shareUsers.indexOf(dukeDsUser);
+      if (index > -1) {
+        shareUsers.splice(index, 1);
+        this.set('shareUsers', shareUsers);
+      }
+    }
   }
-});
+})
