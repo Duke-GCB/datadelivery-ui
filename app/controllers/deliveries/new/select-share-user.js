@@ -1,9 +1,16 @@
 import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   delivery: null, // should be set in setupController
   shareUser: null,
   disableSave: true,
+  excludeUsers: computed('delivery.{fromUser,toUser,shareUsers.[]}', function() {
+    const excludeUsers = this.get('delivery.shareUsers').toArray();
+    excludeUsers.push(this.get('delivery.fromUser'));
+    excludeUsers.push(this.get('delivery.toUser'));
+    return excludeUsers
+  }),
   actions: {
     affiliateSelected(dukeDsUser) {
       this.set('shareUser', dukeDsUser);

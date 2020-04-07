@@ -55,14 +55,16 @@ module('Unit | Component | duke ds auth provider affiliate search', function(hoo
     });
   });
 
-  test('it filters out the excludeUser from the list of affiliates', function(assert) {
+  test('it filters out the excludeUsers from the list of affiliates', function(assert) {
     let excludeUser = EmberObject.create({ id: 'user-123', username: 'affiliate-123' });
     let affiliates  = [
       EmberObject.create({ uid: 'affiliate-123'}),
       EmberObject.create({ uid: 'affiliate-456'})
     ];
 
-    let component = this.owner.factoryFor('component:duke-ds-auth-provider-affiliate-search').create({excludeUser: excludeUser, affiliates: affiliates});
+    let component = this.owner.factoryFor('component:duke-ds-auth-provider-affiliate-search').create({
+      excludeUsers: [excludeUser], affiliates: affiliates
+    });
 
     assert.equal(component.get('affiliates.length'), 2);
     assert.equal(component.get('filteredAffiliates.length'), 1);
