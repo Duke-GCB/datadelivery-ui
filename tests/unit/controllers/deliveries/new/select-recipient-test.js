@@ -35,6 +35,12 @@ module('Unit | Controller | deliveries/new/select recipient', function(hooks) {
     run(() => {
       assert.equal(controller.get('toUser'), toUser);
     });
+  });
 
+  test('it excludes fromUser', function(assert) {
+    let fromUser = EmberObject.create({ id: 'user-123'});
+    let delivery = EmberObject.create({fromUser: fromUser});
+    let controller = this.owner.factoryFor('controller:deliveries/new/select-recipient').create({ delivery: delivery });
+    assert.deepEqual(controller.get('excludeUsers'), [fromUser])
   });
 });
