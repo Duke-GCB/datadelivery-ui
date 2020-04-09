@@ -5,18 +5,22 @@ import Component from '@ember/component';
 export default Component.extend({
   classNames: ['duke-ds-auth-provider-affiliate-search'],
   store: service(),
-  excludeUser: null,
+  excludeUsers: null,
   affiliates: null,
-  filteredAffiliates: computed('affiliates', 'excludeUser', function() {
+  filteredAffiliates: computed('affiliates', 'excludeUsers.[]', function() {
+    const excludeUsers = this.get('excludeUsers');
+    var skipUserNames = [''];
+    if (excludeUsers) {
+      skipUserNames = skipUserNames.concat(excludeUsers.getEach('username'));
+    }
     return this.get('affiliates')
       .rejectBy('fullName', null)
       .rejectBy('fullName', '(null)')
       .rejectBy('email', null)
-      .rejectBy('uid', this.getWithDefault('excludeUser.username', ''));
+      .reject(affiliate => skipUserNames.includes(affiliate.uid));
   }),
   selectedAffiliates: null,
   onAffiliateSelected: () => {}, // Default implementation
-
   actions: {
     doSearch(params) {
       this.clearSelectedAffiliates();
@@ -25,8 +29,16 @@ export default Component.extend({
         this.set('affiliates', affiliates);
       });
     },
-    selectionChanged(selectedAffiliate) {
-      this.get('onAffiliateSelected')(selectedAffiliate);
+    selectionChanged(selectedAffiliates) {
+      if(selectedAffiliates.get('length') == 0) {
+        this.get('onAffiliateSelected')(null);
+      } else {
+        // Obtain the duke-ds-user from this affiliate
+        const affiliate = selectedAffiliates.get('firstObject');
+        affiliate.getOrRegisterUser().then(dukeDsUser => {
+          this.get('onAffiliateSelected')(dukeDsUser);
+        });
+      }
     }
   },
   clearSelectedAffiliates() {

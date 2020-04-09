@@ -19,6 +19,8 @@ Router.map(function() {
       this.route('select-recipient');
       this.route('enter-user-message');
       this.route('confirm');
+      this.route('select-share-users');
+      this.route('select-share-user');
     });
     this.route('setup-instructions');
   });

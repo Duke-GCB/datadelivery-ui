@@ -1,5 +1,4 @@
 import { run } from '@ember/runloop';
-import { resolve } from 'rsvp';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
@@ -15,7 +14,7 @@ module('Unit | Controller | deliveries/new/select recipient', function(hooks) {
   test('it sets expected routes', function(assert) {
     let controller = this.owner.factoryFor('controller:deliveries/new/select-recipient').create({});
     assert.equal(controller.get('backRoute'), 'deliveries.new.select-project');
-    assert.equal(controller.get('nextRoute'), 'deliveries.new.enter-user-message');
+    assert.equal(controller.get('nextRoute'), 'deliveries.new.select-share-users');
   });
 
   test('it disables next when a toUser is not present', function(assert) {
@@ -28,20 +27,20 @@ module('Unit | Controller | deliveries/new/select recipient', function(hooks) {
 
   test('it handles affiliateSelected', function(assert) {
     let toUser = EmberObject.create({ id: 'user-123'});
-    let affiliate = EmberObject.create({
-      uid: 'affiliate-123',
-      getOrRegisterUser() {
-        return resolve(toUser);
-      }
-    });
     let delivery = EmberObject.create();
     let controller = this.owner.factoryFor('controller:deliveries/new/select-recipient').create({ delivery: delivery });
     run(() => {
-      controller.send('affiliateSelected', [affiliate]);
+      controller.send('affiliateSelected', toUser);
     });
     run(() => {
       assert.equal(controller.get('toUser'), toUser);
     });
+  });
 
+  test('it excludes fromUser', function(assert) {
+    let fromUser = EmberObject.create({ id: 'user-123'});
+    let delivery = EmberObject.create({fromUser: fromUser});
+    let controller = this.owner.factoryFor('controller:deliveries/new/select-recipient').create({ delivery: delivery });
+    assert.deepEqual(controller.get('excludeUsers'), [fromUser])
   });
 });

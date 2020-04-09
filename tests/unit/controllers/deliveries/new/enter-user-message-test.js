@@ -12,7 +12,7 @@ module('Unit | Controller | deliveries/new/enter user message', function(hooks) 
 
   test('it sets expected routes', function(assert) {
     let controller = this.owner.factoryFor('controller:deliveries/new/enter-user-message').create({});
-    assert.equal(controller.get('backRoute'), 'deliveries.new.select-recipient');
+    assert.equal(controller.get('backRoute'), 'deliveries.new.select-share-users');
     assert.equal(controller.get('nextRoute'), 'deliveries.new.confirm');
   });
 });

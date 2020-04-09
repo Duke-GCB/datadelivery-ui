@@ -1,0 +1,14 @@
+<h4>
+  Select users to share project <b>{{project.name}}</b> with after the delivery is accepted.
+</h4>
+<p class="body">
+  Optionally add users that will receive download permissions after the delivery is accepted
+  by {{toUser.fullName}}.
+</p>
+
+{{share-users-table shareUsers=shareUsers removeUser=(action "removeUser") addUser=(action "addUser")}}
+
+{{#link-to backRoute class="btn btn-default"}}Back{{/link-to}}
+{{#link-to nextRoute class="btn btn-primary pull-right" disabled=disableNext}}Next{{/link-to}}
+
+{{outlet}}

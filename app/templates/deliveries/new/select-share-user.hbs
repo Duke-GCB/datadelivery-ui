@@ -1,0 +1,16 @@
+<h4>
+  Select a user to share project <b>{{delivery.project.name}}</b> with after the delivery is accepted.
+</h4>
+<p class="body">
+  This user will receive download permissions after the delivery is accepted by {{delivery.toUser.fullName}}.
+</p>
+
+{{duke-ds-auth-provider-affiliate-search
+  excludeUsers=excludeUsers
+  onAffiliateSelected=(action "affiliateSelected")
+}}
+
+{{#link-to "deliveries.new.select-share-users" class="btn btn-default"}}Cancel{{/link-to}}
+{{#bs-button onClick=(action "save") class="btn btn-primary pull-right" disabled=disableSave}}Add User{{/bs-button}}
+
+{{outlet}}
