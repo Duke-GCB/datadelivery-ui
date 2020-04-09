@@ -3,7 +3,7 @@
     <th>Name</th>
     <th>NetID</th>
     <th>Email</th>
-    <th>Delete</th>
+    <th>Action</th>
   </tr>
 </thead>
 <tbody class="share-users-table-tbody">
@@ -19,14 +19,14 @@
         {{ shareUser.email }}
       </td>
       <td>
-        {{#bs-button type="default" onClick=(action "removeUser" shareUser) class="back-button"}}Delete{{/bs-button}}
+        {{#bs-button type="default" onClick=(action "removeUser" shareUser) class="back-button"}}Remove{{/bs-button}}
       </td>
     </tr>
   {{/each}}
   {{#unless shareUsers}}
     <tr>
       <td colspan="4" class="share-users-table-no-users-message">
-        No share users selected
+        No users selected
       </td>
     </tr>
   {{/unless}}
@@ -35,7 +35,7 @@
   <tr>
     <td colspan="4">
       {{#bs-button type="primary" onClick=(action "addUser") class="share-users-table-add-user pull-right btn-sm"}}
-        Add Share User
+        Add User
       {{/bs-button}}
     </td>
   </tr>

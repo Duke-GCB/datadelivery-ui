@@ -8,7 +8,7 @@ module('Integration | Component | share-users-table', function(hooks) {
 
   test('it renders with message when empty', async function(assert) {
     await render(hbs`{{share-users-table}}`);
-    assert.equal(this.$('.share-users-table-no-users-message').text().trim(), "No share users selected");
+    assert.equal(this.$('.share-users-table-no-users-message').text().trim(), "No users selected");
   });
 
   test('it renders without message when has content', async function(assert) {
@@ -32,7 +32,7 @@ module('Integration | Component | share-users-table', function(hooks) {
     assert.equal(this.$('.share-users-table-tbody td').eq(0).text().trim(), "John Smith");
     assert.equal(this.$('.share-users-table-tbody td').eq(1).text().trim(), "john");
     assert.equal(this.$('.share-users-table-tbody td').eq(2).text().trim(), "john@smith.com");
-    assert.equal(this.$('.share-users-table-tbody td button').text(), "Delete");
+    assert.equal(this.$('.share-users-table-tbody td button').text(), "Remove");
 
     this.$('.share-users-table-tbody td button').click();
   });
@@ -44,7 +44,7 @@ module('Integration | Component | share-users-table', function(hooks) {
     });
     this.set('shareUsers', [{}]);
     await render(hbs`{{share-users-table shareUsers=shareUsers addUser=addUser}}`);
-    assert.equal(this.$('.share-users-table-add-user').text().trim(), "Add Share User");
+    assert.equal(this.$('.share-users-table-add-user').text().trim(), "Add User");
     this.$('.share-users-table-add-user').click();
   });
 });
