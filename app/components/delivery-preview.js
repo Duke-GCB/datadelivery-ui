@@ -37,5 +37,4 @@ export default Component.extend({
       this.generatePreview();
     }
   }
-
 });
