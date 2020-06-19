@@ -10,5 +10,8 @@
 
 {{error-message-alert errorMessages}}
 
+{{select-email-template-set value=delivery.emailTemplateSet emailTemplateSets=emailTemplateSets
+                            onChange=(action "onChangeEmailTemplateSet")}}
+
 {{#link-to backRoute (query-params projectId=projectId toUserId=toUserId userMessage=userMessage) class="btn btn-default"}}Back{{/link-to}}
 {{#bs-button type="primary" disabled=disableNext onClick=(action "saveAndSend") class="pull-right next-button"}}Send Delivery{{/bs-button}}

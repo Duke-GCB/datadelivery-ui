@@ -28,6 +28,9 @@ Router.map(function() {
   this.route('duke-ds-projects', function() {
     this.route('show', { path: '/:project_id'} );
   });
+  this.route('email-template-sets', function() {
+    this.route('show', { path: '/:email_template_set_id'});
+  });
 });
 
 export default Router;

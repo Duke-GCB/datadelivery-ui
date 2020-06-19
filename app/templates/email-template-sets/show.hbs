@@ -1,0 +1,16 @@
+{{delivery-breadcrumbs context=model}}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Email Templates: {{model.name}}</h3>
+  </div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt>CC</dt><dd>{{model.ccAddress}}</dd>
+      <dt>Reply-To</dt><dd>{{model.replyAddress}}</dd>
+    </dl>
+    {{email-template-set-detail model=model}}
+  </div>
+</div>
+
+{{outlet}}

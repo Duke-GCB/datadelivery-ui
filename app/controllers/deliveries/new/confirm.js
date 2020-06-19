@@ -1,14 +1,23 @@
 import BaseController from './base';
+import { computed } from '@ember/object';
 
 export default BaseController.extend({
   nextRoute: 'deliveries.show',
   backRoute: 'deliveries.new.enter-user-message',
+  emailTemplateSets: computed(function() {
+    return this.get('store').findAll('email-template-set');
+  }),
   actions: {
     saveAndSend() {
       this.processSaveAndSend();
     },
     previewFailed(error) { //set up as an action to pass along down to components without losing binding of `this`
       this.actionDidFail(error);
+    },
+    onChangeEmailTemplateSet(emailTemplateSet) {
+      const delivery = this.get('delivery');
+      delivery.set('emailTemplateSet', emailTemplateSet);
+      this.transitionToRoute(this.target.currentRouteName);
     }
   },
   processSaveAndSend() {
