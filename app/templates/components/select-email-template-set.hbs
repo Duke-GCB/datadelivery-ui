@@ -1,8 +1,8 @@
 <div class="form-group">
-  <label class="control-label">Email Templates</label>
+  <label class="control-label">Delivery Email Templates</label>
   <select class="form-control" onchange={{action "onChange" value="target.value"}}>
     {{#each emailTemplateSets as |emailTemplateSet|}}
-      <option value={{emailTemplateSet.id}} selected={{eq value.id emailTemplateSet.id}}>{{emailTemplateSet.name}}</option>
+      <option value={{emailTemplateSet.id}} selected={{eq emailTemplateSet.id value.id}}>{{emailTemplateSet.name}}</option>
     {{/each}}
   </select>
 </div>

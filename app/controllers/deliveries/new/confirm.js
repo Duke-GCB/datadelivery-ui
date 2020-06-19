@@ -13,11 +13,6 @@ export default BaseController.extend({
     },
     previewFailed(error) { //set up as an action to pass along down to components without losing binding of `this`
       this.actionDidFail(error);
-    },
-    onChangeEmailTemplateSet(emailTemplateSet) {
-      const delivery = this.get('delivery');
-      delivery.set('emailTemplateSet', emailTemplateSet);
-      this.transitionToRoute(this.target.currentRouteName);
     }
   },
   processSaveAndSend() {
