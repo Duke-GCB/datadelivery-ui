@@ -17,7 +17,7 @@ export default DS.Model.extend({
   declineReason: DS.attr('string'),
   performedBy: DS.attr('string'),
   deliveryEmailText: DS.attr('string'),
-  // emailTemplateSet: DS.belongsTo('EmailTemplateSet'),
+  emailTemplateSet: DS.belongsTo('EmailTemplateSet'),
   send(force) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
