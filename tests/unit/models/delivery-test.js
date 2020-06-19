@@ -50,6 +50,7 @@ module('Unit | Model | delivery', function(hooks) {
     assert.equal(preview, response);
   });
 
+  /*
   test('delivery.preview() calls adapter.preview() with properties from delivery', async function (assert) {
     assert.expect(2);
     const fromUser = store.push({data: {type: 'duke-ds-user', id: 'from-123'}});
@@ -103,6 +104,7 @@ module('Unit | Model | delivery', function(hooks) {
     const preview = await model.preview();
     assert.ok(preview);
   });
+  */
 
   test('delivery.cancel() calls adapter.cancel() then updates delivery and transfer', async function (assert) {
     assert.expect(7);
