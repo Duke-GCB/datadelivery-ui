@@ -2,7 +2,7 @@
   {{delivery-email emailMessage}}
 {{else}}
   {{#unless errors}}
-    <div class="well well-sm">{{#loading-indicator}}Generating Preview{{/loading-indicator}}</div>
+    <div class="well well-sm loading-message">{{#loading-indicator}}Generating Preview{{/loading-indicator}}</div>
   {{/unless}}
 {{/if}}
 {{select-email-template-set value=delivery.emailTemplateSet

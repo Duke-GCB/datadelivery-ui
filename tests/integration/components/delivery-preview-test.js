@@ -27,13 +27,12 @@ module('Integration | Component | delivery preview', function(hooks) {
     assert.verifySteps(['start','preview','end']);
   });
 
-  /*
   test('it shows "Generating Preview" while loading', async function(assert) {
     this.set('mockGeneratePreview', ()=>{}); // Override generatePreview so that preview is never loaded
     await render(hbs`{{delivery-preview generatePreview=mockGeneratePreview}}`);
-    assert.equal(find('*'), 'Generating Preview');
+    assert.equal(find('.loading-message').textContent.trim(), 'Generating Preview');
   });
-  */
+
   test('it calls onFail when preview() fails', async function (assert) {
     const mockError = {detail: 'Preview Failed'};
     const delivery = EmberObject.create({
