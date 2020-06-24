@@ -4,6 +4,7 @@ import Component from '@ember/component';
 export default Component.extend({
   delivery: null,
   emailMessage: null,
+  emailTemplateSets: null,
   errors: null, // Default value
   onFail: (/*errors*/) => {}, // Defaults to an empty operation, but should be provided as an (action 'previewFailed')
   didInsertElement() {
@@ -28,5 +29,13 @@ export default Component.extend({
       this.set('emailMessage', preview.delivery_email_text);
     }).catch(this.get('onFail'));
   },
+
+  actions: {
+    onChangeEmailTemplateSet(emailTemplateSet) {
+      const delivery = this.get('delivery');
+      delivery.set('emailTemplateSet', emailTemplateSet);
+      this.generatePreview();
+    }
+  }
 
 });

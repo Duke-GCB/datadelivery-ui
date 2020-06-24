@@ -56,13 +56,15 @@ module('Unit | Model | delivery', function(hooks) {
     const toUser = store.push({data: {type: 'duke-ds-user', id: 'to-456'}});
     const project = store.push({data: {type: 'duke-ds-project', id: 'project-000'}});
     const transfer = store.push({data: {type: 'duke-ds-project-transfer', id: 'transfer-789'}});
+    const emailTemplateSet = store.push({data: {type: 'email-template-set', id: 'ets-789'}});
     const userMessage = 'Hello World';
     const model = store.createRecord('delivery', {
       fromUser: fromUser,
       toUser: toUser,
       project: project,
       transfer: transfer,
-      userMessage: userMessage
+      userMessage: userMessage,
+      emailTemplateSet: emailTemplateSet
     });
     deliveryAdapter.preview = function(details) {
       assert.deepEqual(details, {
@@ -70,7 +72,8 @@ module('Unit | Model | delivery', function(hooks) {
         to_user_id: 'to-456',
         transfer_id: 'transfer-789',
         project_id: 'project-000',
-        user_message: 'Hello World'
+        user_message: 'Hello World',
+        email_template_set_id: 'ets-789'
       });
       return resolve({});
     };
@@ -83,12 +86,14 @@ module('Unit | Model | delivery', function(hooks) {
     const fromUser = store.push({data: {type: 'duke-ds-user', id: 'from-123'}});
     const toUser = store.push({data: {type: 'duke-ds-user', id: 'to-456'}});
     const project = store.push({data: {type: 'duke-ds-project', id: 'project-000'}});
+    const emailTemplateSet = store.push({data: {type: 'email-template-set', id: 'ets-789'}});
     const userMessage = 'Hello World';
     const model = store.createRecord('delivery', {
       fromUser: fromUser,
       toUser: toUser,
       project: project,
-      userMessage: userMessage
+      userMessage: userMessage,
+      emailTemplateSet: emailTemplateSet
     });
     deliveryAdapter.preview = (details) => {
       assert.deepEqual(details, {
@@ -96,7 +101,8 @@ module('Unit | Model | delivery', function(hooks) {
         to_user_id: 'to-456',
         transfer_id: '',
         project_id: 'project-000',
-        user_message: 'Hello World'
+        user_message: 'Hello World',
+        email_template_set_id: 'ets-789'
       });
       return resolve({});
     };
