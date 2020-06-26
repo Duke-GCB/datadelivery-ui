@@ -2,11 +2,14 @@
   Please confirm the delivery below.
 </h4>
 <p class="body">
-  The selected user will receive the following email to accept or decline the delivery.
-  Upon acceptance, the recipient will be the owner of the data set, and you will retain read-only access.
+  The selected delivery recipient will receive the following email to accept or decline the delivery.
+  Upon acceptance, the recipient will become the owner of the data set, and you will retain read-only access.
 </p>
 
-{{delivery-preview delivery=delivery errors=errors onFail=(action "previewFailed")}}
+{{delivery-preview delivery=delivery
+                   emailTemplateSets=emailTemplateSets
+                   errors=errors
+                   onFail=(action "previewFailed")}}
 
 {{error-message-alert errorMessages}}
 

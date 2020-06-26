@@ -1,8 +1,12 @@
 import BaseController from './base';
+import { computed } from '@ember/object';
 
 export default BaseController.extend({
   nextRoute: 'deliveries.show',
   backRoute: 'deliveries.new.enter-user-message',
+  emailTemplateSets: computed(function() {
+    return this.get('store').findAll('email-template-set');
+  }),
   actions: {
     saveAndSend() {
       this.processSaveAndSend();
