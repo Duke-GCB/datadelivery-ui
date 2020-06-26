@@ -1,0 +1,26 @@
+{{delivery-breadcrumbs context=model}}
+<h3>Email Template Set</h3>
+<div>
+  <p>
+    This set of templates are used to create emails as part of delivering a project.
+    For details on the templates and variables see
+    <a href="https://github.com/Duke-GCB/D4S2/wiki/Delivery-Setup">Email Setup Documentation</a>.
+    To request changes please contact {{support-email-link}}.
+  </p>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Email Templates: {{model.name}}</h3>
+  </div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt>CC</dt><dd>{{model.ccAddress}}</dd>
+      <dt>Reply-To</dt><dd>{{model.replyAddress}}</dd>
+    </dl>
+    {{email-template-set-detail model=model}}
+  </div>
+</div>
+{{email-templates-help}}
+<br>
+{{outlet}}
