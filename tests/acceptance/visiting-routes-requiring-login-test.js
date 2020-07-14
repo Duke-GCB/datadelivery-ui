@@ -20,30 +20,30 @@ module('Acceptance | visiting routes requiring login', function(hooks) {
   test('visiting /deliveries requires login', async function(assert) {
     await visit('/deliveries');
 
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login?afterLogin=deliveries');
   });
 
   test('visiting /deliveries/some-id requires login', async function(assert) {
     await visit('/deliveries/some-id');
 
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login?afterLogin=deliveries');
   });
 
   test('visiting /deliveries/some-id/resend requires login', async function(assert) {
     await visit('/deliveries/some-id/resend');
 
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login?afterLogin=deliveries');
   });
 
   test('visiting /duke-ds-projects requires login', async function(assert) {
     await visit('/duke-ds-projects');
 
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login?afterLogin=duke-ds-projects');
   });
 
   test('visiting /duke-ds-projects/some-id requires login', async function(assert) {
     await visit('/duke-ds-projects/some-id');
 
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login?afterLogin=duke-ds-projects');
   });
 });
