@@ -12,5 +12,6 @@ export default DS.Model.extend({
   fromUser: DS.belongsTo('DukeDsUser'),
   project: DS.belongsTo('DukeDsProject'),
   delivery: DS.belongsTo('Delivery'),
-  canResend: equal('status', 'pending')
+  canResend: equal('status', 'pending'),
+  lastUpdatedOn: DS.attr('date')
 });
