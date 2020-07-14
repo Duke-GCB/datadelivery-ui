@@ -36,6 +36,7 @@ module('Integration | Component | delivery detail', function(hooks) {
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: ['Zelda Zellington'],
       status: 'Done',
+      lastUpdatedOn: "2020-01-02 12:30",
       delivery: EmberObject.create({
         id: 3,
         shareUsers: [
@@ -57,7 +58,7 @@ module('Integration | Component | delivery detail', function(hooks) {
     assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
     idx += 1;
     assert.equal(this.$('.detail-label').eq(idx).text(), 'Status');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done');
+    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done - January 2, 2020 12:30 PM');
     idx += 1;
     assert.equal(this.$('.detail-label').eq(idx).text(), 'Delivery Email');
     assert.equal(find('.delivery-email').textContent.trim(), 'Subject: New DataEmail Body');
@@ -86,6 +87,25 @@ module('Integration | Component | delivery detail', function(hooks) {
     assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
     assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
     assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
+  });
+
+  test('it handles an empty status date', async function(assert) {
+    const transfer = EmberObject.create({
+      id: 5,
+      project: {name: 'Taco'},
+      fromUser: {fullName: 'Arthur Adamson'},
+      toUsersNames: [ 'Zelda Zellington' ],
+      status: 'Done',
+      delivery: EmberObject.create({
+        shareUsers: [
+          {fullName: 'Bob Robertson'}
+        ],
+      })
+    });
+
+    this.set('transfer', transfer);
+    await render(hbs`{{delivery-detail transfer}}`);
+    assert.equal(this.$('.detail-value').eq(2).text().trim(), 'Done');
   });
 
   test('it renders email when transfer is pending', async function(assert) {

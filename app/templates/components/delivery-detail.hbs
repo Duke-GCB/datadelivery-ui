@@ -2,7 +2,9 @@
   {{#detail-label-value label="From"}}{{transfer.fromUser.fullName}}{{/detail-label-value}}
   {{#detail-label-value label="To"}}{{transfer.toUsersNames}}{{/detail-label-value}}
   {{#unless brief}}
-    {{#detail-label-value label="Status"}}{{format-delivery-state transfer.status}}{{/detail-label-value}}
+    {{#detail-label-value label="Status"}}
+      {{format-delivery-state transfer.status}}{{#if transfer.lastUpdatedOn}} - {{moment-format transfer.lastUpdatedOn "LLL"}}{{/if}}
+    {{/detail-label-value}}
     {{#if delivery.declineReason}}
       {{#detail-label-value label="Decline Reason"}}{{delivery.declineReason}}{{/detail-label-value}}
     {{/if}}
