@@ -1,27 +1,12 @@
 import Component from '@ember/component';
-import { resolve } from 'rsvp';
+import ProjectSummaryFetcher from 'datadelivery-ui/mixins/project-summary-fetcher';
 
-const ProjectDetail = Component.extend({
+
+const ProjectDetail = Component.extend(ProjectSummaryFetcher, {
   tagName: 'div',
-  ddsProject: null,
+  ddsProject: null,  /* populated by ProjectSummaryFetcher */
   ddsProjectSummary: null,
-  classNames: ['project-detail'],
-  fetchSummary() {
-    let ddsProject = this.get('ddsProject');
-    // If ddsProject is already fulfilled, make it into a simple promise
-    if(ddsProject.get('isLoaded')) {
-      ddsProject = resolve(ddsProject);
-    }
-    ddsProject.then((loadedProject) => {
-      return loadedProject.getSummary();
-    }).then((summary) => {
-      this.set('ddsProjectSummary', summary);
-    });
-  },
-  didInsertElement() {
-    this._super(...arguments);
-    this.fetchSummary();
-  },
+  classNames: ['project-detail']
 });
 
 ProjectDetail.reopenClass({
