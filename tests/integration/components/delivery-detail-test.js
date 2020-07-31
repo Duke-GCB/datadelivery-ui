@@ -10,7 +10,7 @@ module('Integration | Component | delivery detail', function(hooks) {
   test('it renders brief mode', async function(assert) {
     const transfer = EmberObject.create({
       id: 5,
-      project: {name: 'Taco'},
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: [ 'Zelda Zellington' ],
       status: 'Done',
@@ -32,7 +32,7 @@ module('Integration | Component | delivery detail', function(hooks) {
     const transfer = EmberObject.create({
       id: 5,
       canResend: true,
-      project: {name: 'Taco'},
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: ['Zelda Zellington'],
       status: 'Done',
@@ -67,7 +67,7 @@ module('Integration | Component | delivery detail', function(hooks) {
   test('it renders full mode declineReason and performedBy', async function(assert) {
     const transfer = EmberObject.create({
         id: 5,
-        project: {name: 'Taco'},
+        project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
         fromUser: {fullName: 'Arthur Adamson'},
         toUsersNames: ['Zelda Zellington'],
         status: 'Done',
@@ -92,7 +92,7 @@ module('Integration | Component | delivery detail', function(hooks) {
   test('it handles an empty status date', async function(assert) {
     const transfer = EmberObject.create({
       id: 5,
-      project: {name: 'Taco'},
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: [ 'Zelda Zellington' ],
       status: 'Done',
@@ -112,7 +112,7 @@ module('Integration | Component | delivery detail', function(hooks) {
     const transfer = EmberObject.create({
       id: 5,
       canResend: true,
-      project: {name: 'Taco'},
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: [ 'Zelda Zellington' ],
       status: 'pending',
@@ -132,7 +132,7 @@ module('Integration | Component | delivery detail', function(hooks) {
     const transfer = EmberObject.create({
       id: 5,
       canResend: false,
-      project: {name: 'Taco'},
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
       fromUser: {fullName: 'Arthur Adamson'},
       toUsersNames: [ 'Zelda Zellington' ],
       status: 'pending',
@@ -160,7 +160,10 @@ module('Integration | Component | delivery detail', function(hooks) {
   });
 
   test('it hides project details when showProjectDetails=false', async function(assert) {
-    const transfer = EmberObject.create({ status: 'accepted' });
+    const transfer = EmberObject.create({
+      status: 'accepted',
+      project: EmberObject.create({name: 'Taco', isLoaded: true, getSummary() { return {}}}),
+    });
     this.set('transfer', transfer);
     this.set('showProjectDetails', false);
     await render(hbs`{{delivery-detail transfer showProjectDetails}}`);

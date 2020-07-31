@@ -19,13 +19,13 @@
     {{#if showProjectDetails}}
       <div class="project-details">
         {{#detail-label-value label="Project Size"}}
-          {{duke-ds-project-size transfer.project}}
+          {{duke-ds-project-size ddsProjectSummary}}
         {{/detail-label-value}}
         {{#detail-label-value label="View Project"}}
           {{duke-ds-project-link transfer.project}}
         {{/detail-label-value}}
         {{#detail-label-value label="Download Project"}}
-          {{duke-ds-project-zip-download-link transfer.project}}
+          {{duke-ds-project-zip-download-link transfer.project ddsProjectSummary}}
         {{/detail-label-value}}
       </div>
     {{/if}}
