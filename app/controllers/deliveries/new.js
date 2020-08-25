@@ -1,9 +1,9 @@
 import { observer } from '@ember/object';
 import { on } from '@ember/object/evented';
-import Controller, { inject as controller } from '@ember/controller';
+import { alias } from '@ember/object/computed';
+import ApplicationInjectedController from '../application-injected-controller';
 
-export default Controller.extend({
-  application: controller('application'),
+export default ApplicationInjectedController.extend({
   currentDukeDsUserChanged: on('init', observer('application.currentDukeDsUser', 'model', function() {
     // When the current user is loaded or our delivery model is loaded, set the fromUser
     const currentDukeDsUser  = this.get('application.currentDukeDsUser');
@@ -21,4 +21,5 @@ export default Controller.extend({
       }
     }
   })),
+  currentUser: alias('application.currentUser')
 });
