@@ -1,5 +1,5 @@
-import Application from 'my-app/app';
-import config from 'my-app/config/environment';
+import Application from 'datadelivery-ui/app';
+import config from 'datadelivery-ui/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
