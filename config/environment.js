@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
       modulePrefix: 'datadelivery-ui',
     environment,
@@ -13,8 +13,8 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
@@ -24,7 +24,7 @@ module.exports = function(environment) {
       API_NAMESPACE: '',
       AUTHORIZE_URL: '',
       CONTACT_EMAIL: 'gcb-help@duke.edu'
-    }
+    },
   };
 
   if (environment === 'development') {
