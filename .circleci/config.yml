@@ -14,7 +14,7 @@ jobs:
       - run:
           command: |
             npm config set spin false
-            npm ci
+            npm install
 
       - save_cache:
           paths:
