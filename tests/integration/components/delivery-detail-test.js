@@ -23,8 +23,8 @@ module('Integration | Component | delivery detail', function(hooks) {
 
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer brief=true}}`);
-    assert.equal(this.$('.detail-label').eq(0).text(), 'From');
-    assert.equal(this.$('.detail-label').eq(1).text(), 'To');
+    assert.equal(this.element.querySelectorAll('.detail-label')[0].textContent, 'From');
+    assert.equal(this.element.querySelectorAll('.detail-label')[1].textContent, 'To');
     assert.equal(findAll('.detail-label').length, 2);
   });
 
@@ -51,17 +51,17 @@ module('Integration | Component | delivery detail', function(hooks) {
     await render(hbs`{{delivery-detail transfer}}`);
     assert.equal(findAll('.detail-label').length, 4);
     var idx = 0;
-    assert.equal(this.$('.detail-label').eq(idx).text().trim(), 'From');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Arthur Adamson');
+    assert.equal(findAll('.detail-label')[idx].textContent.trim(), 'From');
+    assert.equal(findAll('.detail-value')[idx].textContent.trim(), 'Arthur Adamson');
     idx += 1;
-    assert.equal(this.$('.detail-label').eq(idx).text(), 'To');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
+    assert.equal(findAll('.detail-label')[idx].textContent, 'To');
+    assert.equal(findAll('.detail-value')[idx].textContent.trim(), 'Zelda Zellington');
     idx += 1;
-    assert.equal(this.$('.detail-label').eq(idx).text(), 'Status');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done - January 2, 2020 12:30 PM');
+    assert.equal(findAll('.detail-label')[idx].textContent, 'Status');
+    assert.equal(findAll('.detail-value')[idx].textContent.trim(), 'Done - January 2, 2020 12:30 PM');
     idx += 1;
-    assert.equal(this.$('.detail-label').eq(idx).text(), 'Delivery Email');
-    assert.equal(find('.delivery-email').textContent.trim(), 'Subject: New DataEmail Body');
+    assert.equal(findAll('.detail-label')[idx].textContent, 'Delivery Email');
+    assert.equal(this.element.querySelector('.delivery-email').textContent.trim(), 'Subject: New DataEmail Body');
   });
 
   test('it renders full mode declineReason and performedBy', async function(assert) {
@@ -83,10 +83,10 @@ module('Integration | Component | delivery detail', function(hooks) {
     });
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer}}`);
-    assert.equal(this.$('.detail-label').eq(3).text(), 'Decline Reason');
-    assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
-    assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
-    assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
+    assert.equal(findAll('.detail-label')[3].textContent, 'Decline Reason');
+    assert.equal(findAll('.detail-value')[3].textContent.trim(), 'Was not needed.');
+    assert.equal(findAll('.detail-label')[4].textContent, 'Performed By');
+    assert.equal(findAll('.detail-value')[4].textContent.trim(), 'John Doe');
   });
 
   test('it handles an empty status date', async function(assert) {
@@ -105,7 +105,7 @@ module('Integration | Component | delivery detail', function(hooks) {
 
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer}}`);
-    assert.equal(this.$('.detail-value').eq(2).text().trim(), 'Done');
+    assert.equal(findAll('.detail-value')[2].textContent.trim(), 'Done');
   });
 
   test('it renders email when transfer is pending', async function(assert) {

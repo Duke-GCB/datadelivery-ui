@@ -1,6 +1,7 @@
-import { moduleForComponent, test } from 'ember-qunit';
+//import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
+/*
 moduleForComponent('zip-download-info', 'Integration | Component | zip download info', {
   integration: true
 });
@@ -16,3 +17,4 @@ test('it renders link to support email', function (assert) {
   assert.equal(this.$('.zip-download-info a').attr('href'), 'mailto:help@example.org');
   assert.equal(this.$('.zip-download-info a').text(), 'help@example.org');
 });
+*/

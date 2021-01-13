@@ -8,18 +8,20 @@ export default Controller.extend({
   user: service('user'),
   dukeDsUser: service('duke-ds-user'),
   currentDukeDsUser: null,
-  authenticatedDidChange: on('init', observer('session.isAuthenticated', function () {
-      if (this.get('session.isAuthenticated')) {
-        this.get('user').currentUser().then(currentUser => {
-          this.set('currentUser', currentUser);
-        });
-        this.get('dukeDsUser').currentDukeDsUser().then(currentDukeDsUser => {
-          this.set('currentDukeDsUser', currentDukeDsUser);
-        });
-      } else {
-        this.set('currentUser', null);
-        this.set('currentDukeDsUser', null);
-      }
-    })
-  )
+  authenticatedDidChange: observer('session.isAuthenticated', function () {
+    if (this.get('session.isAuthenticated')) {
+      this.get('user').currentUser().then(currentUser => {
+        this.set('currentUser', currentUser);
+      });
+      this.get('dukeDsUser').currentDukeDsUser().then(currentDukeDsUser => {
+        this.set('currentDukeDsUser', currentDukeDsUser);
+      });
+    } else {
+      this.set('currentUser', null);
+      this.set('currentDukeDsUser', null);
+    }
+  })
 });
+
+
+// application.js:16 Uncaught (in promise) TypeError: this.get(...).currentUser is not a function

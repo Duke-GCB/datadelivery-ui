@@ -9,7 +9,6 @@ module('Integration | Component | delivery preview', function(hooks) {
   setupRenderingTest(hooks);
 
   const DELIVERY_EMAIL_TEXT = 'Subject: Hello World';
-
   test('it generates preview when rendered, showing delivery_email_text from delivery.preview()', async function(assert) {
     assert.expect(5);
     const delivery = EmberObject.create({

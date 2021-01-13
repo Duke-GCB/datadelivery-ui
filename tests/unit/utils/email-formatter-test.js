@@ -5,10 +5,11 @@ import {
 } from 'datadelivery-ui/utils/email-formatter';
 import { module, test } from 'qunit';
 
+
 module('Unit | Utility | email formatter', function() {
   // Replace this with your real tests.
   test('formatEmailText can format a simple email', function(assert) {
-    var value = 'Subject: Mouse Data\n\nEmail Body'
+    var value = 'Subject: Mouse Data\n\nEmail Body';
     let result = formatEmailText(value);
     assert.equal(result.trim(), `Subject: Mouse Data
 

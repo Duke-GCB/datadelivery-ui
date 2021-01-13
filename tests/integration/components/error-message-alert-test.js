@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 module('Integration | Component | error message alert', function(hooks) {
   setupRenderingTest(hooks);
@@ -13,7 +14,7 @@ module('Integration | Component | error message alert', function(hooks) {
     this.set('errorMessages', ['Message one', 'Message two']);
     await render(hbs`{{error-message-alert errorMessages}}`);
 
-    assert.equal(this.$('.error-message-alert-detail').text().trim(), 'Error: Message one Error: Message two');
+    assert.equal($('.error-message-alert-detail').text().trim(), 'Error: Message one Error: Message two');
 
     // Template block usage:
     await render(hbs`
@@ -22,6 +23,6 @@ module('Integration | Component | error message alert', function(hooks) {
       {{/error-message-alert}}
     `);
 
-    assert.equal(this.$().text().trim(), 'Some Extra text');
+    assert.equal(this.element.textContent.trim(), 'Some Extra text');
   });
 });

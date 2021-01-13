@@ -10,7 +10,7 @@ module('helper:add-line-breaks', function(hooks) {
   test('it replaces newlines with br tags', async function(assert) {
     this.set('inputValue', 'A\nB\nC');
     await render(hbs`{{add-line-breaks inputValue}}`);
-    assert.equal(find('*').textContent.trim(), 'ABC');
+    assert.equal(this.element.textContent.trim(), 'ABC');
     assert.equal(findAll('br').length, 2);
   });
 });

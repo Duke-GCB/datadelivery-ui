@@ -5,9 +5,9 @@ import LoginController from 'drf-ember-frontend/controllers/login';
 export default LoginController.extend({
   queryParams: ['afterLogin'],
   afterLogin: '/',
-  authenticatedChanged: on('init', observer('session.isAuthenticated', function() {
+  authenticatedChanged: observer('session.isAuthenticated', function() {
     if(this.get('session.isAuthenticated')) {
       this.transitionToRoute('index');
     }
-  }))
+  })
 });
