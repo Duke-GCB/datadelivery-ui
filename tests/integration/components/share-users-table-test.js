@@ -32,7 +32,7 @@ module('Integration | Component | share-users-table', function(hooks) {
     assert.equal(this.$('.share-users-table-tbody td').eq(0).text().trim(), "John Smith");
     assert.equal(this.$('.share-users-table-tbody td').eq(1).text().trim(), "john");
     assert.equal(this.$('.share-users-table-tbody td').eq(2).text().trim(), "john@smith.com");
-    assert.equal(this.$('.share-users-table-tbody td button').text(), "Remove");
+    assert.equal(this.$('.share-users-table-tbody td button').text().trim(), "Remove");
 
     this.$('.share-users-table-tbody td button').click();
   });
@@ -44,7 +44,7 @@ module('Integration | Component | share-users-table', function(hooks) {
     });
     this.set('shareUsers', [{}]);
     await render(hbs`{{share-users-table shareUsers=shareUsers addUser=addUser}}`);
-    assert.equal(this.$('.share-users-table-add-user').text().trim(), "Add User");
-    this.$('.share-users-table-add-user').click();
+    assert.equal(this.element.querySelectorAll('button')[1].textContent.trim(), "Add User");
+    this.element.querySelectorAll('button')[1].click();
   });
 });

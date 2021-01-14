@@ -1,5 +1,4 @@
 import { observer } from '@ember/object';
-import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
 
@@ -8,7 +7,7 @@ export default Controller.extend({
   user: service('user'),
   dukeDsUser: service('duke-ds-user'),
   currentDukeDsUser: null,
-  authenticatedDidChange: on('init', observer('session.isAuthenticated', function () {
+  authenticatedDidChange: observer('session.isAuthenticated', function () {
       if (this.get('session.isAuthenticated')) {
         this.get('user').currentUser().then(currentUser => {
           this.set('currentUser', currentUser);
@@ -21,5 +20,4 @@ export default Controller.extend({
         this.set('currentDukeDsUser', null);
       }
     })
-  )
 });
