@@ -3,12 +3,11 @@ import { resolve } from 'rsvp';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import { settled } from '@ember/test-helpers';
 
 module('Unit | Controller | application', function(hooks) {
   setupTest(hooks);
 
-  test('it fetches currentDukeDsUser/currentUser when session.isAuthenticated changes', async function(assert) {
+  test('it fetches currentDukeDsUser/currentUser when session.isAuthenticated changes', function(assert) {
     assert.expect(8);
     const mockSessionService = EmberObject.create({
       isAuthenticated: false
@@ -27,12 +26,12 @@ module('Unit | Controller | application', function(hooks) {
         return resolve(mockUser);
       }
     });
-    let controller = this.owner.lookup('controller:application');
-    controller.set('session', mockSessionService);
-    controller.set('user', mockUserService);
-    controller.set('dukeDsUser', mockDukeDSUserService);
+    let controller = this.owner.factoryFor('controller:application').create({
+      session: mockSessionService,
+      dukeDsUser: mockDukeDSUserService,
+      user: mockUserService
+    });
 
-    await settled();
     // In one run loop, set isAuthenticated = true
     run(() => {
       assert.equal(controller.get('currentDukeDsUser'), null); // currentDukeDsUser should be null when session is not authenticated
@@ -40,7 +39,6 @@ module('Unit | Controller | application', function(hooks) {
       mockSessionService.set('isAuthenticated', true);
     });
 
-    await settled();
     // In the next, assert that the current User updated. Then clear authentication
     run(() => {
       assert.equal(controller.get('currentDukeDsUser'), mockDukeDsUser); // currentDukeDsUser should be fetched when session is authenticated
@@ -48,7 +46,6 @@ module('Unit | Controller | application', function(hooks) {
       mockSessionService.set('isAuthenticated', false);
     });
 
-    await settled();
     // Finally, assert that currentDukeDsUser is null again
     run(() => {
       assert.equal(controller.get('currentDukeDsUser'), null); // currentDukeDsUser should be null when session is not authenticated

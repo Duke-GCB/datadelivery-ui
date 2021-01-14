@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { render, find, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | duke ds user search fields', function(hooks) {
@@ -14,7 +14,6 @@ module('Integration | Component | duke ds user search fields', function(hooks) {
     assert.equal(this.$('label.mode').eq(2).text().trim(), 'Email');
   });
 
-  /* TODO fix this
   test('it calls onSearch with name, username, and email modes', async function(assert) {
     const modesAndQueries = [
       {query: 'Jane Doe', mode: 'full_name_contains', placeholder: 'Full or Partial Name'},
@@ -40,5 +39,4 @@ module('Integration | Component | duke ds user search fields', function(hooks) {
       this.$('button').click();
     }
   });
-  */
 });

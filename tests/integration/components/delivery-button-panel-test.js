@@ -8,7 +8,7 @@ module('Integration | Component | delivery button panel', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
-    this.owner.setupRouter();
+    this.owner.lookup('router:main').startRouting(true);
   });
 
   test('it shows buttons when showPendingActions is true', async function(assert) {

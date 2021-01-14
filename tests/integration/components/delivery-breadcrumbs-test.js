@@ -9,7 +9,7 @@ module('Integration | Component | delivery breadcrumbs', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders a breadcrumb-item for each crumb with label, routeName, and links non-selected', async function(assert) {
-    this.owner.setupRouter();
+    this.owner.lookup('router:main').startRouting(true);
     const mockStore = EmberObject.create({ currentRouteName: 'deliveries' });
     this.set('mockStore', mockStore);
     await render(hbs`{{delivery-breadcrumbs router=mockStore}}`);
