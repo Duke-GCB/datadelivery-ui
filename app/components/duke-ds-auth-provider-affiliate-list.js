@@ -9,8 +9,8 @@ const DukeDSAuthProviderAffiliateList = Component.extend({
   pageSize: 10,
   selectionChanged: null, /** action */
   selectionDidChange: observer('selectedItems.[]', function() {
-    if(this.get('selectionChanged')) {
-      this.selectionChanged(this.get('selectedItems'));
+    if(this.selectionChanged) {
+      this.selectionChanged(this.selectedItems);
     }
   }),
   init() {

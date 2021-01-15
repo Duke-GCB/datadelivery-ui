@@ -20,7 +20,7 @@ export default DS.Model.extend({
   emailTemplateSet: DS.belongsTo('EmailTemplateSet'),
   send(force) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
+    return adapter.send(this.id, force).then(this.updateAfterAction.bind(this));
   },
   preview() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
@@ -29,7 +29,7 @@ export default DS.Model.extend({
       to_user_id: this.get('toUser.id'),
       project_id: this.get('project.id'),
       transfer_id: this.get('transfer.id') || '',
-      user_message: this.get('userMessage'),
+      user_message: this.userMessage,
       email_template_set_id: this.get('emailTemplateSet.id'),
     };
     return adapter.preview(details);
@@ -38,10 +38,10 @@ export default DS.Model.extend({
     // The action methods respond with an updated delivery, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
     this.store.pushPayload('delivery', data);
-    return resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
+    return resolve(this.store.peekRecord(this.constructor.modelName, this.id));
   },
   canResend: computed('state', function() {
-    const state = this.get('state');
+    const state = this.state;
     return state == STATE_NOTIFIED;
   }),
   setNew() {
@@ -49,10 +49,10 @@ export default DS.Model.extend({
   },
   cancel() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.cancel(this.get('id'))
+    return adapter.cancel(this.id)
       .then(this.updateAfterAction.bind(this))
       // reload transfer so it will reflect the updated status
-      .then(() => this.get('transfer'))
+      .then(() => this.transfer)
       .then(transferRelationship => transferRelationship.reload());
   },
 });

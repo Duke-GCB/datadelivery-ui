@@ -18,7 +18,7 @@ export default Controller.extend({
     },
     save() {
       const shareUsers = this.get('delivery.shareUsers').toArray();
-      shareUsers.push(this.get('shareUser'));
+      shareUsers.push(this.shareUser);
       this.set('delivery.shareUsers', shareUsers);
       this.transitionToRoute('deliveries.new.select-share-users');
     }

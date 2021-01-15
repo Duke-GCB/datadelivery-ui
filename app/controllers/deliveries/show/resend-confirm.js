@@ -12,13 +12,13 @@ export default CanResendController.extend({
   errorMessages: mapBy('errors', 'detail'),
   actions: {
     back() {
-      this.transitionToRoute('deliveries.show.resend', this.get('model'));
+      this.transitionToRoute('deliveries.show.resend', this.model);
     },
     previewFailed(error) {
       this.set('errors', [error]);
     },
     resend() {
-      const transfer = this.get('model');
+      const transfer = this.model;
       const projectName = transfer.get('project.name');
       const deliveryMessage = 'Email message resent for delivery of project ' + projectName + '.';
 

@@ -2,9 +2,9 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   triggerAuthentication() {
-    this.transitionTo(this.get('authenticationRoute'), {
+    this.transitionTo(this.authenticationRoute, {
       queryParams: {
-        afterLogin: this.get('routeName')
+        afterLogin: this.routeName
       }
     });
   }

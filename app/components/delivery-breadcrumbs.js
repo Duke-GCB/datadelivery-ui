@@ -18,8 +18,8 @@ export default Component.extend({
   classNames: ['breadcrumb'],
   context: null,
   crumbs: computed('strippedRouteName', 'context', function() {
-    const strippedRouteName = this.get('strippedRouteName');
-    const context = this.get('context');
+    const strippedRouteName = this.strippedRouteName;
+    const context = this.context;
     return makeCrumbs(RouteLabels, HomeCrumb, strippedRouteName, context);
   })
 });

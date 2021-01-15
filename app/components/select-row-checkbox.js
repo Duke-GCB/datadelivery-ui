@@ -7,7 +7,7 @@ export default Component.extend({
   layout,
   actions: {
     clickOnRow(index, record, event) {
-      get(this, 'clickOnRow')(index, record);
+      this.clickOnRow(index, record);
       event.stopPropagation();
     }
   }

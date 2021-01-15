@@ -8,7 +8,7 @@ export default BaseController.extend({
       this.transitionToRoute('deliveries.new.select-share-user')
     },
     removeUser(dukeDsUser) {
-      const shareUsers = this.get('shareUsers').toArray();
+      const shareUsers = this.shareUsers.toArray();
       const index = shareUsers.indexOf(dukeDsUser);
       if (index > -1) {
         shareUsers.splice(index, 1);

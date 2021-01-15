@@ -7,7 +7,7 @@ export default ApplicationInjectedController.extend({
   currentDukeDsUserChanged: on('init', observer('application.currentDukeDsUser', 'model', function() {
     // When the current user is loaded or our delivery model is loaded, set the fromUser
     const currentDukeDsUser  = this.get('application.currentDukeDsUser');
-    const delivery = this.get('model');
+    const delivery = this.model;
     if(delivery) {
       delivery.set('fromUser', currentDukeDsUser);
     }

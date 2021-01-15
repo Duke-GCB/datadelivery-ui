@@ -7,10 +7,10 @@ export default DS.Model.extend({
   lastUpdatedOn: DS.attr('date'),
   getUserProjectAuthRole(userId) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.getUserProjectAuthRole(this.get('id'), userId);
+    return adapter.getUserProjectAuthRole(this.id, userId);
   },
   getSummary() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.getSummary(this.get('id'));
+    return adapter.getSummary(this.id);
   }
 });

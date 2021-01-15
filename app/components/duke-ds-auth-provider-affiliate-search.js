@@ -8,12 +8,12 @@ export default Component.extend({
   excludeUsers: null,
   affiliates: null,
   filteredAffiliates: computed('affiliates', 'excludeUsers.[]', function() {
-    const excludeUsers = this.get('excludeUsers');
+    const excludeUsers = this.excludeUsers;
     var skipUserNames = [''];
     if (excludeUsers) {
       skipUserNames = skipUserNames.concat(excludeUsers.getEach('username'));
     }
-    return this.get('affiliates')
+    return this.affiliates
       .rejectBy('fullName', null)
       .rejectBy('fullName', '(null)')
       .rejectBy('email', null)
@@ -24,19 +24,19 @@ export default Component.extend({
   actions: {
     doSearch(params) {
       this.clearSelectedAffiliates();
-      const store = this.get('store');
+      const store = this.store;
       store.query('duke-ds-auth-provider-affiliate', params).then(affiliates => {
         this.set('affiliates', affiliates);
       });
     },
     selectionChanged(selectedAffiliates) {
       if(selectedAffiliates.get('length') == 0) {
-        this.get('onAffiliateSelected')(null);
+        this.onAffiliateSelected(null);
       } else {
         // Obtain the duke-ds-user from this affiliate
         const affiliate = selectedAffiliates.get('firstObject');
         affiliate.getOrRegisterUser().then(dukeDsUser => {
-          this.get('onAffiliateSelected')(dukeDsUser);
+          this.onAffiliateSelected(dukeDsUser);
         });
       }
     }
@@ -47,7 +47,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    if(!this.get('affiliates')) {
+    if(!this.affiliates) {
       this.set('affiliates', []);
     }
     this.set('selectedAffiliates', []);

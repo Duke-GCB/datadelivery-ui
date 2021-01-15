@@ -4,7 +4,7 @@ import { resolve } from 'rsvp';
 // sets ddsProjectSummary property based on ddsProject property
 export default Mixin.create({
   fetchSummary() {
-    let ddsProject = this.get('ddsProject');
+    let ddsProject = this.ddsProject;
     // If ddsProject is already fulfilled, make it into a simple promise
     if(ddsProject.get('isLoaded')) {
       ddsProject = resolve(ddsProject);

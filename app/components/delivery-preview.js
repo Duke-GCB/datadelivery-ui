@@ -14,7 +14,7 @@ export default Component.extend({
 
   generatePreview() {
     this.set('emailMessage', null); // causes loading indicator to appear
-    let delivery = this.get('delivery');
+    let delivery = this.delivery;
     // `delivery` should be a model object, but may not be loaded yet (e.g. a
     // relationship property from a transfer. We cannot call preview() until
     // the delivery is loaded (resolved), and we cannot call then() on an already
@@ -27,12 +27,12 @@ export default Component.extend({
       return loadedDelivery.preview();
     }).then(preview => {
       this.set('emailMessage', preview.delivery_email_text);
-    }).catch(this.get('onFail'));
+    }).catch(this.onFail);
   },
 
   actions: {
     onChangeEmailTemplateSet(emailTemplateSet) {
-      const delivery = this.get('delivery');
+      const delivery = this.delivery;
       delivery.set('emailTemplateSet', emailTemplateSet);
       this.generatePreview();
     }

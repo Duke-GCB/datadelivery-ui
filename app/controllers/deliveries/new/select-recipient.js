@@ -7,7 +7,7 @@ export default BaseController.extend({
   backRoute: 'deliveries.new.select-project',
   nextRoute: 'deliveries.new.select-share-users',
   excludeUsers: computed('fromUser', function() {
-    return [this.get('fromUser')]
+    return [this.fromUser]
   }),
   actions: {
     affiliateSelected(dukeDsUser) {

@@ -8,7 +8,7 @@ const DukeDSProjectList = Component.extend({
   selectionDidChange: observer('selectedItems.[]', function() {
     // When unchecking the single item, selectedItems.length drops to 0,
     // but selectedItems.firstObject still references the old project
-    const selectedItems = this.get('selectedItems');
+    const selectedItems = this.selectedItems;
     if(selectedItems.get('length') == 0) {
       this.selectionChanged(null);
     } else {

@@ -15,13 +15,13 @@ export default Component.extend({
   currentDukeDsUser: null, // required property current user's duke-ds-user model
   currentUser: null, // required property current user model
   tagName: 'div',
-  outgoingTransfers: computed('transfers.[]', 'currentDukeDsUser', function() {
+  outgoingTransfers: computed('currentDukeDsUser.id', 'transfers.[]', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
-    return this.get('transfers').filterBy('fromUser.id', currentDukeDsUserId);
+    return this.transfers.filterBy('fromUser.id', currentDukeDsUserId);
   }),
-  incomingTransfers: computed('transfers.[]', 'currentDukeDsUser', function() {
+  incomingTransfers: computed('currentDukeDsUser.id', 'transfers.[]', function() {
     const currentDukeDsUserId = this.get('currentDukeDsUser.id');
-    return this.get('transfers').filter(function(transfer) {
+    return this.transfers.filter(function(transfer) {
       return transfer.get('toUsers').mapBy('id').includes(currentDukeDsUserId);
     });
   }),
@@ -53,7 +53,7 @@ export default Component.extend({
   },
   didReceiveAttrs() {
     this._super(...arguments);
-    assert('DeliveryTable component requires transfers property', this.get('transfers'));
+    assert('DeliveryTable component requires transfers property', this.transfers);
     // currentDukeDsUser and currentUser are also required but are temporarily null until they resolve
   }
 });

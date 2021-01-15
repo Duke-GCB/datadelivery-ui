@@ -31,8 +31,8 @@ export default Controller.extend({
 
   init() {
     this._super(...arguments);
-    assert('Controller requires backRoute property', this.get('backRoute'));
-    assert('Controller requires nextRoute property', this.get('nextRoute'));
+    assert('Controller requires backRoute property', this.backRoute);
+    assert('Controller requires nextRoute property', this.nextRoute);
   },
 
   /* Must override */

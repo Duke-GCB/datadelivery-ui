@@ -8,7 +8,7 @@ export default DS.Model.extend({
   getOrRegisterUser() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     const userModelName = 'duke-ds-user';
-    return adapter.getOrRegisterUser(this.get('uid')).then(data => {
+    return adapter.getOrRegisterUser(this.uid).then(data => {
       this.store.pushPayload(userModelName, data);
       return this.store.peekRecord(userModelName, data[pluralize(userModelName)].id);
     });

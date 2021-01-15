@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   model() {
-    const store = this.get('store');
+    const store = this.store;
     return store.query('email-template-set', {
       filter: {
         default: true,
