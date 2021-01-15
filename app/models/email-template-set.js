@@ -1,8 +1,10 @@
-import DS from 'ember-data';
-export default DS.Model.extend({
-  name: DS.attr('string'),
-  ccAddress: DS.attr('string'),
-  replyAddress: DS.attr('string'),
-  default:  DS.attr('boolean'),
-  emailTemplates: DS.hasMany('EmailTemplate')
+import Model from '@ember-data/model';
+import { attr, hasMany } from '@ember-data/model';
+
+export default Model.extend({
+  name: attr('string'),
+  ccAddress: attr('string'),
+  replyAddress: attr('string'),
+  default:  attr('boolean'),
+  emailTemplates: hasMany('EmailTemplate')
 });

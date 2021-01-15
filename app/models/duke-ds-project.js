@@ -1,10 +1,11 @@
-import DS from 'ember-data';
+import Model from '@ember-data/model';
+import { attr } from '@ember-data/model';
 
-export default DS.Model.extend({
-  name: DS.attr('string'),
-  url: DS.attr('string'),
-  createdOn: DS.attr('date'),
-  lastUpdatedOn: DS.attr('date'),
+export default Model.extend({
+  name: attr('string'),
+  url: attr('string'),
+  createdOn: attr('date'),
+  lastUpdatedOn: attr('date'),
   getUserProjectAuthRole(userId) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
     return adapter.getUserProjectAuthRole(this.id, userId);

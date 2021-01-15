@@ -24,7 +24,8 @@ module.exports = {
     'ember/no-jquery': 'off',
     'ember/no-mixins': 'off',
     'ember/no-new-mixins': 'off',
-    'ember/no-observers': 'off'
+    'ember/no-observers': 'off',
+    'ember/no-get': 'off'
   },
   overrides: [
     // node files

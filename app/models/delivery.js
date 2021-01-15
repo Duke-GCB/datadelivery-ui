@@ -1,26 +1,27 @@
 import { computed } from '@ember/object';
 import { resolve } from 'rsvp';
-import DS from 'ember-data';
+import Model from '@ember-data/model';
+import { attr, belongsTo, hasMany } from '@ember-data/model';
 
 const STATE_NEW = 0;
 const STATE_NOTIFIED = 1;
 
-export default DS.Model.extend({
-  url: DS.attr('string'),
-  project: DS.belongsTo('DukeDsProject'),
-  fromUser: DS.belongsTo('DukeDsUser'),
-  toUser: DS.belongsTo('DukeDsUser'),
-  state: DS.attr('string', { defaultValue() { return STATE_NEW }}),
-  transfer: DS.belongsTo('DukeDsProjectTransfer'),
-  userMessage: DS.attr('string', { defaultValue() { return '' }}),
-  shareUsers: DS.hasMany('DukeDsUser'),
-  declineReason: DS.attr('string'),
-  performedBy: DS.attr('string'),
-  deliveryEmailText: DS.attr('string'),
-  emailTemplateSet: DS.belongsTo('EmailTemplateSet'),
+export default Model.extend({
+  url: attr('string'),
+  project: belongsTo('DukeDsProject'),
+  fromUser: belongsTo('DukeDsUser'),
+  toUser: belongsTo('DukeDsUser'),
+  state: attr('string', { defaultValue() { return STATE_NEW }}),
+  transfer: belongsTo('DukeDsProjectTransfer'),
+  userMessage: attr('string', { defaultValue() { return '' }}),
+  shareUsers: hasMany('DukeDsUser'),
+  declineReason: attr('string'),
+  performedBy: attr('string'),
+  deliveryEmailText: attr('string'),
+  emailTemplateSet: belongsTo('EmailTemplateSet'),
   send(force) {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.send(this.id, force).then(this.updateAfterAction.bind(this));
+    return adapter.send(this.get('id'), force).then(this.updateAfterAction.bind(this));
   },
   preview() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
@@ -38,7 +39,7 @@ export default DS.Model.extend({
     // The action methods respond with an updated delivery, so we must update the local store
     // with that payload. Remember, pushPayload doesn't return.
     this.store.pushPayload('delivery', data);
-    return resolve(this.store.peekRecord(this.constructor.modelName, this.id));
+    return resolve(this.store.peekRecord(this.constructor.modelName, this.get('id')));
   },
   canResend: computed('state', function() {
     const state = this.state;
@@ -49,10 +50,10 @@ export default DS.Model.extend({
   },
   cancel() {
     let adapter = this.store.adapterFor(this.constructor.modelName);
-    return adapter.cancel(this.id)
+    return adapter.cancel(this.get('id'))
       .then(this.updateAfterAction.bind(this))
       // reload transfer so it will reflect the updated status
-      .then(() => this.transfer)
+      .then(() => this.get('transfer'))
       .then(transferRelationship => transferRelationship.reload());
   },
 });

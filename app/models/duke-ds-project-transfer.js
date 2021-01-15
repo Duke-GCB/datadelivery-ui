@@ -1,17 +1,18 @@
 import { equal } from '@ember/object/computed';
 import { computed } from '@ember/object';
-import DS from 'ember-data';
+import Model from '@ember-data/model';
+import { attr, hasMany, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  status: DS.attr('string'),
-  statusComment: DS.attr('string'),
-  toUsers: DS.hasMany('DukeDsUser',),
+export default Model.extend({
+  status: attr('string'),
+  statusComment: attr('string'),
+  toUsers: hasMany('DukeDsUser',),
   toUsersNames: computed('toUsers', 'toUsers@each.fullName', function() {
     return this.toUsers.mapBy('fullName').join(', ');
   }),
-  fromUser: DS.belongsTo('DukeDsUser'),
-  project: DS.belongsTo('DukeDsProject'),
-  delivery: DS.belongsTo('Delivery'),
+  fromUser: belongsTo('DukeDsUser'),
+  project: belongsTo('DukeDsProject'),
+  delivery: belongsTo('Delivery'),
   canResend: equal('status', 'pending'),
-  lastUpdatedOn: DS.attr('date')
+  lastUpdatedOn: attr('date')
 });

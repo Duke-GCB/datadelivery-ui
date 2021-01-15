@@ -1,7 +1,7 @@
 import ApplicationSerializer from './application';
-import DS from 'ember-data';
+import { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
 
-export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
+export default ApplicationSerializer.extend(EmbeddedRecordsMixin, {
   attrs: {
     toUsers: {embedded: 'always'},
     fromUser: {embedded: 'always'},

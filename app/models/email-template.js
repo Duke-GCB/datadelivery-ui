@@ -1,11 +1,12 @@
-import DS from 'ember-data';
+import Model from '@ember-data/model';
+import { attr } from '@ember-data/model';
 import { computed } from '@ember/object';
 
-export default DS.Model.extend({
-  type: DS.attr('string'),
-  body: DS.attr('string'),
-  subject: DS.attr('string'),
-  helpText:  DS.attr('string'),
+export default Model.extend({
+  type: attr('string'),
+  body: attr('string'),
+  subject: attr('string'),
+  helpText: attr('string'),
   content: computed('subject', 'body', function() {
     return `Subject: ${this.subject}\n\n${this.body}`;
   }),
