@@ -1,4 +1,4 @@
-<form class="form-horizontal">
+<form class="form-horizontal" onsubmit="return false;">
   <fieldset>
     <legend>{{labelText}}</legend>
     <div class="row">
@@ -20,10 +20,17 @@
         </div>
       </div>
       <div class="col-md-8">
-        {{input class="form-control query-field" value=this.query placeholder=kind.placeholder}}
+        <Input
+          class="form-control query-field"
+          @id="query-field"
+          @type="text"
+          @enter={{ this.search }}
+          @value={{ this.query }}
+          placeholder={{ kind.placeholder }}
+        />
       </div>
       <div class="col-md-1">
-        {{#bs-button type="info" buttonType="submit"  onClick=(action "search")}}Search{{/bs-button}}
+        <button class="btn btn-info" type="button" {{on "click" this.search}}>Search</button>
       </div>
     </div>
   </fieldset>
