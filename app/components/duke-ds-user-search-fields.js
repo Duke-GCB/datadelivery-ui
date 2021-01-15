@@ -1,5 +1,6 @@
 import { set } from '@ember/object';
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
 const KINDS = [
   {mode: 'full_name_contains', name: 'Name', placeholder: 'Full or Partial Name'},
@@ -16,14 +17,13 @@ export default Component.extend({
   kinds: KINDS,
   kind: null,
   onSearch: () => {}, // Default implementation
-  actions: {
-    search() {
-      let params = {};
-      const query = this.get('query');
-      const mode = this.get('kind.mode');
-      set(params, mode, query);
-      this.get('onSearch')(params);
-    }
+  @action
+  search() {
+    let params = {};
+    const query = this.get('query');
+    const mode = this.get('kind.mode');
+    set(params, mode, query);
+    this.get('onSearch')(params);
   },
   didReceiveAttrs() {
     this._super(...arguments);

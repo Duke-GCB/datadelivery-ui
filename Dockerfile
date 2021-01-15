@@ -1,4 +1,4 @@
-FROM circleci/node:8.9-browsers as builder
+FROM circleci/node:14.15-browsers as builder
 # The base image sets USER to circleci.
 # Reset user back to root so we have permissions for the ADDed files.
 USER root
