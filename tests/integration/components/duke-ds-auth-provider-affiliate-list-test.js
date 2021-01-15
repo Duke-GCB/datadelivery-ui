@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 module('Integration | Component | duke ds auth provider affiliate list', function(hooks) {
   setupRenderingTest(hooks);
@@ -14,12 +15,12 @@ module('Integration | Component | duke ds auth provider affiliate list', functio
     this.set('externalAction', function () {});
     await render(hbs`{{duke-ds-auth-provider-affiliate-list affiliates selectionChanged=(action externalAction)}}`);
 
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-fullName').eq(1).text().trim(), 'Jim');
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-email').eq(1).text().trim(), 'jim@jim.org');
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-netid').eq(1).text().trim(), '2');
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-fullName').eq(2).text().trim(), 'Joe');
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-email').eq(2).text().trim(), 'joe@joe.org');
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-netid').eq(2).text().trim(), '1');
+    assert.equal($('.duke-ds-auth-provider-affiliate-fullName').eq(1).text().trim(), 'Jim');
+    assert.equal($('.duke-ds-auth-provider-affiliate-email').eq(1).text().trim(), 'jim@jim.org');
+    assert.equal($('.duke-ds-auth-provider-affiliate-netid').eq(1).text().trim(), '2');
+    assert.equal($('.duke-ds-auth-provider-affiliate-fullName').eq(2).text().trim(), 'Joe');
+    assert.equal($('.duke-ds-auth-provider-affiliate-email').eq(2).text().trim(), 'joe@joe.org');
+    assert.equal($('.duke-ds-auth-provider-affiliate-netid').eq(2).text().trim(), '1');
   });
 
   test('it sends selected affiliates to selectionChanged action', async function(assert) {
@@ -32,7 +33,7 @@ module('Integration | Component | duke ds auth provider affiliate list', functio
       assert.equal(selectedItems[0].fullName, 'Jim');
     });
     await render(hbs`{{duke-ds-auth-provider-affiliate-list affiliates selectionChanged=(action externalAction)}}`);
-    this.$('.duke-ds-auth-provider-affiliate-fullName').eq(1).click(); //click Jim row
+    $('.duke-ds-auth-provider-affiliate-fullName').eq(1).click(); //click Jim row
   });
 
   test('it sorts affiliate list without calling selectionChanged', async function(assert) {
@@ -45,7 +46,7 @@ module('Integration | Component | duke ds auth provider affiliate list', functio
       assert.ok(false); // should not call this
     });
     await render(hbs`{{duke-ds-auth-provider-affiliate-list affiliates selectionChanged=(action externalAction)}}`);
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-fullName').eq(1).text().trim(), 'A');
-    assert.equal(this.$('.duke-ds-auth-provider-affiliate-fullName').eq(2).text().trim(), 'B');
+    assert.equal($('.duke-ds-auth-provider-affiliate-fullName').eq(1).text().trim(), 'A');
+    assert.equal($('.duke-ds-auth-provider-affiliate-fullName').eq(2).text().trim(), 'B');
   });
 });

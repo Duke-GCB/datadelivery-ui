@@ -13,7 +13,11 @@ module('Integration | Component | error message alert', function(hooks) {
     this.set('errorMessages', ['Message one', 'Message two']);
     await render(hbs`{{error-message-alert errorMessages}}`);
 
-    assert.equal(this.$('.error-message-alert-detail').text().trim(), 'Error: Message one Error: Message two');
+    assert.equal(this.element.querySelectorAll('.error-message-alert-detail')[0].textContent.trim(),
+      'Error: Message one');
+    assert.equal(this.element.querySelectorAll('.error-message-alert-detail')[1].textContent.trim(),
+      'Error: Message two');
+
 
     // Template block usage:
     await render(hbs`
@@ -22,6 +26,6 @@ module('Integration | Component | error message alert', function(hooks) {
       {{/error-message-alert}}
     `);
 
-    assert.equal(this.$().text().trim(), 'Some Extra text');
+    assert.equal(this.element.textContent.trim(), 'Some Extra text');
   });
 });

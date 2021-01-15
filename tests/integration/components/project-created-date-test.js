@@ -13,7 +13,7 @@ module('Integration | Component | project created date', function(hooks) {
     });
     this.set('record', record);
     await render(hbs`{{project-created-date record=record}}`);
-    assert.equal(this.$().text().trim(), 'January 1, 2020 12:00 AM');
+    assert.equal(this.element.textContent.trim(), 'January 1, 2020 12:00 AM');
   });
 
 });

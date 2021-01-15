@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 module('Integration | Component | duke ds project size', function(hooks) {
   setupRenderingTest(hooks);
@@ -15,12 +16,12 @@ module('Integration | Component | duke ds project size', function(hooks) {
     };
     this.set('ddsProjectSummary', ddsProjectSummary);
     await render(hbs`{{duke-ds-project-size ddsProjectSummary}}`);
-    assert.equal(this.$('.duke-ds-project-size').text().trim(), '1 top-level folder, 46 subfolders,\n  345 files\n  (5 GiB)');
+    assert.equal($('.duke-ds-project-size').text().trim(), '1 top-level folder, 46 subfolders,\n  345 files\n  (5 GiB)');
   });
 
   test('it renders loading state while summary is null', async function(assert) {
     this.set('ddsProjectSummary', null);
     await render(hbs`{{duke-ds-project-size ddsProjectSummary}}`);
-    assert.equal(this.$('.duke-ds-project-size').text().trim(), 'Calculating');
+    assert.equal($('.duke-ds-project-size').text().trim(), 'Calculating');
   });
 });
