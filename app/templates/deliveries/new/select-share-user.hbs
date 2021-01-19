@@ -11,6 +11,6 @@
 }}
 
 {{#link-to "deliveries.new.select-share-users" class="btn btn-default"}}Cancel{{/link-to}}
-{{#bs-button onClick=(action "save") class="btn btn-primary pull-right" disabled=disableSave}}Add User{{/bs-button}}
+<BsButton class="btn btn-primary pull-right" disabled={{disableSave}} @onClick={{action "save"}}>Add User</BsButton>
 
 {{outlet}}

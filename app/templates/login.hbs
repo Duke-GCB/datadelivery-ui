@@ -17,7 +17,7 @@
           {{#if errorMessage}}
             {{#bs-alert type="danger" dismissible=false}}Unable to authenticate: {{errorMessage}}{{/bs-alert}}
           {{/if}}
-          {{#bs-button type="default" onClick=(action "authenticate")}}Login{{/bs-button}}
+          <BsButton @type="default" @onClick={{action "authenticate"}}>Login</BsButton>
         {{/bs-form}}
       </div>
     </div>

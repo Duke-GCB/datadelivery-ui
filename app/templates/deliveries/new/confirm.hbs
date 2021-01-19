@@ -14,4 +14,6 @@
 {{error-message-alert errorMessages}}
 
 {{#link-to backRoute (query-params projectId=projectId toUserId=toUserId userMessage=userMessage) class="btn btn-default"}}Back{{/link-to}}
-{{#bs-button type="primary" disabled=disableNext onClick=(action "saveAndSend") class="pull-right next-button"}}Send Delivery{{/bs-button}}
+<BsButton class="pull-right next-button" disabled={{disableNext}} @type="primary" @onClick={{action "saveAndSend"}}>
+  Send Delivery
+</BsButton>
