@@ -4,6 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
+import $ from 'jquery';
 
 module('Integration | Component | project detail', function(hooks) {
   setupRenderingTest(hooks);
@@ -22,9 +23,9 @@ module('Integration | Component | project detail', function(hooks) {
     assert.step('before-render');
     await render(hbs`{{project-detail ddsProject}}`);
     assert.step('after-render');
-    assert.equal(this.$('.duke-ds-project-size').length, 1);
-    assert.equal(this.$('.duke-ds-project-link').length, 1);
-    assert.equal(this.$('.duke-ds-project-zip-download-link').length, 1);
+    assert.equal($('.duke-ds-project-size').length, 1);
+    assert.equal($('.duke-ds-project-link').length, 1);
+    assert.equal($('.duke-ds-project-zip-download-link').length, 1);
     assert.verifySteps(['before-render','getSummary', 'after-render']);
   });
 });

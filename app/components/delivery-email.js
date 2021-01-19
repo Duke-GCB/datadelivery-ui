@@ -6,7 +6,7 @@ const DeliveryEmail = Component.extend({
   classNames: ['well', 'well-sm', 'delivery-email'],
   value: null, //value to be displayed in the textarea
   formattedValue: computed('value', function () {
-    const value = this.get('value');
+    const value = this.value;
     return formatEmailText(value);
   })
 });

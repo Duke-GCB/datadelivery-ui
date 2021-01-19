@@ -20,10 +20,10 @@ export default Component.extend({
   @action
   search() {
     let params = {};
-    const query = this.get('query');
+    const query = this.query;
     const mode = this.get('kind.mode');
     set(params, mode, query);
-    this.get('onSearch')(params);
+    this.onSearch(params);
   },
   didReceiveAttrs() {
     this._super(...arguments);

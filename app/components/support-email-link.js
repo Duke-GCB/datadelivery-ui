@@ -11,8 +11,8 @@ export default Component.extend({
   contactEmail: SupportEmail,
   emailSubject: "Data Delivery Email Template Setup Request",
   href: computed('contactEmail', 'emailSubject', function () {
-    const contactEmail = this.get('contactEmail');
-    const emailSubject = this.get('emailSubject');
+    const contactEmail = this.contactEmail;
+    const emailSubject = this.emailSubject;
     return `mailto:${contactEmail}?subject=${emailSubject}`
   }),
 });

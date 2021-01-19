@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 
 module('Integration | Component | delivery breadcrumbs', function(hooks) {
@@ -13,11 +14,11 @@ module('Integration | Component | delivery breadcrumbs', function(hooks) {
     const mockStore = EmberObject.create({ currentRouteName: 'deliveries' });
     this.set('mockStore', mockStore);
     await render(hbs`{{delivery-breadcrumbs router=mockStore}}`);
-    assert.equal(this.$('.breadcrumb-item').length, 2);
-    assert.equal(this.$('.breadcrumb-item:eq(0)').text().trim(), 'Home');
-    assert.equal(this.$('.breadcrumb-item:eq(1)').text().trim(), 'Deliveries');
-    assert.equal(this.$('.breadcrumb-item a').length, 1);
-    assert.equal(this.$('.breadcrumb-item a').text().trim(), 'Home');
-    assert.equal(this.$('.breadcrumb-item a').attr('href'), '/');
+    assert.equal($('.breadcrumb-item').length, 2);
+    assert.equal($('.breadcrumb-item:eq(0)').text().trim(), 'Home');
+    assert.equal($('.breadcrumb-item:eq(1)').text().trim(), 'Deliveries');
+    assert.equal($('.breadcrumb-item a').length, 1);
+    assert.equal($('.breadcrumb-item a').text().trim(), 'Home');
+    assert.equal($('.breadcrumb-item a').attr('href'), '/');
   });
 });

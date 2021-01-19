@@ -7,7 +7,7 @@ export default Route.extend(NewDeliveryRouteMixin, {
     // however it will return projects that are deleted if queried individually.
     // This can cause deleted projects to be included in the project list due to caching in
     // ember-data for projects referenced in duke-ds-project-transfers.
-    return this.get('store').query('duke-ds-project', {
+    return this.store.query('duke-ds-project', {
       is_deleted: false
     });
   },

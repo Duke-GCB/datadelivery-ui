@@ -5,6 +5,6 @@ export default Service.extend({
   currentDukeDsUser() {
     // Use queryRecord since Ember complains that 'current-duke-ds-user'
     // doesn't match the returned ID.
-    return this.get('store').queryRecord('duke-ds-user', {});
+    return this.store.queryRecord('duke-ds-user', {});
   }
 });

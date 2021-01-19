@@ -3,6 +3,7 @@ import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { testRelationships } from '../../helpers/test-relationships';
+import { settled } from '@ember/test-helpers';
 
 module('Unit | Model | delivery', function(hooks) {
   setupTest(hooks);
@@ -144,6 +145,7 @@ module('Unit | Model | delivery', function(hooks) {
       return data[name];
     });
     await model.cancel();
+    await settled();
     assert.verifySteps([
       'Fetch adapter for delivery',
       'Canceled delivery 123',

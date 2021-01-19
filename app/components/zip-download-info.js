@@ -8,7 +8,7 @@ export default Component.extend({
   classNames: ['zip-download-info'],
   supportEmail: SupportEmail,
   mailToSupportEmail: computed('supportEmail', function() {
-    const supportEmail = this.get('supportEmail');
+    const supportEmail = this.supportEmail;
     return `mailto:${supportEmail}`;
   })
 });

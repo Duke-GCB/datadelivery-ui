@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 module('Integration | Component | delivery detail', function(hooks) {
   setupRenderingTest(hooks);
@@ -23,8 +24,8 @@ module('Integration | Component | delivery detail', function(hooks) {
 
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer brief=true}}`);
-    assert.equal(this.$('.detail-label').eq(0).text(), 'From');
-    assert.equal(this.$('.detail-label').eq(1).text(), 'To');
+    assert.equal($('.detail-label').eq(0).text(), 'From');
+    assert.equal($('.detail-label').eq(1).text(), 'To');
     assert.equal(findAll('.detail-label').length, 2);
   });
 
@@ -51,16 +52,16 @@ module('Integration | Component | delivery detail', function(hooks) {
     await render(hbs`{{delivery-detail transfer}}`);
     assert.equal(findAll('.detail-label').length, 4);
     var idx = 0;
-    assert.equal(this.$('.detail-label').eq(idx).text().trim(), 'From');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Arthur Adamson');
+    assert.equal($('.detail-label').eq(idx).text().trim(), 'From');
+    assert.equal($('.detail-value').eq(idx).text().trim(), 'Arthur Adamson');
     idx += 1;
-    assert.equal(this.$('.detail-label').eq(idx).text(), 'To');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
+    assert.equal($('.detail-label').eq(idx).text(), 'To');
+    assert.equal($('.detail-value').eq(idx).text().trim(), 'Zelda Zellington');
     idx += 1;
-    assert.equal(this.$('.detail-label').eq(idx).text(), 'Status');
-    assert.equal(this.$('.detail-value').eq(idx).text().trim(), 'Done - January 2, 2020 12:30 PM');
+    assert.equal($('.detail-label').eq(idx).text(), 'Status');
+    assert.equal($('.detail-value').eq(idx).text().trim(), 'Done - January 2, 2020 12:30 PM');
     idx += 1;
-    assert.equal(this.$('.detail-label').eq(idx).text(), 'Delivery Email');
+    assert.equal($('.detail-label').eq(idx).text(), 'Delivery Email');
     assert.equal(find('.delivery-email').textContent.trim(), 'Subject: New DataEmail Body');
   });
 
@@ -83,10 +84,10 @@ module('Integration | Component | delivery detail', function(hooks) {
     });
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer}}`);
-    assert.equal(this.$('.detail-label').eq(3).text(), 'Decline Reason');
-    assert.equal(this.$('.detail-value').eq(3).text().trim(), 'Was not needed.');
-    assert.equal(this.$('.detail-label').eq(4).text(), 'Performed By');
-    assert.equal(this.$('.detail-value').eq(4).text().trim(), 'John Doe');
+    assert.equal($('.detail-label').eq(3).text(), 'Decline Reason');
+    assert.equal($('.detail-value').eq(3).text().trim(), 'Was not needed.');
+    assert.equal($('.detail-label').eq(4).text(), 'Performed By');
+    assert.equal($('.detail-value').eq(4).text().trim(), 'John Doe');
   });
 
   test('it handles an empty status date', async function(assert) {
@@ -105,7 +106,7 @@ module('Integration | Component | delivery detail', function(hooks) {
 
     this.set('transfer', transfer);
     await render(hbs`{{delivery-detail transfer}}`);
-    assert.equal(this.$('.detail-value').eq(2).text().trim(), 'Done');
+    assert.equal($('.detail-value').eq(2).text().trim(), 'Done');
   });
 
   test('it renders email when transfer is pending', async function(assert) {

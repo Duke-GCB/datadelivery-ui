@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 module('Integration | Component | duke ds user search fields', function(hooks) {
   setupRenderingTest(hooks);
@@ -9,9 +10,9 @@ module('Integration | Component | duke ds user search fields', function(hooks) {
   test('it renders', async function(assert) {
     await render(hbs`{{duke-ds-user-search-fields}}`);
     assert.equal(find('label.control-label').textContent.trim(), 'Search By');
-    assert.equal(this.$('label.mode').eq(0).text().trim(), 'Name');
-    assert.equal(this.$('label.mode').eq(1).text().trim(), 'NetID');
-    assert.equal(this.$('label.mode').eq(2).text().trim(), 'Email');
+    assert.equal($('label.mode').eq(0).text().trim(), 'Name');
+    assert.equal($('label.mode').eq(1).text().trim(), 'NetID');
+    assert.equal($('label.mode').eq(2).text().trim(), 'Email');
   });
 
   /* TODO put back
@@ -30,14 +31,14 @@ module('Integration | Component | duke ds user search fields', function(hooks) {
       };
       this.set('onSearch', onSearch);
       await this.render(hbs`{{duke-ds-user-search-fields onSearch=onSearch}}`);
-      await this.$('input.query-field').val(testParam.query);
-      await this.$('input.query-field').change(); // change() is required to trigger the update
+      await $('input.query-field').val(testParam.query);
+      await $('input.query-field').change(); // change() is required to trigger the update
       // Click the mode's radio button
       await click('input[type=radio].' + testParam.mode);
       // Verify the placeholder is updated
-      assert.equal(this.$('input.query-field').attr('placeholder'), testParam.placeholder);
+      assert.equal($('input.query-field').attr('placeholder'), testParam.placeholder);
       // Click Search
-      this.$('button').click();
+      $('button').click();
     }
   });
   */

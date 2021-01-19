@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import $ from 'jquery';
 
 module('Integration | Component | delivery table', function(hooks) {
   setupRenderingTest(hooks);
@@ -45,38 +46,38 @@ module('Integration | Component | delivery table', function(hooks) {
       hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`
     );
 
-    assert.equal(this.$('table').length, 2); // 2 tables
-    assert.equal(this.$('thead tr').length, 4); // 2 header (label and search box)
-    assert.equal(this.$('tbody:eq(0) tr').length, 2); // 1 row in outgoing
-    assert.equal(this.$('tbody:eq(1) tr').length, 1); // 2 rows in incoming
-    assert.equal(this.$('tbody tr a').length, 3); // each row should be selectable
+    assert.equal($('table').length, 2); // 2 tables
+    assert.equal($('thead tr').length, 4); // 2 header (label and search box)
+    assert.equal($('tbody:eq(0) tr').length, 2); // 1 row in outgoing
+    assert.equal($('tbody:eq(1) tr').length, 1); // 2 rows in incoming
+    assert.equal($('tbody tr a').length, 3); // each row should be selectable
 
     // displays expected column names for outgoing
-    const outgoingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(0) tr:eq(0) th').text().trim());
+    const outgoingColumnNames = removeMultipleSpacesAndNewlines($('thead:eq(0) tr:eq(0) th').text().trim());
     assert.equal(outgoingColumnNames , 'Project Name   To   State');
     // Displays filter options
-    assert.equal(this.$('thead:eq(0) select option').length, 5);
+    assert.equal($('thead:eq(0) select option').length, 5);
 
     // displays expected column names for incoming
-    const incomingColumnNames = removeMultipleSpacesAndNewlines(this.$('thead:eq(1) tr:eq(0) th').text().trim());
+    const incomingColumnNames = removeMultipleSpacesAndNewlines($('thead:eq(1) tr:eq(0) th').text().trim());
     assert.equal(incomingColumnNames, 'Project Name   From   State');
     // Displays filter options
-    assert.equal(this.$('thead:eq(1) select option').length, 5);
+    assert.equal($('thead:eq(1) select option').length, 5);
 
     // displays expected fields for outgoing
-    const outgoingField1 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(0).text().trim());
+    const outgoingField1 = removeMultipleSpacesAndNewlines($('tbody:eq(0) tr td').eq(0).text().trim());
     assert.equal(outgoingField1 , 'Taco');
-    const outgoingField2 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(1).text().trim());
+    const outgoingField2 = removeMultipleSpacesAndNewlines($('tbody:eq(0) tr td').eq(1).text().trim());
     assert.equal(outgoingField2, 'Zelda Zellington');
-    const outgoingField3 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(0) tr td').eq(2).text().trim());
+    const outgoingField3 = removeMultipleSpacesAndNewlines($('tbody:eq(0) tr td').eq(2).text().trim());
     assert.equal(outgoingField3, 'Pending');
 
     // displays expected fields for incoming
-    const incomingField1 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(0).text().trim());
+    const incomingField1 = removeMultipleSpacesAndNewlines($('tbody:eq(1) tr td').eq(0).text().trim());
     assert.equal(incomingField1 , 'Burger');
-    const incomingField2 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(1).text().trim());
+    const incomingField2 = removeMultipleSpacesAndNewlines($('tbody:eq(1) tr td').eq(1).text().trim());
     assert.equal(incomingField2, 'Zelda Zellington');
-    const incomingField3 = removeMultipleSpacesAndNewlines(this.$('tbody:eq(1) tr td').eq(2).text().trim());
+    const incomingField3 = removeMultipleSpacesAndNewlines($('tbody:eq(1) tr td').eq(2).text().trim());
     assert.equal(incomingField3, 'Accepted');
   });
 
@@ -114,7 +115,7 @@ module('Integration | Component | delivery table', function(hooks) {
       hbs`{{delivery-table transfers=transfers currentUser=currentUser currentDukeDsUser=currentDukeDsUser}}`
     );
 
-    assert.equal(this.$('.new-delivery-button').text(), 'New Delivery');
-    assert.equal(this.$('.email-setup-warning-anchor').text(), '');
+    assert.equal($('.new-delivery-button').text(), 'New Delivery');
+    assert.equal($('.email-setup-warning-anchor').text(), '');
   });
 });

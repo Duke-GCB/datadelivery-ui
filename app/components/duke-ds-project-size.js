@@ -10,7 +10,7 @@ const DukeDsProjectSize = Component.extend({
   folder_count: alias('ddsProjectSummary.folder_count'),
   root_folder_count: alias('ddsProjectSummary.root_folder_count'),
   sub_folder_count: computed('folder_count','root_folder_count',function () {
-    return this.get('folder_count') - this.get('root_folder_count');
+    return this.folder_count - this.root_folder_count;
   })
 });
 

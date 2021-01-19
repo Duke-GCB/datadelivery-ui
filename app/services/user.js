@@ -4,6 +4,6 @@ export default Service.extend({
   store: service(),
   currentUser() {
     // Use queryRecord since Ember complains that 'current-user' doesn't match the returned ID.
-    return this.get('store').queryRecord('user', {});
+    return this.store.queryRecord('user', {});
   }
 });

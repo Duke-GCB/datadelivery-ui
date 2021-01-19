@@ -10,10 +10,10 @@ export default Controller.extend({
   currentDukeDsUser: null,
   authenticatedDidChange: on('init', observer('session.isAuthenticated', function () {
       if (this.get('session.isAuthenticated')) {
-        this.get('user').currentUser().then(currentUser => {
+        this.user.currentUser().then(currentUser => {
           this.set('currentUser', currentUser);
         });
-        this.get('dukeDsUser').currentDukeDsUser().then(currentDukeDsUser => {
+        this.dukeDsUser.currentDukeDsUser().then(currentDukeDsUser => {
           this.set('currentDukeDsUser', currentDukeDsUser);
         });
       } else {

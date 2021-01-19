@@ -10,6 +10,6 @@ export default Component.extend({
   context: null, /* context to be used with routeName */
   isSelected: computed('routeName', 'selectedRouteName', function () {
     // Tried Ember.computed.equal but it doesn't work here :(
-    return this.get('routeName') === this.get('selectedRouteName');
+    return this.routeName === this.selectedRouteName;
   })
 });
