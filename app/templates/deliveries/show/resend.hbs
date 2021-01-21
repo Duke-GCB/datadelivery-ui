@@ -21,7 +21,9 @@
 
 {{error-message-alert errorMessages}}
 
-{{#bs-button type="default" onClick=(action "back") class="back-button"}}Back{{/bs-button}}
+<BsButton @type="default" class="back-button" @onClick={{action "back"}}>Remove</BsButton>
 {{#if canResend}}
-  {{#bs-button type="primary" disabled=disableNext onClick=(action "resend") class="pull-right next-button"}}Preview Email{{/bs-button}}
+  <BsButton class="pull-right next-button" @type="primary" disabled={{disableNext}} @onClick={{action "resend"}}>
+     Preview Email
+  </BsButton>
 {{/if}}

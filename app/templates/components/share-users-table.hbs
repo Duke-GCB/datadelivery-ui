@@ -19,7 +19,7 @@
         {{ shareUser.email }}
       </td>
       <td>
-        {{#bs-button type="default" onClick=(action "removeUser" shareUser) class="back-button"}}Remove{{/bs-button}}
+        <BsButton @type="default" class="back-button" @onClick={{action "removeUser" shareUser}}>Remove</BsButton>
       </td>
     </tr>
   {{/each}}
@@ -34,9 +34,9 @@
 <tfoot>
   <tr>
     <td colspan="4" class="share-users-table-footer">
-      {{#bs-button type="primary" onClick=(action "addUser") class="share-users-table-add-user pull-right btn-sm"}}
+      <BsButton @type="primary" class="share-users-table-add-user pull-right btn-sm" @onClick={{action "addUser"}}>
         Add User
-      {{/bs-button}}
+      </BsButton>
     </td>
   </tr>
 </tfoot>
