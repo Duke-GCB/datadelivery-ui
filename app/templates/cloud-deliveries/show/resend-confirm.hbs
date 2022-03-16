@@ -1,0 +1,15 @@
+{{delivery-breadcrumbs context=model user=application.currentUser}}
+<h3>Re-send Delivery Email</h3>
+<p class="body">
+  The email below will be sent when you click <strong>Resend Delivery</strong>. If you do not wish to send this email,
+  click <strong>Back</strong>
+</p>
+
+{{delivery-preview delivery=model emailTemplateSets=emailTemplateSets errors=errors onFail=(action "previewFailed")}}
+{{error-message-alert errorMessages}}
+
+<BsButton @type="default" class="back-button" @onClick={{action "back"}}>Back</BsButton>
+<BsButton class="pull-right next-button" @type="primary" disabled={{disableNext}} @onClick={{action "resend"}}>
+  Resend Delivery
+</BsButton>
+{{outlet}}

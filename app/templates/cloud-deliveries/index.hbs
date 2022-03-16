@@ -1,0 +1,10 @@
+{{delivery-breadcrumbs user=application.currentUser}}
+<h2>All Cloud Deliveries</h2>
+
+<h3>Outgoing</h3>
+{{outgoing-cloud-deliveries model=model currentDukeDsUser=currentDukeDsUser currentUser=currentUser}}
+
+<h3>Incoming</h3>
+{{incoming-cloud-deliveries model=model}}
+
+{{outlet}}

@@ -1,0 +1,21 @@
+{{#if deliverySummary}}
+  {{#if deliverySummary.error_msg}}
+    <span class="text-warning">
+      Error: {{deliverySummary.error_msg}}
+    </span>
+  {{else}}
+    <span>
+      {{#if folder_count}}
+        {{pluralize root_folder_count "top-level folder"}}, {{pluralize sub_folder_count "subfolder"}},
+      {{else}}
+        {{pluralize folder_count "folder"}},
+      {{/if}}
+      {{pluralize file_count "file"}}
+      ({{number-to-human-size total_size}})
+      {{#bs-tooltip}}Project size determined using {{ based_on }}.{{/bs-tooltip}}
+    </span>
+  {{/if}}
+{{else}}
+  {{#loading-indicator}}Calculating{{/loading-indicator}}
+{{/if}}
+{{yield}}

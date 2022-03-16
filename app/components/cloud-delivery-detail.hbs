@@ -1,0 +1,31 @@
+<dl class="dl-horizontal">
+  {{#detail-label-value label="From"}}{{model.from_netid.full_name}}{{/detail-label-value}}
+  {{#detail-label-value label="To"}}{{model.to_netid.full_name}}{{/detail-label-value}}
+  {{#unless brief}}
+      {{#detail-label-value label="Status"}}
+        {{format-delivery-state model.status}}{{#if model.last_updated_on}} - {{moment-format model.last_updated_on "LLL"}}{{/if}}
+      {{/detail-label-value}}
+    {{#if model.decline_reason}}
+      {{#detail-label-value label="Decline Reason"}}{{model.decline_reason}}{{/detail-label-value}}
+    {{/if}}
+    {{#if model.performed_by}}
+      {{#detail-label-value label="Performed By"}}{{model.performed_by}}{{/detail-label-value}}
+    {{/if}}
+    {{#if showEmail}}
+      {{#detail-label-value label="Delivery Email"}}
+        {{delivery-email model.delivery_email_text}}
+      {{/detail-label-value}}
+    {{/if}}
+    {{#if showProjectDetails}}
+      <div class="project-details">
+        {{#detail-label-value label="Project Size"}}
+          {{az-project-size deliverySummary=deliverySummary}}
+        {{/detail-label-value}}
+        {{#detail-label-value label="Project URL"}}
+          {{#cloud-project-url}}{{model.url}}{{/cloud-project-url}}
+        {{/detail-label-value}}
+      </div>
+    {{/if}}
+  {{/unless}}
+  {{yield}}
+</dl>

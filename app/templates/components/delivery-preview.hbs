@@ -1,6 +1,8 @@
+{{#if emailTemplateSets}}
 {{select-email-template-set value=delivery.emailTemplateSet
                             emailTemplateSets=emailTemplateSets
                             onChange=(action "onChangeEmailTemplateSet")}}
+{{/if}}
 <label class="control-label">Email Preview</label>
 {{#if emailMessage}}
   {{delivery-email emailMessage}}

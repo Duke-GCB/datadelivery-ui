@@ -1,0 +1,20 @@
+{{delivery-breadcrumbs context=model user=application.currentUser}}
+
+{{#if infoMessage}}
+  {{#bs-alert type="success"}}
+    {{infoMessage}}
+  {{/bs-alert}}
+{{/if}}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Project: {{model.project_name}} </h3>
+  </div>
+  <div class="panel-body">
+    {{cloud-delivery-detail model=model showProjectDetails=true}}
+  </div>
+</div>
+
+{{cloud-delivery-button-panel transfer=model showPendingActions=canResend}}
+
+{{outlet}}

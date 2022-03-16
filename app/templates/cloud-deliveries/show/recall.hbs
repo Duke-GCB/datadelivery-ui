@@ -1,0 +1,16 @@
+{{delivery-breadcrumbs context=model user=application.currentUser}}
+<h3>Cancel Delivery</h3>
+<p class="body">
+  Click the <strong>Recall Delivery</strong> button to cancel the delivery operation.
+</p>
+<p class="body">
+  This will send an email to <strong>{{model.delivery.toUser.fullName}}</strong> to inform them that the data is
+  not longer available for delivery.
+</p>
+
+<BsButton @type="default" class="back-button" @onClick={{action "back"}}>Back</BsButton>
+<BsButton class="pull-right next-button" @type="danger" disabled={{disableNext}} @onClick={{action "recallDelivery"}}>
+  Recall Delivery
+</BsButton>
+
+{{outlet}}
