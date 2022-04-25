@@ -31,4 +31,11 @@ Router.map(function() {
   this.route('email-template-sets', function() {
     this.route('show', { path: '/:email_template_set_id'} );
   });
+  this.route('cloud-deliveries', function() {
+    this.route('show', { path: '/:delivery_id'}, function() {
+      this.route('resend');
+      this.route('recall');
+      this.route('resend-confirm');
+    });
+  });
 });

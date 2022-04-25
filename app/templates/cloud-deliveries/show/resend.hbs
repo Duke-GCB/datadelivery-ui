@@ -1,8 +1,8 @@
 {{delivery-breadcrumbs context=model user=application.currentUser}}
 <h3>Re-send Delivery Email</h3>
-  <p class="body">
-    Click the <strong>Preview Email</strong> button to preview the re-send email.
-  </p>
+<p class="body">
+  Click the <strong>Preview Email</strong> button to preview the re-send email.
+</p>
 <p class="body">
   The sent email will be generated from a template and include a link for the recipient to accept or decline the delivery.
   If you wish to add or edit a custom message (e.g. details about this specific delivery), please enter those notes in the
@@ -13,17 +13,18 @@
     <h3 class="panel-title">Project: {{model.project.name}} </h3>
   </div>
   <div class="panel-body">
-    {{#delivery-detail model brief=true}}
-      <dt>User Message<br>(optional)</dt><dd>{{user-message-textarea value=model.delivery.user_message readonly=false}}</dd>
-    {{/delivery-detail}}
+    {{#cloud-delivery-detail model=model brief=true}}
+      <dt>User Message<br>(optional)</dt><dd>{{user-message-textarea value=model.user_message readonly=false}}</dd>
+    {{/cloud-delivery-detail}}
   </div>
 </div>
 
 {{error-message-alert errorMessages}}
 
-<BsButton @type="default" class="back-button" @onClick={{action "back"}}>Remove</BsButton>
+<BsButton @type="default" class="back-button" @onClick={{action "back"}}>Back</BsButton>
 {{#if canResend}}
-  <BsButton class="pull-right next-button" @type="primary" disabled={{disableNext}} @onClick={{action "resend"}}>
-     Preview Email
+  <BsButton class="pull-right next-button" @type="primary" @onClick={{action "resend"}}>
+    Preview Email
   </BsButton>
 {{/if}}
+{{outlet}}

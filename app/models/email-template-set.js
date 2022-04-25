@@ -6,5 +6,6 @@ export default Model.extend({
   ccAddress: attr('string'),
   replyAddress: attr('string'),
   default:  attr('boolean'),
+  storageName: attr('string'),
   emailTemplates: hasMany('EmailTemplate')
 });

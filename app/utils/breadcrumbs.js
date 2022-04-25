@@ -16,7 +16,13 @@ const RouteLabels = {
   'duke-ds-projects': 'Duke DS Projects',
   'duke-ds-projects.show': context => get(context, 'name'),
   'email-template-sets': 'Email Template Sets',
-  'email-template-sets.show': context => get(context, 'name')
+  'email-template-sets.show': context => get(context, 'name'),
+  'cloud-deliveries': 'Cloud Deliveries',
+  'cloud-deliveries.show': context => get(context, 'project_name'),
+  'cloud-deliveries.show.resend': 'Resend',
+  'cloud-deliveries.show.resend-confirm': 'Confirm Resend',
+  'cloud-deliveries.new': 'New',
+  'cloud-deliveries.show.recall': 'Recall',
 };
 
 function getLabel(routeLabels, routeName, context) {

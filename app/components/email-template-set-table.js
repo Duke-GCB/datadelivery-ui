@@ -7,7 +7,8 @@ export default Component.extend({
       {propertyName: "name", title: "Name",  routeName: "email-template-sets.show"},
       {propertyName: "ccAddress", title: "CC Address"},
       {propertyName: "replyAddress", title: "Reply-To Address"},
-      {propertyName: "default", title: "Default Template"},
+      {propertyName: "default", title: "Default for Storage Type"},
+      {propertyName: "storageName", title: "Storage Type"},
     ];
   }
 });

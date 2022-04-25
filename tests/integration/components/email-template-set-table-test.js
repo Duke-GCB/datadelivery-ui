@@ -12,14 +12,16 @@ module('Integration | Component | email-template-set-table', function(hooks) {
       name: "rawdata",
       ccAddress: "bob@bob.bob",
       replyAddress: "joe@joe.joe",
-      default: true
+      default: true,
+      storageName: "Azure"
     })];
     this.set('emailTemplates', emailTemplates);
     await render(hbs`{{email-template-set-table model=emailTemplates}}`);
 
-    assert.equal(findAll('td').length, 4);
+    assert.equal(findAll('td').length, 5);
     assert.equal(findAll('td')[1].innerHTML.trim(), "bob@bob.bob");
     assert.equal(findAll('td')[2].innerHTML.trim(), "joe@joe.joe");
     assert.equal(findAll('td')[3].innerHTML.trim(), "true");
+    assert.equal(findAll('td')[4].innerHTML.trim(), "Azure");
   });
 });
