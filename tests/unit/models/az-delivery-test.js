@@ -26,7 +26,7 @@ module('Unit | Model | az-delivery', function(hooks) {
   test('it calculates project_name from source_project', function (assert) {
     let model = store.createRecord('az-delivery');
     model.set('source_project', {path:'user1/mouse'});
-    assert.equal(model.get('project_name'), 'mouse');
+    assert.equal(model.get('project_name'), 'user1/mouse');
   });
 
   test('it builds preview', function (assert) {
@@ -39,7 +39,7 @@ module('Unit | Model | az-delivery', function(hooks) {
     model.set('emailTemplateSet', emailTemplateSet);
     model.set('from_netid', fromUser);
     model.set('to_netid', toUser);
-    model.set('simple_project_name', 'something');
+    model.set('simple_project_name', 'user1/mouse');
     model.set('user_message', 'Here is the data');
     deliveryAdapter.preview = (details) => {
       assert.ok(true);
@@ -49,7 +49,7 @@ module('Unit | Model | az-delivery', function(hooks) {
     assert.deepEqual(result, {
       "email_template_set_id": '333',
       "from_netid": "user1",
-      "simple_project_name": "mouse",
+      "simple_project_name": "user1/mouse",
       "to_netid": "user2",
       "transfer_id": "123",
       "user_message": "Here is the data"

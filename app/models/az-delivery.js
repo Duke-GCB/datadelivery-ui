@@ -1,15 +1,14 @@
 import Model from '@ember-data/model';
 import {attr, belongsTo} from "@ember-data/model/index";
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import {resolve} from "rsvp";
 
 export default Model.extend({
   from_netid: belongsTo('duke-user'),
   to_netid: belongsTo('duke-user'),
   source_project: attr(),
-  project_name: computed('source_project.path', function() {
-    return this.get('source_project.path').split('/')[1]
-  }),
+  project_name: alias('source_project.path'),
   state: attr('string'),
   status: attr('string'),
   outgoing: attr('boolean'),
